@@ -9,8 +9,12 @@ const config = {
 
 	kit: {
 		adapter: adapter({
+			pages: './build/app/',
 			fallback: 'index.html' // may differ from host to host
 		}),
+		paths: {
+			base: '/app'
+		},
 	}
 };
 
