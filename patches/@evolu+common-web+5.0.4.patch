@@ -1,0 +1,42 @@
+diff --git a/node_modules/@evolu/common-web/dist/PlatformLive.js b/node_modules/@evolu/common-web/dist/PlatformLive.js
+index d05572e..87a6688 100644
+--- a/node_modules/@evolu/common-web/dist/PlatformLive.js
++++ b/node_modules/@evolu/common-web/dist/PlatformLive.js
+@@ -2,7 +2,6 @@ import { AppState, Bip39, Config, FlushSync, PlatformName, SyncLock, canUseDom,
+ import * as Effect from "effect/Effect";
+ import * as Function from "effect/Function";
+ import * as Layer from "effect/Layer";
+-import { flushSync } from "react-dom";
+ const isChromeWithOpfs = () => navigator.userAgentData != null &&
+     navigator.userAgentData.brands.find(({ brand, version }) => 
+     // Chrome or Chromium
+@@ -30,7 +29,7 @@ export const PlatformNameLive = Layer.succeed(PlatformName, canUseDom
+         ? "web-with-opfs"
+         : "web-without-opfs"
+     : "server");
+-export const FlushSyncLive = Layer.succeed(FlushSync, flushSync);
++export const FlushSyncLive = Layer.succeed(FlushSync, () => {});
+ export const SyncLockLive = Layer.effect(SyncLock, Effect.sync(() => {
+     const lockName = "evolu:sync";
+     let release = null;
+diff --git a/node_modules/@evolu/common-web/src/PlatformLive.ts b/node_modules/@evolu/common-web/src/PlatformLive.ts
+index c29f89d..0fb0b6a 100644
+--- a/node_modules/@evolu/common-web/src/PlatformLive.ts
++++ b/node_modules/@evolu/common-web/src/PlatformLive.ts
+@@ -12,7 +12,6 @@ import {
+ import * as Effect from "effect/Effect";
+ import * as Function from "effect/Function";
+ import * as Layer from "effect/Layer";
+-import { flushSync } from "react-dom";
+ 
+ const isChromeWithOpfs = (): boolean =>
+   navigator.userAgentData != null &&
+@@ -47,7 +46,7 @@ export const PlatformNameLive = Layer.succeed(
+     : "server",
+ );
+ 
+-export const FlushSyncLive = Layer.succeed(FlushSync, flushSync);
++export const FlushSyncLive = Layer.succeed(FlushSync, () => {});
+ 
+ export const SyncLockLive = Layer.effect(
+   SyncLock,
