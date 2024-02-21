@@ -11,7 +11,7 @@
 	{#if $templates.length}
 		<ul>
 			{#each $templates as template (template.id)}
-				<li>{template.name}, {template.createdDatetime}, {template.id}</li>
+				<li>{template.name}, {template.createdDatetime}, {template.id}, {template.questions.length}</li>
 			{/each}
 		</ul>
 	{:else}
