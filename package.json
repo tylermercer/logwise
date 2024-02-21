@@ -35,7 +35,8 @@
 	"type": "module",
 	"dependencies": {
 		"@picocss/pico": "^2.0.3",
-		"sass": "^1.71.1",
-		"dexie": "^4.0.1-beta.11"
+		"dexie": "^4.0.1-beta.11",
+		"nanoid": "^5.0.6",
+		"sass": "^1.71.1"
 	}
 }
