@@ -17,7 +17,7 @@
 	<p>{status}</p>
 	<p>[WIP]</p>
 	<form>
-		<div class="grid">
+		<div class="l-cluster-r">
 			<button class="secondary" on:click={cancel} type="button">Cancel</button>
 			<button type="submit">Add Template</button>
 		</div>

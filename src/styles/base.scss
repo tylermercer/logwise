@@ -1,3 +1,9 @@
 @use "@picocss/pico/scss/pico" with (
     $semantic-root-element: "#root",
-)
+);
+
+//Undo unhelpful pico
+button[type=submit] {
+    display: inline-block;
+    width: unset;
+}

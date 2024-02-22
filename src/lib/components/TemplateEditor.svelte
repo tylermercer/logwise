@@ -98,7 +98,7 @@
 	<button class="secondary" type="button" on:click={addQuestion}>New Question</button>
 	<hr />
 	<p>{status}</p>
-	<div class="grid">
+	<div class="l-cluster-r">
 		<button class="secondary" on:click={cancel} type="button">Cancel</button>
 		<button type="submit">Add Template</button>
 	</div>
