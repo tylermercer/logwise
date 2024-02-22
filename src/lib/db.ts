@@ -21,6 +21,8 @@ export interface TemplateRaw {
   questions: Question[];
 }
 
+export type TemplateId = TemplateRaw['id']
+
 export interface EntryRaw {
   id: Uuid; //uuid
   name: string;
