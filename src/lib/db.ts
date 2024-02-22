@@ -5,10 +5,8 @@ export type Uuid = `${string}-${string}-${string}-${string}-${string}`;
 export type Question = {
   text: string
 } & ({
-  type: 'text';
   id: `text_${Uuid}`; //uuid prefixed with type
 } | {
-  type: 'likert';
   id: `likert_${Uuid}`; //uuid prefixed with type
 });
 
