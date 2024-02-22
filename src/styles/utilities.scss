@@ -1,0 +1,7 @@
+a.u-link-block {
+    display: block;
+    color: unset;
+    &:link {
+        text-decoration: none;
+    }
+}
