@@ -31,7 +31,7 @@
 						<Link href="/entries/{template.id}/new" class="u-link-block">
 							<div class="template-contents">
 								{template.name || '(Unnamed)'}
-								<div class="l-cluster-r">
+								<div class="l-cluster-r actions">
 									<Link href="/templates/{template.id}/edit">Edit</Link>
 									<button
 										class:secondary={pendingDeletionId !== template.id}
@@ -80,5 +80,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0.5rem;
+		& .actions {
+			align-items: center;
+		}
 	}
 </style>
