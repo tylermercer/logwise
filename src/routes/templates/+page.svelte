@@ -53,8 +53,10 @@
 	{:else}
 		<p>Loading</p>
 	{/if}
-	<Link href="/templates/new">Add new template</Link>
-	<Link href="/">Home</Link>
+	<div class="l-cluster-r">
+		<Link href="/">Home</Link>
+		<Link href="/templates/new">Add new template</Link>
+	</div>
 </main>
 
 <style lang="scss">
