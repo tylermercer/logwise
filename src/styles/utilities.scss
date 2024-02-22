@@ -1,7 +1,11 @@
 a.u-link-block {
     display: block;
+    height: 100%;
     color: unset;
     &:link {
         text-decoration: none;
     }
+}
+.u-display-contents {
+    display: contents;
 }
