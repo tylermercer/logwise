@@ -8,14 +8,14 @@
 
 	let templateName = '';
 
-	type DraftQuestion = { tempId: string; data: Omit<Question, 'id'> };
+	type DraftQuestion = { tempId: string; type: 'text' |  'likert', data: Omit<Question, 'id'> };
 
 	function newQuestion(): DraftQuestion {
 		return {
 			tempId: nanoid(),
+			type: 'text',
 			data: {
 				text: '',
-				type: 'text'
 			}
 		};
 	}
@@ -42,7 +42,7 @@
 				createdDatetime: date,
 				questions: questions.map((q) => ({
 					...q.data,
-					id: `${q.data.type}_${crypto.randomUUID()}`
+					id: `${q.type}_${crypto.randomUUID()}`
 				}))
 			});
 
@@ -81,7 +81,7 @@
 						</label>
 						<label>
 							Type
-							<select bind:value={question.data.type}>
+							<select bind:value={question.type}>
 								<option value="text">Text</option>
 								<option value="likert">Likert (1-5 scale)</option>
 							</select>
