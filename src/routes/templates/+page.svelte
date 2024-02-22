@@ -12,15 +12,16 @@
 <main class="container">
 	{#if $templates}
 		{#if $templates.length}
-			<ul>
+			<ul class="templates-list">
 				{#each $templates as template (template.id)}
 					<li class="template">
-						<Link href="" class="u-link-block">
-							<span class="name">
-								{template.name}
-							</span>
+						<Link href="/entries/{template.id}/new" class="u-display-contents u-link-block">
+							<div class="template-contents">
+								{template.name || '(Unnamed)'}
+								<button class="secondary">Delete</button>
+							</div>
 						</Link>
-						</li>
+					</li>
 				{/each}
 			</ul>
 		{:else}
@@ -29,13 +30,27 @@
 	{:else}
 		<p>Loading</p>
 	{/if}
-	<Link href="/templates/new">Add new template</Link> 
+	<Link href="/templates/new">Add new template</Link>
 	<Link href="/">Home</Link>
 </main>
+
 <style lang="scss">
-	.template {
-		& > a {
-			display: block;
+	.templates-list {
+		padding-left: 0;
+		& > li {
+			&:first-child {
+				border-top: 1px solid var(--pico-muted-border-color);
+			}
+			list-style-type: none;
+			border-bottom: 1px solid var(--pico-muted-border-color);
 		}
+	}
+	.template-contents {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.5rem;
 	}
 </style>
