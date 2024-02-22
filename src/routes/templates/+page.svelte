@@ -15,7 +15,7 @@
 			<ul class="templates-list">
 				{#each $templates as template (template.id)}
 					<li class="template">
-						<Link href="/entries/{template.id}/new" class="u-display-contents u-link-block">
+						<Link href="/entries/{template.id}/new" class="u-link-block">
 							<div class="template-contents">
 								{template.name || '(Unnamed)'}
 								<button class="secondary">Delete</button>
