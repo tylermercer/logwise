@@ -4,7 +4,7 @@
 	import db, { type TemplateId } from '$lib/db';
 
 	let templates = liveQuery(() => db.templates.toArray());
-	
+
 	let pendingDeletionId: TemplateId | undefined;
 	async function deleteTemplate(e: Event, id: TemplateId) {
 		e.preventDefault();
@@ -31,17 +31,20 @@
 						<Link href="/entries/{template.id}/new" class="u-link-block">
 							<div class="template-contents">
 								{template.name || '(Unnamed)'}
-								<button
-									class:secondary={pendingDeletionId !== template.id}
-									class:contrast={pendingDeletionId === template.id}
-									on:click={(e) => deleteTemplate(e, template.id)}
-								>
-									{#if pendingDeletionId === template.id}
-									Confirm
-									{:else}
-									Delete
-									{/if}
-								</button>
+								<div class="l-cluster-r">
+									<Link href="/templates/{template.id}/edit">Edit</Link>
+									<button
+										class:secondary={pendingDeletionId !== template.id}
+										class:contrast={pendingDeletionId === template.id}
+										on:click={(e) => deleteTemplate(e, template.id)}
+									>
+										{#if pendingDeletionId === template.id}
+											Confirm
+										{:else}
+											Delete
+										{/if}
+									</button>
+								</div>
 							</div>
 						</Link>
 					</li>

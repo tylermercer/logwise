@@ -22,14 +22,13 @@
 		};
 	}
 
-	let questions =
-		(existingTemplate?.questions.map((q) => ({
-			tempId: q.id,
-			type: q.id.split('_')[0],
-			data: {
-				text: q.text
-			}
-		})) ?? [newQuestion()]) as DraftQuestion[];
+	let questions = (existingTemplate?.questions.map((q) => ({
+		tempId: q.id,
+		type: q.id.split('_')[0],
+		data: {
+			text: q.text
+		}
+	})) ?? [newQuestion()]) as DraftQuestion[];
 
 	function addQuestion() {
 		questions = [...questions, newQuestion()];
@@ -45,7 +44,7 @@
 
 			onSubmit({
 				id: crypto.randomUUID(),
-                prevVersionId: existingTemplate?.id,
+				prevVersionId: existingTemplate?.id,
 				name: templateName,
 				modifiedDatetime: date,
 				createdDatetime: existingTemplate?.createdDatetime ?? date,
@@ -64,51 +63,46 @@
 	}
 </script>
 
-<header class="container">
-	<h1>New Template</h1>
-</header>
-<main class="container">
-	<form on:submit={saveTemplate}>
-		<label>
-			Name
-			<div></div>
-			<input type="text" bind:value={templateName} />
-		</label>
-		<hr />
-		<fieldset>
-			<legend><h2>Questions</h2></legend>
-			{#if questions.length}
-				{#each questions as question (question.tempId)}
-					<div class="question">
-						<label>
-							Label
-							<input type="text" bind:value={question.data.text} />
-						</label>
-						<label>
-							Type
-							<select bind:value={question.type}>
-								<option value="text">Text</option>
-								<option value="likert">Likert (1-5 scale)</option>
-							</select>
-						</label>
-						<button type="button" on:click={() => deleteQuestion(question.tempId)} class="contrast">
-							Delete
-						</button>
-					</div>
-				{/each}
-			{:else}
-				<p>No questions</p>
-			{/if}
-		</fieldset>
-		<button class="secondary" type="button" on:click={addQuestion}>New Question</button>
-		<hr />
-		<p>{status}</p>
-		<div class="grid">
-			<button class="secondary" on:click={cancel} type="button">Cancel</button>
-			<button type="submit">Add Template</button>
-		</div>
-	</form>
-</main>
+<form on:submit={saveTemplate}>
+	<label>
+		Name
+		<div></div>
+		<input type="text" bind:value={templateName} />
+	</label>
+	<hr />
+	<fieldset>
+		<legend><h2>Questions</h2></legend>
+		{#if questions.length}
+			{#each questions as question (question.tempId)}
+				<div class="question">
+					<label>
+						Label
+						<input type="text" bind:value={question.data.text} />
+					</label>
+					<label>
+						Type
+						<select bind:value={question.type}>
+							<option value="text">Text</option>
+							<option value="likert">Likert (1-5 scale)</option>
+						</select>
+					</label>
+					<button type="button" on:click={() => deleteQuestion(question.tempId)} class="contrast">
+						Delete
+					</button>
+				</div>
+			{/each}
+		{:else}
+			<p>No questions</p>
+		{/if}
+	</fieldset>
+	<button class="secondary" type="button" on:click={addQuestion}>New Question</button>
+	<hr />
+	<p>{status}</p>
+	<div class="grid">
+		<button class="secondary" on:click={cancel} type="button">Cancel</button>
+		<button type="submit">Add Template</button>
+	</div>
+</form>
 
 <style lang="scss">
 	.question {
