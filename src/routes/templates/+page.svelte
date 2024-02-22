@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { liveQuery } from 'dexie';
 	import Link from '$lib/components/Link.svelte';
 	import db from '$lib/db';
