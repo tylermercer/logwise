@@ -15,6 +15,7 @@
 </header>
 <main class="container">
 	<p>{status}</p>
+	<p>[WIP]</p>
 	<form>
 		<div class="grid">
 			<button class="secondary" on:click={cancel} type="button">Cancel</button>
