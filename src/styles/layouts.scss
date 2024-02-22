@@ -1,0 +1,22 @@
+.l-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    --l-switcher-modifier: calc(50rem - 100%);
+    gap: var(--space-m);
+}
+.l-switcher > * {
+    flex-grow: 1;
+    flex-basis: calc(var(--l-switcher-modifier) * 999);
+}
+.l-cluster-r,
+.l-cluster-l {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.l-cluster-r {
+    justify-content: end;
+}
+.l-cluster-l {
+    justify-content: start;
+}
