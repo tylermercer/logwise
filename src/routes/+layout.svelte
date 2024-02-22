@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import '../styles/base.scss';
 	import '../styles/layouts.scss';
 	import '../styles/utilities.scss';
