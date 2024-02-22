@@ -79,7 +79,7 @@
 		gap: 0.5rem;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0.5rem;
+		padding-block: 0.5rem;
 		& .actions {
 			align-items: center;
 		}
