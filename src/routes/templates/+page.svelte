@@ -20,7 +20,7 @@
 </script>
 
 <header class="container">
-	<h1>Templates</h1>
+	<h1>My templates</h1>
 </header>
 <main class="container">
 	{#if $templates}
