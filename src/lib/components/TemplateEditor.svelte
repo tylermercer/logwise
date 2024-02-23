@@ -2,11 +2,12 @@
 	import type { Question, TemplateRaw } from '$lib/db';
 	import { nanoid } from 'nanoid';
 
-	export let onSubmit = (_: TemplateRaw) => {};
+	export let onSubmit = async (_: TemplateRaw) => {};
 
 	export let existingTemplate: TemplateRaw | undefined = undefined;
 
 	let status = '';
+	let saving = false;
 
 	let templateName = existingTemplate?.name ?? '';
 
@@ -40,9 +41,10 @@
 
 	async function saveTemplate() {
 		try {
+			saving = true;
 			var date = new Date();
 
-			onSubmit({
+			await onSubmit({
 				id: crypto.randomUUID(),
 				prevVersionId: existingTemplate?.id,
 				name: templateName,
@@ -53,6 +55,8 @@
 					id: `${q.type}_${crypto.randomUUID()}`
 				}))
 			});
+
+			saving = false;
 		} catch (error) {
 			status = `Failed to save ${templateName}: ${error}`;
 		}
@@ -100,7 +104,7 @@
 	<p>{status}</p>
 	<div class="l-cluster-r">
 		<button class="secondary" on:click={cancel} type="button">Cancel</button>
-		<button type="submit">Save</button>
+		<button type="submit" aria-busy={saving}>Save</button>
 	</div>
 </form>
 
