@@ -73,33 +73,50 @@
 		<div></div>
 		<input type="text" bind:value={templateName} />
 	</label>
-	<hr />
 	<fieldset>
 		<legend><h2>Questions</h2></legend>
 		{#if questions.length}
 			{#each questions as question (question.tempId)}
 				<div class="question">
-					<label>
-						Label
-						<input type="text" bind:value={question.data.text} />
-					</label>
-					<label>
-						Type
-						<select bind:value={question.type}>
-							<option value="text">Text</option>
-							<option value="likert">Likert (1-5 scale)</option>
-						</select>
-					</label>
-					<button type="button" on:click={() => deleteQuestion(question.tempId)} class="secondary">
-						Delete
-					</button>
+					<div class="grid">
+						<label>
+							Question
+							<input type="text" bind:value={question.data.text} />
+							<small>
+								e.g.
+								{#if question.type === 'text'}
+									"What's on your mind?"
+								{:else if question.type === 'likert'}
+									"How are you feeling?"
+								{/if}
+							</small>
+						</label>
+						<label>
+							Type
+							<select bind:value={question.type}>
+								<option value="text">Text</option>
+								<option value="likert">1-to-5 scale</option>
+							</select>
+						</label>
+					</div>
+					<div class="l-cluster-r">
+						<button
+							type="button"
+							on:click={() => deleteQuestion(question.tempId)}
+							class="outline secondary"
+						>
+							Delete
+						</button>
+					</div>
 				</div>
 			{/each}
 		{:else}
 			<p>No questions</p>
 		{/if}
 	</fieldset>
-	<button class="contrast" type="button" on:click={addQuestion}>New Question</button>
+	<div class="l-cluster-r">
+		<button class="contrast" type="button" on:click={addQuestion}>Add Question</button>
+	</div>
 	<hr />
 	<p>{status}</p>
 	<div class="l-cluster-r">
