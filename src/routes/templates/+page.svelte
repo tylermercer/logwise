@@ -55,7 +55,7 @@
 			<p>No templates</p>
 		{/if}
 	{:else}
-		<p>Loading</p>
+		<p><span aria-busy={!$templates}>Loading...</span></p>
 	{/if}
 	<div class="l-cluster-r">
 		<Link href="/" class="secondary" role="button">Home</Link>
