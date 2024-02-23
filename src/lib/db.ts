@@ -10,7 +10,7 @@ export type Question = {
   id: `likert_${Uuid}`; //uuid prefixed with type
 });
 
-type QuestionId = Question['id']
+export type QuestionId = Question['id']
 
 export interface TemplateRaw {
   id: Uuid; //uuid
@@ -25,7 +25,6 @@ export type TemplateId = TemplateRaw['id']
 
 export interface EntryRaw {
   id: Uuid; //uuid
-  name: string;
   displayDatetime: Date;
   modifiedDatetime: Date;
   createdDatetime: Date;
