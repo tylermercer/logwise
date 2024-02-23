@@ -32,8 +32,9 @@
 							<div class="template-contents">
 								{template.name || '(Unnamed)'}
 								<div class="l-cluster-r actions">
-									<Link href="/templates/{template.id}/edit">Edit</Link>
+									<Link href="/templates/{template.id}/edit" class="outline secondary" role="button">Edit</Link>
 									<button
+										class="outline"
 										class:secondary={pendingDeletionId !== template.id}
 										class:contrast={pendingDeletionId === template.id}
 										on:click={(e) => deleteTemplate(e, template.id)}
@@ -57,8 +58,8 @@
 		<p>Loading</p>
 	{/if}
 	<div class="l-cluster-r">
-		<Link href="/">Home</Link>
-		<Link href="/templates/new">Add new template</Link>
+		<Link href="/" class="secondary" role="button">Home</Link>
+		<Link href="/templates/new" role="button">Add new template</Link>
 	</div>
 </main>
 

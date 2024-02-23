@@ -86,7 +86,7 @@
 							<option value="likert">Likert (1-5 scale)</option>
 						</select>
 					</label>
-					<button type="button" on:click={() => deleteQuestion(question.tempId)} class="contrast">
+					<button type="button" on:click={() => deleteQuestion(question.tempId)} class="secondary">
 						Delete
 					</button>
 				</div>
@@ -95,12 +95,12 @@
 			<p>No questions</p>
 		{/if}
 	</fieldset>
-	<button class="secondary" type="button" on:click={addQuestion}>New Question</button>
+	<button class="contrast" type="button" on:click={addQuestion}>New Question</button>
 	<hr />
 	<p>{status}</p>
 	<div class="l-cluster-r">
 		<button class="secondary" on:click={cancel} type="button">Cancel</button>
-		<button type="submit">Add Template</button>
+		<button type="submit">Save</button>
 	</div>
 </form>
 
