@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Question, TemplateRaw } from '$lib/db';
 	import { nanoid } from 'nanoid';
+	import { typeid } from 'typeid-js';
 
 	export let onSubmit = async (_: TemplateRaw) => {};
 
@@ -25,7 +26,7 @@
 
 	let questions = (existingTemplate?.questions.map((q) => ({
 		tempId: q.id,
-		type: q.id.split('_')[0],
+		type: q.id.getType(),
 		data: {
 			text: q.text
 		}
@@ -45,15 +46,24 @@
 			var date = new Date();
 
 			await onSubmit({
-				id: crypto.randomUUID(),
+				id: typeid('template'),
 				prevVersionId: existingTemplate?.id,
 				name: templateName,
 				modifiedDatetime: date,
 				createdDatetime: existingTemplate?.createdDatetime ?? date,
-				questions: questions.map((q) => ({
-					...q.data,
-					id: `${q.type}_${crypto.randomUUID()}`
-				}))
+				questions: questions.map((q) =>
+					q.type == 'likert'
+						? {
+								id: typeid('likert'),
+								text: q.data.text
+							}
+						: q.type === 'text'
+							? {
+									id: typeid('text'),
+									text: q.data.text
+								}
+							: null!
+				)
 			});
 
 			saving = false;
@@ -123,9 +133,9 @@
 		<button class="secondary" on:click={cancel} type="button">Cancel</button>
 		<button type="submit" aria-busy={saving}>
 			{#if saving}
-			Saving
+				Saving
 			{:else}
-			Save
+				Save
 			{/if}
 		</button>
 	</div>

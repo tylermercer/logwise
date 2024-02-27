@@ -1,35 +1,35 @@
 import Dexie, { type Table } from 'dexie';
-
-export type Uuid = `${string}-${string}-${string}-${string}-${string}`;
+import {TypeID } from 'typeid-js';
 
 export type Question = {
   text: string
 } & ({
-  id: `text_${Uuid}`; //uuid prefixed with type
+  id: TypeID<'text'>; //uuid prefixed with type
 } | {
-  id: `likert_${Uuid}`; //uuid prefixed with type
+  id: TypeID<'likert'>; //uuid prefixed with type
 });
 
 export type QuestionId = Question['id']
 
+export type TemplateId = TypeID<'template'>
+
 export interface TemplateRaw {
-  id: Uuid; //uuid
+  id: TemplateId; //uuid
   name: string;
   modifiedDatetime: Date;
   createdDatetime: Date;
-  prevVersionId?: Uuid;
+  prevVersionId?: TemplateId;
   questions: Question[];
 }
 
-export type TemplateId = TemplateRaw['id']
 
 export interface EntryRaw {
-  id: Uuid; //uuid
+  id: TypeID<'entry'>; //uuid
   displayDatetime: Date;
   modifiedDatetime: Date;
   createdDatetime: Date;
-  templateId: string;
-  answers: Record<QuestionId, any>; //Question ID -> answer contents
+  templateId: TemplateId;
+  answers: Map<QuestionId, any>; //Question ID -> answer contents
 }
 
 export class LogThingDexie extends Dexie {
@@ -41,7 +41,7 @@ export class LogThingDexie extends Dexie {
   constructor() {
     super('main');
     this.version(1).stores({
-      //Ids are not autoincrementing because we are going to use crypto.randomUUID instead
+      //Ids are not autoincrementing because we are going to use typeid() instead
       templates: 'id, name, modifiedDatetime, createdDatetime, prevVersionId',
       entries: 'id, templateId, displayDatetime, createdDatetime, modifiedDatetime'
     });

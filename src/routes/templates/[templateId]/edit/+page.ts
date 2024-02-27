@@ -1,9 +1,10 @@
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
-import db, { type TemplateId } from '$lib/db';
+import db from '$lib/db';
+import { TypeID } from 'typeid-js';
 
 export const load: PageLoad = async ({ params }) => {
-    const existingTemplate = await db.templates.get(params.templateId as TemplateId)
+    const existingTemplate = await db.templates.get(TypeID.fromString(params.templateId).asType('template'))
     if (existingTemplate) {
         return {
             existingTemplate
