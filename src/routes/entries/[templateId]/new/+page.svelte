@@ -2,9 +2,10 @@
 	import type { PageData } from './$types';
 
 	import db from '$lib/db';
-	import type { QuestionId, EntryRaw } from '$lib/db';
+	import type { QuestionId } from '$lib/db';
 	import { goto } from '$lib/navigation';
 	import DatetimeInput from '$lib/components/DatetimeInput.svelte';
+	import { typeid } from 'typeid-js';
 
 	export let data: PageData;
 
@@ -15,21 +16,21 @@
 
 	let questionAnswers = questions.map((q) => ({
 		question: q,
-		answer: q.id.startsWith('text') ? '' : q.id.startsWith('likert') ? 3 : null!
+		answer: q.id.getType() === 'text' ? '' : q.id.getType() === 'likert' ? 3 : null!
 	}));
 
 	let datetime = new Date();
 
 	async function saveEntry() {
 		saving = true;
-		const answers: Record<QuestionId, any> = {};
+		const answers: Map<QuestionId, any> = new Map<QuestionId, any>();
 
-		questionAnswers.forEach((qa) => (answers[qa.question.id] = qa.answer));
+		questionAnswers.forEach((qa) => (answers.set(qa.question.id, qa.answer)));
 
 		const now = new Date();
 
 		await db.entries.add({
-			id: crypto.randomUUID(),
+			id: typeid('entry'),
 			displayDatetime: datetime,
 			createdDatetime: now,
 			modifiedDatetime: now,
@@ -55,9 +56,9 @@
 				<div class="grid">
 					<label>
 						{questionWithAnswer.question.text}
-						{#if questionWithAnswer.question.id.startsWith('text')}
+						{#if questionWithAnswer.question.id.getType() === 'text'}
 							<textarea bind:value={questionWithAnswer.answer} />
-						{:else if questionWithAnswer.question.id.startsWith('likert')}
+						{:else if questionWithAnswer.question.id.getType() === 'likert'}
 							<input type="range" bind:value={questionWithAnswer.answer} min="1" max="5" />
 						{/if}
 					</label>
