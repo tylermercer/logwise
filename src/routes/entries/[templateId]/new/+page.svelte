@@ -5,7 +5,7 @@
 	import type { QuestionId } from '$lib/db';
 	import { goto } from '$lib/navigation';
 	import DatetimeInput from '$lib/components/DatetimeInput.svelte';
-	import { typeid } from 'typeid-js';
+	import { getType, typeid } from 'typeid-unboxed';
 
 	export let data: PageData;
 
@@ -16,7 +16,7 @@
 
 	let questionAnswers = questions.map((q) => ({
 		question: q,
-		answer: q.id.getType() === 'text' ? '' : q.id.getType() === 'likert' ? 3 : null!
+		answer: getType(q.id) === 'text' ? '' : getType(q.id) === 'likert' ? 3 : null!
 	}));
 
 	let datetime = new Date();
@@ -56,9 +56,9 @@
 				<div class="grid">
 					<label>
 						{questionWithAnswer.question.text}
-						{#if questionWithAnswer.question.id.getType() === 'text'}
+						{#if getType(questionWithAnswer.question.id) === 'text'}
 							<textarea bind:value={questionWithAnswer.answer} />
-						{:else if questionWithAnswer.question.id.getType() === 'likert'}
+						{:else if getType(questionWithAnswer.question.id) === 'likert'}
 							<input type="range" bind:value={questionWithAnswer.answer} min="1" max="5" />
 						{/if}
 					</label>

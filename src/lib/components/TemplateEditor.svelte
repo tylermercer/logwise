@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Question, TemplateRaw } from '$lib/db';
 	import { nanoid } from 'nanoid';
-	import { typeid } from 'typeid-js';
+	import { getType, typeid } from 'typeid-unboxed';
 
 	export let onSubmit = async (_: TemplateRaw) => {};
 
@@ -26,7 +26,7 @@
 
 	let questions = (existingTemplate?.questions.map((q) => ({
 		tempId: q.id,
-		type: q.id.getType(),
+		type: getType(q.id),
 		data: {
 			text: q.text
 		}
