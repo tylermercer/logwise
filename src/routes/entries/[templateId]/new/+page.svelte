@@ -20,6 +20,7 @@
 	}));
 
 	let datetime = new Date();
+	datetime.setSeconds(0);
 
 	async function saveEntry() {
 		saving = true;
