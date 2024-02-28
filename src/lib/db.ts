@@ -1,5 +1,5 @@
 import Dexie, { type Table } from 'dexie';
-import {TypeID } from 'typeid-js';
+import { type TypeID } from 'typeid-unboxed';
 
 export type Question = {
   text: string
