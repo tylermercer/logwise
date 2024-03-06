@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Question, TemplateRaw } from '$lib/db';
+	import { DB_NULL, type Question, type TemplateRaw } from '$lib/db';
 	import { nanoid } from 'nanoid';
 	import { getType, typeid } from 'typeid-unboxed';
 
@@ -47,7 +47,8 @@
 
 			await onSubmit({
 				id: typeid('template'),
-				prevVersionId: existingTemplate?.id,
+				prevVersionId: existingTemplate?.id ?? DB_NULL,
+				nextVersionId: DB_NULL,
 				name: templateName,
 				modifiedDatetime: date,
 				createdDatetime: existingTemplate?.createdDatetime ?? date,

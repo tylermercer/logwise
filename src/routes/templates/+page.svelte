@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import Link from '$lib/components/Link.svelte';
-	import db, { type TemplateId } from '$lib/db';
+	import db, { DB_NULL, type TemplateId } from '$lib/db';
 
-	let templates = liveQuery(() => db.templates.toArray());
+	let templates = liveQuery(() => db.templates.where('nextVersionId').equals(DB_NULL).toArray());
 
 	let pendingDeletionId: TemplateId | undefined;
 	async function deleteTemplate(e: Event, id: TemplateId) {
@@ -32,7 +32,13 @@
 							<div class="template-contents">
 								{template.name || '(Unnamed)'}
 								<div class="l-cluster-r actions">
-									<Link href="/templates/{template.id}/edit" class="outline secondary" role="button">Edit</Link>
+									<Link
+										href="/templates/{template.id}/edit"
+										class="outline secondary"
+										role="button"
+									>
+										Edit
+									</Link>
 									<button
 										class="outline"
 										class:secondary={pendingDeletionId !== template.id}

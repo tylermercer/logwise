@@ -13,12 +13,17 @@ export type QuestionId = Question['id']
 
 export type TemplateId = TypeID<'template'>
 
+export const DB_NULL = 'NULL';
+
+export type DbNull = typeof DB_NULL;
+
 export interface TemplateRaw {
   id: TemplateId; //uuid
   name: string;
   modifiedDatetime: Date;
   createdDatetime: Date;
-  prevVersionId?: TemplateId;
+  prevVersionId: TemplateId | DbNull;
+  nextVersionId: TemplateId | DbNull;
   questions: Question[];
 }
 
@@ -42,7 +47,7 @@ export class LogThingDexie extends Dexie {
     super('main');
     this.version(1).stores({
       //Ids are not autoincrementing because we are going to use typeid() instead
-      templates: 'id, name, modifiedDatetime, createdDatetime, prevVersionId',
+      templates: 'id, name, modifiedDatetime, createdDatetime, prevVersionId, nextVersionId',
       entries: 'id, templateId, displayDatetime, createdDatetime, modifiedDatetime'
     });
   }

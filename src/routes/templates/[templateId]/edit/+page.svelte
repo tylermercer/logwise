@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import db from '$lib/db';
+	import db, { DB_NULL } from '$lib/db';
 	import TemplateEditor from '$lib/components/TemplateEditor.svelte';
 	import type { TemplateRaw } from '$lib/db';
 	import { goto } from '$lib/navigation';
@@ -11,6 +11,9 @@
 	let existingTemplate = data.existingTemplate;
 
 	async function handleSubmit(template: TemplateRaw) {
+		if (template.prevVersionId != DB_NULL) {
+			await db.templates.update(template.prevVersionId, { nextVersionId: template.id });
+		}
 		await db.templates.add(template);
 
 		goto('/templates');
