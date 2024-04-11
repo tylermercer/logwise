@@ -126,7 +126,7 @@
 		{/if}
 	</fieldset>
 	<div class="l-cluster-r">
-		<button class="contrast" type="button" on:click={addQuestion}>Add Question</button>
+		<button class="secondary" type="button" on:click={addQuestion}>Add Question</button>
 	</div>
 	<hr />
 	<p>{status}</p>
