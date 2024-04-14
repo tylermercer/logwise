@@ -72,11 +72,9 @@ jobs:
         if: steps.build_site.outputs.result == 'built'
         uses: cloudflare/wrangler-action@v3
         with:
-          branch: ${{ steps.extract_vars.outputs.branch }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          directory: ./.svelte-kit/cloudflare
+          command: pages deploy --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }} --branch=${{ steps.extract_vars.outputs.branch }}
 
       - name: Add preview URL to pull request
         if: github.event_name == 'pull_request' && steps.build_site.outputs.result == 'built'
