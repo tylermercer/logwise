@@ -70,7 +70,7 @@ jobs:
       - name: Deploy to Cloudflare Pages
         id: deploy
         if: steps.build_site.outputs.result == 'built'
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           branch: ${{ steps.extract_vars.outputs.branch }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
