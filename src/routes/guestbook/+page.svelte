@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { enhance } from '$app/forms';
 	export let data: PageData;
 	// export let form: ActionData;
 </script>
@@ -14,7 +15,7 @@
         <cite>{author}</cite>
     </blockquote>
     {/each}
-    <form method="POST">
+    <form method="POST" use:enhance>
         <label>
             Author
             <input type="text" name="author" required>
