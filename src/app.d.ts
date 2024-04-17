@@ -4,7 +4,10 @@ declare global {
 	namespace App {
         interface Platform {
             env: {
-                DB: D1Database
+                DB: D1Database,
+                RATE_LIMITER: {
+                    limit({ key: any }): Promise<{ success: boolean }>
+                }
             }
             cf: CfProperties
             ctx: ExecutionContext

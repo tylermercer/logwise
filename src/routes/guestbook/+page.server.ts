@@ -3,7 +3,13 @@ import type { PageServerLoad, Actions } from './$types';
 
 export const ssr = true;
 
-export const load: PageServerLoad = async ({ platform }) => {
+export const load: PageServerLoad = async ({ platform, request }) => {
+
+    const userIp = request.headers.get('CF-Connecting-IP');
+    const { success } = await platform!.env.RATE_LIMITER.limit({ key: userIp })
+    if (!success) {
+        return fail(429, { message: "Rate limit exceeded" })
+    }
   
     const { results } = await platform!.env.DB.prepare(
         "SELECT author, body FROM comments"
