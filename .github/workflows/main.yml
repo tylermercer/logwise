@@ -74,7 +74,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }} --branch=${{ steps.extract_vars.outputs.branch }}
+          command: pages deploy
 
       - name: Add preview URL to pull request
         if: github.event_name == 'pull_request' && steps.build_site.outputs.result == 'built'
