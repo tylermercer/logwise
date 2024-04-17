@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { PageData, ActionData } from './$types';
 	import { enhance } from '$app/forms';
 	export let data: PageData;
-	// export let form: ActionData;
+	export let form: ActionData;
 </script>
 
 <main class="container">
@@ -15,17 +15,21 @@
         <cite>{author}</cite>
     </blockquote>
     {/each}
+	{#if form?.error}
+		<p class="u-error">{form.message}</p>
+	{/if}
+	{#if form?.success}
+		<p class="u-success">Comment submitted</p>
+	{/if}
     <form method="POST" use:enhance>
-        <label>
-            Author
-            <input type="text" name="author" required>
-        </label>
-
         <label>
             Comment
             <textarea name="body" required></textarea>
         </label>
-
+        <label>
+            Name
+            <input type="text" name="author" required>
+        </label>
         <button type="submit">Add Comment</button>
     </form>
 </main>
