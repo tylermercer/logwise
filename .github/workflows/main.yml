@@ -51,6 +51,7 @@ jobs:
         # if: steps.determine_mode.outputs.mode == 'always' || steps.check_files.outputs.non_markdown_files != ''
         env:
           COMMIT_HASH: ${{ github.sha }}
+          PUBLIC_DEXIE_CLOUD_URL: ${{ secrets.PUBLIC_DEXIE_CLOUD_URL }}
         run: |
           npm install
           npm run build
