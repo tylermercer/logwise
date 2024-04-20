@@ -39,6 +39,7 @@
   "dependencies": {
     "@picocss/pico": "^2.0.6",
     "dexie": "^4.0.4",
+    "dexie-cloud-addon": "^4.0.2",
     "nanoid": "^5.0.7",
     "sass": "^1.74.1",
     "typeid-unboxed": "^0.5.0-1"
