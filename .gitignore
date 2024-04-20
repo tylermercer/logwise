@@ -12,3 +12,7 @@ vite.config.ts.timestamp-*
 # wrangler files
 .wrangler
 .dev.vars
+
+#dexie files
+dexie-cloud.key
+dexie-cloud.json
