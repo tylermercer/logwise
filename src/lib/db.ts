@@ -1,5 +1,7 @@
 import Dexie, { type Table } from 'dexie';
+import dexieCloud from "dexie-cloud-addon";
 import { type TypeID } from 'typeid-unboxed';
+import { PUBLIC_DEXIE_CLOUD_URL } from '$env/static/public';
 
 export type Question = {
   text: string
@@ -44,11 +46,18 @@ export class LogThingDexie extends Dexie {
   entries!: Table<EntryRaw>;
 
   constructor() {
-    super('main');
+    super('main', {
+      addons: [dexieCloud],
+    });
     this.version(1).stores({
       //Ids are not autoincrementing because we are going to use typeid() instead
       templates: 'id, name, modifiedDatetime, createdDatetime, prevVersionId, nextVersionId',
       entries: 'id, templateId, displayDatetime, createdDatetime, modifiedDatetime'
+    });
+    this.cloud.configure({
+      databaseUrl: PUBLIC_DEXIE_CLOUD_URL!,
+      tryUseServiceWorker: true, // true!
+      requireAuth: false,
     });
   }
 }
