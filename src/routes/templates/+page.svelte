@@ -2,6 +2,7 @@
 	import { liveQuery } from 'dexie';
 	import Link from '$lib/components/Link.svelte';
 	import db, { DB_NULL, type TemplateId } from '$lib/db';
+	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 
 	let templates = liveQuery(() => db.templates.where('nextVersionId').equals(DB_NULL).toArray());
 
@@ -19,7 +20,10 @@
 	}
 </script>
 
-<header class="container">
+<header class="container l-cluster-l">
+	<a href="/app/" class="secondary" aria-label="Home">
+		<LeftArrow></LeftArrow>
+	</a>
 	<h1>My templates</h1>
 </header>
 <main class="container">
@@ -28,17 +32,17 @@
 			<ul class="templates-list">
 				{#each $templates as template (template.id)}
 					<li class="template">
-						<Link href="/entries/{template.id}/new" class="u-link-block">
+						<a href="/app/entries/{template.id}/new" class="u-link-block">
 							<div class="template-contents">
 								{template.name || '(Unnamed)'}
 								<div class="l-cluster-r actions">
-									<Link
-										href="/templates/{template.id}/edit"
+									<a
+										href="/app/templates/{template.id}/edit"
 										class="outline secondary"
 										role="button"
 									>
 										Edit
-									</Link>
+									</a>
 									<button
 										class="outline"
 										class:secondary={pendingDeletionId !== template.id}
@@ -53,7 +57,7 @@
 									</button>
 								</div>
 							</div>
-						</Link>
+						</a>
 					</li>
 				{/each}
 			</ul>
@@ -64,12 +68,15 @@
 		<p><span aria-busy={!$templates}>Loading...</span></p>
 	{/if}
 	<div class="l-cluster-r">
-		<Link href="/" class="secondary" role="button">Home</Link>
-		<Link href="/templates/new" role="button">Add new template</Link>
+		<a href="/app/templates/new" role="button">Add new template</a>
 	</div>
 </main>
 
 <style lang="scss">
+	header {
+		align-items: center;
+		gap: 0.5em;
+	}
 	.templates-list {
 		padding-left: 0;
 		& > li {
