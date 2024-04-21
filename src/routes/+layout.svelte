@@ -6,10 +6,6 @@
 
 	import db from '$lib/db';
 
-	function login() {
-		db.cloud.login();
-	}
-	
 	let user = db.cloud.currentUser;
 </script>
 
@@ -18,9 +14,9 @@
 	<hr>
 	<div class="l-cluster-r">
 		{#if $user.isLoggedIn}
-			Logged in as {$user.name}
+			Logged in as {$user.name}. <a href="/app/" on:click={() => db.cloud.logout()}>Log out</a>
 		{:else}
-			<button on:click={login}>Log in</button>
+			<button on:click={() => db.cloud.login()}>Log in</button>
 		{/if}
 	</div>
 	<small>
