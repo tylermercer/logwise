@@ -18,12 +18,12 @@
 		}
 		await db.templates.add(template);
 
-		goto('/templates');
+		goto('/things');
 	}
 </script>
 
 <HeaderBar>
-	<a href="/app/templates" class="secondary" aria-label="Home">
+	<a href="/app/things" class="secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>Editing "{existingTemplate.name}"</h1>

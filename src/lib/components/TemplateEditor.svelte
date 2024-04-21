@@ -46,7 +46,7 @@
 			var date = new Date();
 
 			await onSubmit({
-				id: typeid('template'),
+				id: typeid('thing'),
 				prevVersionId: existingTemplate?.id ?? DB_NULL,
 				nextVersionId: DB_NULL,
 				name: templateName,

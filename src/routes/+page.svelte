@@ -13,6 +13,6 @@
 	</main>
 {:else}
 	<main class="container">
-		<p><Link href="/templates">My templates</Link></p>
+		<p><Link href="/things">My Things</Link></p>
 	</main>
 {/if}

@@ -13,7 +13,7 @@ export type Question = {
 
 export type QuestionId = Question['id']
 
-export type TemplateId = TypeID<'template'>
+export type TemplateId = TypeID<'thing'>
 
 export const DB_NULL = 'NULL';
 

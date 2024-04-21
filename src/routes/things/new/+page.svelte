@@ -9,12 +9,12 @@
 	async function handleSubmit(template: TemplateRaw) {
 		await db.templates.add(template);
 
-		goto('/templates');
+		goto('/things');
 	}
 </script>
 
 <HeaderBar>
-	<a href="/app/templates" class="secondary" aria-label="Home">
+	<a href="/app/things" class="secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>New template</h1>

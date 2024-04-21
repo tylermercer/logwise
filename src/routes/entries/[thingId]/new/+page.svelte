@@ -39,7 +39,7 @@
 			templateId
 		});
 		saving = false;
-		goto('/templates');
+		goto('/things');
 	}
 
 	function cancel() {

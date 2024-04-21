@@ -25,7 +25,7 @@
 	<a href="/app/" class="secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
-	<h1>My templates</h1>
+	<h1>My Things</h1>
 </HeaderBar>
 <main class="container">
 	{#if $templates}
@@ -38,7 +38,7 @@
 								{template.name || '(Unnamed)'}
 								<div class="l-cluster-r actions">
 									<a
-										href="/app/templates/{template.id}/edit"
+										href="/app/things/{template.id}/edit"
 										class="outline secondary"
 										role="button"
 									>
@@ -63,13 +63,13 @@
 				{/each}
 			</ul>
 		{:else}
-			<p>No templates</p>
+			<p>You don't have any Things yet. Get started by <a href="/app/things/new">creating one</a>.</p>
 		{/if}
 	{:else}
 		<p><span aria-busy={!$templates}>Loading...</span></p>
 	{/if}
 	<div class="l-cluster-r">
-		<a href="/app/templates/new" role="button">Add new template</a>
+		<a href="/app/things/new" role="button">Add new thing</a>
 	</div>
 </main>
 
