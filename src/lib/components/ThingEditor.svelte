@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { DB_NULL, type Question, type TemplateRaw } from '$lib/db';
+	import { DB_NULL, type Question, type ThingRaw } from '$lib/db';
 	import { nanoid } from 'nanoid';
 	import { getType, typeid } from 'typeid-unboxed';
 
-	export let onSubmit = async (_: TemplateRaw) => {};
+	export let onSubmit = async (_: ThingRaw) => {};
 
-	export let existingTemplate: TemplateRaw | undefined = undefined;
+	export let existingThing: ThingRaw | undefined = undefined;
 
 	let status = '';
 	let saving = false;
 
-	let templateName = existingTemplate?.name ?? '';
+	let thingName = existingThing?.name ?? '';
 
 	type DraftQuestion = { tempId: string; type: 'text' | 'likert'; data: Omit<Question, 'id'> };
 
@@ -24,7 +24,7 @@
 		};
 	}
 
-	let questions = (existingTemplate?.questions.map((q) => ({
+	let questions = (existingThing?.questions.map((q) => ({
 		tempId: q.id,
 		type: getType(q.id),
 		data: {
@@ -40,18 +40,18 @@
 		questions = questions.filter((q) => q.tempId === tempId);
 	}
 
-	async function saveTemplate() {
+	async function saveThing() {
 		try {
 			saving = true;
 			var date = new Date();
 
 			await onSubmit({
 				id: typeid('thing'),
-				prevVersionId: existingTemplate?.id ?? DB_NULL,
+				prevVersionId: existingThing?.id ?? DB_NULL,
 				nextVersionId: DB_NULL,
-				name: templateName,
+				name: thingName,
 				modifiedDatetime: date,
-				createdDatetime: existingTemplate?.createdDatetime ?? date,
+				createdDatetime: existingThing?.createdDatetime ?? date,
 				questions: questions.map((q) =>
 					q.type == 'likert'
 						? {
@@ -69,16 +69,16 @@
 
 			saving = false;
 		} catch (error) {
-			status = `Failed to save ${templateName}: ${error}`;
+			status = `Failed to save ${thingName}: ${error}`;
 		}
 	}
 </script>
 
-<form on:submit={saveTemplate}>
+<form on:submit={saveThing}>
 	<label>
 		Name
 		<div></div>
-		<input type="text" bind:value={templateName} />
+		<input type="text" bind:value={thingName} />
 	</label>
 	<fieldset>
 		<legend><h2>Questions</h2></legend>

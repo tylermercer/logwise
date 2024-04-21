@@ -12,7 +12,7 @@
 	let saving = false;
 	let status = '';
 
-	let { name, questions, id: templateId } = data.template;
+	let { name, questions, id: thingId } = data.thing;
 
 	let questionAnswers = questions.map((q) => ({
 		question: q,
@@ -36,7 +36,7 @@
 			createdDatetime: now,
 			modifiedDatetime: now,
 			answers,
-			templateId
+			thingId
 		});
 		saving = false;
 		goto('/things');

@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import Link from '$lib/components/Link.svelte';
-	import db, { DB_NULL, type TemplateId } from '$lib/db';
+	import db, { DB_NULL, type ThingId } from '$lib/db';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
 
-	let templates = liveQuery(() => db.templates.where('nextVersionId').equals(DB_NULL).toArray());
+	let things = liveQuery(() => db.things.where('nextVersionId').equals(DB_NULL).toArray());
 
-	let pendingDeletionId: TemplateId | undefined;
-	async function deleteTemplate(e: Event, id: TemplateId) {
+	let pendingDeletionId: ThingId | undefined;
+	async function deleteThing(e: Event, id: ThingId) {
 		e.preventDefault();
 		e.stopImmediatePropagation();
 		if (pendingDeletionId) {
-			await db.templates.delete(pendingDeletionId);
+			await db.things.delete(pendingDeletionId);
 			pendingDeletionId = undefined;
 		} else {
 			pendingDeletionId = id;
@@ -28,17 +28,17 @@
 	<h1>My Things</h1>
 </HeaderBar>
 <main class="container">
-	{#if $templates}
-		{#if $templates.length}
-			<ul class="templates-list">
-				{#each $templates as template (template.id)}
-					<li class="template">
-						<a href="/app/entries/{template.id}/new" class="u-link-block">
-							<div class="template-contents">
-								{template.name || '(Unnamed)'}
+	{#if $things}
+		{#if $things.length}
+			<ul class="things-list">
+				{#each $things as thing (thing.id)}
+					<li class="thing">
+						<a href="/app/entries/{thing.id}/new" class="u-link-block">
+							<div class="thing-contents">
+								{thing.name || '(Unnamed)'}
 								<div class="l-cluster-r actions">
 									<a
-										href="/app/things/{template.id}/edit"
+										href="/app/things/{thing.id}/edit"
 										class="outline secondary"
 										role="button"
 									>
@@ -46,11 +46,11 @@
 									</a>
 									<button
 										class="outline"
-										class:secondary={pendingDeletionId !== template.id}
-										class:contrast={pendingDeletionId === template.id}
-										on:click={(e) => deleteTemplate(e, template.id)}
+										class:secondary={pendingDeletionId !== thing.id}
+										class:contrast={pendingDeletionId === thing.id}
+										on:click={(e) => deleteThing(e, thing.id)}
 									>
-										{#if pendingDeletionId === template.id}
+										{#if pendingDeletionId === thing.id}
 											Confirm
 										{:else}
 											Delete
@@ -66,7 +66,7 @@
 			<p>You don't have any Things yet. Get started by <a href="/app/things/new">creating one</a>.</p>
 		{/if}
 	{:else}
-		<p><span aria-busy={!$templates}>Loading...</span></p>
+		<p><span aria-busy={!$things}>Loading...</span></p>
 	{/if}
 	<div class="l-cluster-r">
 		<a href="/app/things/new" role="button">Add new thing</a>
@@ -74,7 +74,7 @@
 </main>
 
 <style lang="scss">
-	.templates-list {
+	.things-list {
 		padding-left: 0;
 		& > li {
 			&:first-child {
@@ -84,7 +84,7 @@
 			border-bottom: 1px solid var(--pico-muted-border-color);
 		}
 	}
-	.template-contents {
+	.thing-contents {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;

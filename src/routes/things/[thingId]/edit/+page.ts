@@ -4,10 +4,10 @@ import db from '$lib/db';
 import { fromString } from 'typeid-unboxed';
 
 export const load: PageLoad = async ({ params }) => {
-    const existingTemplate = await db.templates.get(fromString(params.thingId, 'thing'))
-    if (existingTemplate) {
+    const existingThing = await db.things.get(fromString(params.thingId, 'thing'))
+    if (existingThing) {
         return {
-            existingTemplate
+            existingThing
         }
     }
     else {

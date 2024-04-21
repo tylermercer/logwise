@@ -2,21 +2,21 @@
 	import type { PageData } from './$types';
 
 	import db, { DB_NULL } from '$lib/db';
-	import TemplateEditor from '$lib/components/TemplateEditor.svelte';
-	import type { TemplateRaw } from '$lib/db';
+	import ThingEditor from '$lib/components/ThingEditor.svelte';
+	import type { ThingRaw } from '$lib/db';
 	import { goto } from '$lib/navigation';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
 
 	export let data: PageData;
 
-	let existingTemplate = data.existingTemplate;
+	let existingThing = data.existingThing;
 
-	async function handleSubmit(template: TemplateRaw) {
-		if (template.prevVersionId != DB_NULL) {
-			await db.templates.update(template.prevVersionId, { nextVersionId: template.id });
+	async function handleSubmit(thing: ThingRaw) {
+		if (thing.prevVersionId != DB_NULL) {
+			await db.things.update(thing.prevVersionId, { nextVersionId: thing.id });
 		}
-		await db.templates.add(template);
+		await db.things.add(thing);
 
 		goto('/things');
 	}
@@ -26,8 +26,8 @@
 	<a href="/app/things" class="secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
-	<h1>Editing "{existingTemplate.name}"</h1>
+	<h1>Editing "{existingThing.name}"</h1>
 </HeaderBar>
 <main class="container">
-	<TemplateEditor onSubmit={handleSubmit} {existingTemplate}></TemplateEditor>
+	<ThingEditor onSubmit={handleSubmit} {existingThing}></ThingEditor>
 </main>

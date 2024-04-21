@@ -1,13 +1,13 @@
 <script lang="ts">
 	import db from '$lib/db';
-	import TemplateEditor from '$lib/components/TemplateEditor.svelte';
-	import type { TemplateRaw } from '$lib/db';
+	import ThingEditor from '$lib/components/ThingEditor.svelte';
+	import type { ThingRaw } from '$lib/db';
 	import { goto } from '$lib/navigation';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
 
-	async function handleSubmit(template: TemplateRaw) {
-		await db.templates.add(template);
+	async function handleSubmit(thing: ThingRaw) {
+		await db.things.add(thing);
 
 		goto('/things');
 	}
@@ -17,8 +17,8 @@
 	<a href="/app/things" class="secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
-	<h1>New template</h1>
+	<h1>New thing</h1>
 </HeaderBar>
 <main class="container">
-	<TemplateEditor onSubmit={handleSubmit}></TemplateEditor>
+	<ThingEditor onSubmit={handleSubmit}></ThingEditor>
 </main>
