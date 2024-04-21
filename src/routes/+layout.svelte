@@ -12,7 +12,7 @@
 <slot />
 <footer class="container">
 	<hr>
-	<div class="l-cluster-r">
+	<div>
 		{#if $user.isLoggedIn}
 			Logged in as {$user.name}. <a href="/app/" on:click={() => db.cloud.logout()}>Log out</a>
 		{:else}
