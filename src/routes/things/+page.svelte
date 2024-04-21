@@ -33,7 +33,7 @@
 			<ul class="things-list">
 				{#each $things as thing (thing.id)}
 					<li class="thing">
-						<a href="/app/entries/{thing.id}/new" class="u-link-block">
+						<a href="/app/things/{thing.id}/new-entry" class="u-link-block">
 							<div class="thing-contents">
 								{thing.name || '(Unnamed)'}
 								<div class="l-cluster-r actions">
