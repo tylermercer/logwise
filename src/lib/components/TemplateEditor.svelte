@@ -72,10 +72,6 @@
 			status = `Failed to save ${templateName}: ${error}`;
 		}
 	}
-
-	function cancel() {
-		history.back();
-	}
 </script>
 
 <form on:submit={saveTemplate}>
@@ -131,7 +127,6 @@
 	<hr />
 	<p>{status}</p>
 	<div class="l-cluster-r">
-		<button class="secondary" on:click={cancel} type="button">Cancel</button>
 		<button type="submit" aria-busy={saving}>
 			{#if saving}
 				Saving
