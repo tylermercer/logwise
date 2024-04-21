@@ -5,6 +5,8 @@
 	import TemplateEditor from '$lib/components/TemplateEditor.svelte';
 	import type { TemplateRaw } from '$lib/db';
 	import { goto } from '$lib/navigation';
+	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
+	import HeaderBar from '$lib/components/HeaderBar.svelte';
 
 	export let data: PageData;
 
@@ -20,9 +22,12 @@
 	}
 </script>
 
-<header class="container">
+<HeaderBar>
+	<a href="/app/templates" class="secondary" aria-label="Home">
+		<LeftArrow></LeftArrow>
+	</a>
 	<h1>Editing "{existingTemplate.name}"</h1>
-</header>
+</HeaderBar>
 <main class="container">
 	<TemplateEditor onSubmit={handleSubmit} {existingTemplate}></TemplateEditor>
 </main>

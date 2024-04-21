@@ -3,6 +3,7 @@
 	import Link from '$lib/components/Link.svelte';
 	import db, { DB_NULL, type TemplateId } from '$lib/db';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
+	import HeaderBar from '$lib/components/HeaderBar.svelte';
 
 	let templates = liveQuery(() => db.templates.where('nextVersionId').equals(DB_NULL).toArray());
 
@@ -20,12 +21,12 @@
 	}
 </script>
 
-<header class="container l-cluster-l">
+<HeaderBar>
 	<a href="/app/" class="secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>My templates</h1>
-</header>
+</HeaderBar>
 <main class="container">
 	{#if $templates}
 		{#if $templates.length}
@@ -73,10 +74,6 @@
 </main>
 
 <style lang="scss">
-	header {
-		align-items: center;
-		gap: 0.5em;
-	}
 	.templates-list {
 		padding-left: 0;
 		& > li {
