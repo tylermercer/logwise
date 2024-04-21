@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
-	import Link from '$lib/components/Link.svelte';
 	import db, { DB_NULL, type ThingId } from '$lib/db';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';

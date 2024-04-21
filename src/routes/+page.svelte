@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import Link from '$lib/components/Link.svelte';
 
 </script>
 
@@ -13,7 +12,7 @@
 	</main>
 {:else}
 	<main class="container">
-		<p><Link href="/things">My Things</Link></p>
-		<p><Link href="/log">View log</Link></p>
+		<p><a href="/app/things">My Things</a></p>
+		<p><a href="/app/log">View log</a></p>
 	</main>
 {/if}
