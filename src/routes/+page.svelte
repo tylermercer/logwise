@@ -14,5 +14,6 @@
 {:else}
 	<main class="container">
 		<p><Link href="/things">My Things</Link></p>
+		<p><Link href="/log">View log</Link></p>
 	</main>
 {/if}
