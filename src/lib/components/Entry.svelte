@@ -17,8 +17,7 @@
         <div aria-busy="true"></div>
     {:then thing}
     {#if thing}
-        <h2>{thing.name}</h2>
-        <p>{entry.displayDatetime.toLocaleString()}</p>
+        <h2>{thing.name}<span class="datetime">{entry.displayDatetime.toLocaleString()}</span></h2>
         {#each thing.questions as question(question.id)}
         <h3>{question.text}</h3>
         <p>{entry.answers.get(question.id)}</p>
@@ -31,8 +30,15 @@
     {/await}
 </div>
 <style lang="scss">
-    h2, h3 {
+    .datetime {
+        float: right;
+    }
+    h2 {
         font-size: 0.85em;
+        font-weight: normal;
+    }
+    h3 {
+        font-size: 0.78em;
         font-weight: normal;
     }
 </style>
