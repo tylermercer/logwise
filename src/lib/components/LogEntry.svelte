@@ -2,6 +2,7 @@
 	import type { EntryRaw, ThingRaw } from "$lib/db";
 	import db from "$lib/db";
 	import { svelteTime } from "svelte-time";
+	import { getType } from "typeid-unboxed";
 
     export let entry: EntryRaw;
     export let thing: ThingRaw | undefined = undefined;
@@ -38,7 +39,15 @@
         </h2>
         {#each thing.questions as question(question.id)}
         <h3>{question.text}</h3>
-        <p>{entry.answers.get(question.id)}</p>
+        {#if getType(question.id) == 'likert'}
+            <p data-qtype='likert'>
+                {entry.answers.get(question.id)} / 5
+            </p>
+        {:else if getType(question.id) == 'text'}
+            <p data-qtype='text'>
+                {entry.answers.get(question.id)}
+            </p>
+        {/if}
         {/each}
     {:else}
         <!-- TODO: handle this?? -->
@@ -50,7 +59,7 @@
 <style lang="scss">
     h2, h3 {
         font-weight: 600;
-        margin-bottom: 0.5em;
+        margin-block: 0.5em;
     }
     h2 {
         font-size: 0.9em;
@@ -62,5 +71,13 @@
         float: right;
         font-weight: normal;
         font-size: 0.9em;
+    }
+    p {
+        margin-bottom: 0;
+    }
+    p[data-qtype=likert] {
+        font-weight: bold;
+        font-size: 1.5em;
+        line-height: 1;
     }
 </style>
