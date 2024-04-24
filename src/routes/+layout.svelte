@@ -4,7 +4,11 @@
 	import '../styles/layouts.scss';
 	import '../styles/utilities.scss';
 
-	import db from '$lib/db';
+	import type { LayoutData } from './$types';
+
+	export let data: LayoutData;
+
+	const db = data.db;
 
 	let user = db.cloud.currentUser;
 </script>
