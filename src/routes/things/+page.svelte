@@ -12,6 +12,7 @@
 		e.stopImmediatePropagation();
 		if (pendingDeletionId) {
 			await db.things.delete(pendingDeletionId);
+			await db.entries.where('thingId').equals(pendingDeletionId).delete();
 			pendingDeletionId = undefined;
 		} else {
 			pendingDeletionId = id;
