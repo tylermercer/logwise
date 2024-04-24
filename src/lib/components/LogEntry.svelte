@@ -45,7 +45,11 @@
             </p>
         {:else if getType(question.id) == 'text'}
             <p data-qtype='text'>
-                {entry.answers.get(question.id)}
+                {#if entry.answers.get(question.id)}
+                    {entry.answers.get(question.id)}
+                {:else}
+                    <span class="none">(Empty)</span>
+                {/if}
             </p>
         {/if}
         {/each}
