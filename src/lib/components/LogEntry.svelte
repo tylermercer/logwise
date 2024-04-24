@@ -29,13 +29,15 @@
     {#if thing}
         <h2>
             {thing.name}
-            <time class="datetime" use:svelteTime={{
-                relative: useRelativeTime(entry.displayDatetime),
-                live: true,
-                timestamp: entry.displayDatetime,
-                format: "h:mm A · MMM D, YYYY",
-              }}>
-            </time>
+            <a href={`/app/log/${entry.id}`} class="secondary">
+                <time class="datetime" use:svelteTime={{
+                    relative: useRelativeTime(entry.displayDatetime),
+                    live: true,
+                    timestamp: entry.displayDatetime,
+                    format: "h:mm A · MMM D, YYYY",
+                  }}>
+                </time>
+            </a>
         </h2>
         {#each thing.questions as question(question.id)}
         <h3>{question.text}</h3>
