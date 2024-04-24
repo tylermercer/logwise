@@ -36,11 +36,8 @@
 	.entries-list {
 		padding-left: 0;
 		& > li {
-			&:first-child {
-				border-top: 1px solid var(--pico-muted-border-color);
-			}
 			list-style-type: none;
-			border-bottom: 1px solid var(--pico-muted-border-color);
+			margin-bottom: 2rem;
 		}
 	}
 </style>
