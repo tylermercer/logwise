@@ -10,11 +10,15 @@
         return thing ?? await db.things.where('id').equals(entry.thingId).first();
     }
 
-    function isWithin24Hours(date: Date) {
-        return false;
+    const now = new Date().getTime();
+
+    function useRelativeTime(date: Date) {
+        //Use relative time if within last two days
+        return date.getTime() > now - 2 * 24 * 60 * 60 * 1000;
     }
 
     let thingPromise = getThing();
+
 </script>
 
 <div>
@@ -25,10 +29,10 @@
         <h2>
             {thing.name}
             <time class="datetime" use:svelteTime={{
-                relative: isWithin24Hours(entry.displayDatetime),
+                relative: useRelativeTime(entry.displayDatetime),
                 live: true,
                 timestamp: entry.displayDatetime,
-                format: "h:mm A · ddd MMM D, YYYY",
+                format: "h:mm A · MMM D, YYYY",
               }}>
             </time>
         </h2>
