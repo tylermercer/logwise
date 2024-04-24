@@ -39,7 +39,9 @@
 			thingId
 		});
 		saving = false;
-		goto('/things');
+		goto('/log', {
+			replaceState: true
+		});
 	}
 
 	function cancel() {
