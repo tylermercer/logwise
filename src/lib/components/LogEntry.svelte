@@ -1,12 +1,17 @@
 <script lang="ts">
 	import type { EntryRaw, ThingRaw } from "$lib/db";
 	import db from "$lib/db";
+	import { svelteTime } from "svelte-time";
 
     export let entry: EntryRaw;
     export let thing: ThingRaw | undefined = undefined;
 
     async function getThing() {
         return thing ?? await db.things.where('id').equals(entry.thingId).first();
+    }
+
+    function isWithin24Hours(date: Date) {
+        return false;
     }
 
     let thingPromise = getThing();
@@ -17,7 +22,16 @@
         <div aria-busy="true"></div>
     {:then thing}
     {#if thing}
-        <h2>{thing.name}<time class="datetime">{entry.displayDatetime.toLocaleString()}</time></h2>
+        <h2>
+            {thing.name}
+            <time class="datetime" use:svelteTime={{
+                relative: isWithin24Hours(entry.displayDatetime),
+                live: true,
+                timestamp: entry.displayDatetime,
+                format: "h:mm A · ddd MMM D, YYYY",
+              }}>
+            </time>
+        </h2>
         {#each thing.questions as question(question.id)}
         <h3>{question.text}</h3>
         <p>{entry.answers.get(question.id)}</p>
@@ -43,5 +57,6 @@
     time {
         float: right;
         font-weight: normal;
+        font-size: 0.9em;
     }
 </style>
