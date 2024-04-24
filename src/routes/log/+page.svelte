@@ -3,7 +3,7 @@
 	import db, { type ThingId } from '$lib/db';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
-	import Entry from '$lib/components/Entry.svelte';
+	import Entry from '$lib/components/LogEntry.svelte';
 
 	let entries = liveQuery(() => db.entries.orderBy('displayDatetime').reverse().limit(10).toArray());
 </script>
