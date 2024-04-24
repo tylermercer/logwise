@@ -84,4 +84,7 @@
         font-size: 1.5em;
         line-height: 1;
     }
+    .none {
+        opacity: 0.75;
+    }
 </style>
