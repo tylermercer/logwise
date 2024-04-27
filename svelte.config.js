@@ -10,7 +10,11 @@ const config = {
 	kit: {
 		adapter: adapter({
 			routes: {
-				include: ['/app/*']
+				include: ['/app/*'],
+				exclude: [
+					"<all>",
+					"/app/assets/*"
+				]
 			}
 		}),
 		paths: {
