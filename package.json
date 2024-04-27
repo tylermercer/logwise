@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "npm run check && vite build",
+    "build:nocheck": "vite build",
     "postbuild": "copy-folder public .svelte-kit/cloudflare && echo 'Copied redirects file'",
     "preview": "npm run build && wrangler pages dev .svelte-kit/cloudflare",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
