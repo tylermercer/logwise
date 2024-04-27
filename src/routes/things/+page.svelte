@@ -11,8 +11,11 @@
 		e.preventDefault();
 		e.stopImmediatePropagation();
 		if (pendingDeletionId) {
-			await db.things.delete(pendingDeletionId);
-			await db.entries.where('thingId').equals(pendingDeletionId).delete();
+			let capturedId = pendingDeletionId!;
+			await db.transaction('rw', db.things, db.entries, async () => {
+				await db.things.delete(capturedId);
+				await db.entries.where('thingId').equals(capturedId).delete();
+			});
 			pendingDeletionId = undefined;
 		} else {
 			pendingDeletionId = id;
