@@ -13,7 +13,8 @@ const config = {
 				include: ['/app/*'],
 				exclude: [
 					"<all>",
-					"/app/assets/*"
+					"/app/assets/*",
+					"/app/service-worker.js",
 				]
 			}
 		}),
