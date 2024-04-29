@@ -56,7 +56,7 @@ export class LogThingDexie extends Dexie {
     });
     this.cloud.configure({
       databaseUrl: PUBLIC_DEXIE_CLOUD_URL!,
-      tryUseServiceWorker: true, // true!
+      tryUseServiceWorker: false,
       requireAuth: false,
     });
   }
