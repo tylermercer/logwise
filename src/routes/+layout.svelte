@@ -1,5 +1,6 @@
 <script lang="ts">
 	import MungedEmailLink from '$lib/components/MungedEmailLink.svelte';
+	import '../styles/theme.scss';
 	import '../styles/base.scss';
 	import '../styles/layouts.scss';
 	import '../styles/utilities.scss';
