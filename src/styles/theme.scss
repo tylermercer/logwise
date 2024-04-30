@@ -24,7 +24,11 @@
             "prefix": "step-",
         ));
 
-
+    //Fonts
+    //Figtree on System UI from modernfontstacks.com
+    --font-body: 'Figtree Variable', 'Palatino Linotype', Georgia, Cambria, 'Times New Roman', serif;
+    //Rubik on Industrial from modernfontstacks.com
+    --font-heading: 'Rubik Variable', 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
 }
 
 //Custom color palettes (light and dark) generated via https://www.radix-ui.com/colors/custom with color #3D63DD

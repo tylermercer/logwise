@@ -1,5 +1,7 @@
 <script lang="ts">
 	import MungedEmailLink from '$lib/components/MungedEmailLink.svelte';
+	import '@fontsource-variable/figtree';
+	import '@fontsource-variable/rubik';
 	import '../styles/theme.scss';
 	import '../styles/base.scss';
 	import '../styles/layouts.scss';

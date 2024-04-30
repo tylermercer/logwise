@@ -39,6 +39,8 @@
   },
   "type": "module",
   "dependencies": {
+    "@fontsource-variable/figtree": "^5.0.21",
+    "@fontsource-variable/rubik": "^5.0.22",
     "@iconify-json/teenyicons": "^1.1.9",
     "dexie": "^4.0.4",
     "dexie-cloud-addon": "^4.0.2",
