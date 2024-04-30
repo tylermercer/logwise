@@ -3,12 +3,7 @@
 	import '../styles/base.scss';
 	import '../styles/layouts.scss';
 	import '../styles/utilities.scss';
-
-	import type { LayoutData } from './$types';
-
-	export let data: LayoutData;
-
-	const db = data.db;
+	import db from "$lib/db";
 
 	let user = db.cloud.currentUser;
 </script>

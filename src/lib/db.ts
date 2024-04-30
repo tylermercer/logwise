@@ -64,4 +64,7 @@ export class LogThingDexie extends Dexie {
 
 const db = new LogThingDexie();
 
+//Note that this invokes db.open() when the module is loaded
+export const dbOpenPromise = new Promise<void>(r => db.open().then(() => r()));
+
 export default db;

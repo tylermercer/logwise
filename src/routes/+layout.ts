@@ -7,10 +7,6 @@ export const ssr = false;
 
 export const load: LayoutLoad = async () => {
     if (browser) {
-        await db.open();
         logCommitHash();
-    }
-    return {
-		db,
-	};
+    };
 };
