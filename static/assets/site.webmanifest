@@ -14,7 +14,7 @@
         }
     ],
     "start_url": "/app/",
-    "theme_color": "#ffffff",
+    "theme_color": "#1f215c",
     "background_color": "#ffffff",
     "display": "standalone"
 }
