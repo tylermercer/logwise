@@ -19,6 +19,6 @@
 	</a>
 	<h1>New thing</h1>
 </HeaderBar>
-<main class="container">
+<main class="u-guttered">
 	<ThingEditor onSubmit={handleSubmit}></ThingEditor>
 </main>

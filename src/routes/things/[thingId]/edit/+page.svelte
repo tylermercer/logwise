@@ -28,6 +28,6 @@
 	</a>
 	<h1>Editing "{existingThing.name}"</h1>
 </HeaderBar>
-<main class="container">
+<main class="u-guttered">
 	<ThingEditor onSubmit={handleSubmit} {existingThing}></ThingEditor>
 </main>

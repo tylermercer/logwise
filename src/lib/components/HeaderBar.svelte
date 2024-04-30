@@ -1,4 +1,4 @@
-<header class="container l-cluster-l">
+<header class="u-guttered l-cluster-l">
 	<slot></slot>
 </header>
 <style lang="scss">

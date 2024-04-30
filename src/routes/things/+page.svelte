@@ -30,7 +30,7 @@
 	</a>
 	<h1>My Things</h1>
 </HeaderBar>
-<main class="container">
+<main class="u-guttered">
 	{#if $things}
 		{#if $things.length}
 			<ul class="things-list">

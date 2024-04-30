@@ -42,7 +42,7 @@
 		{/if}
 	</button>
 </HeaderBar>
-<main class="container">
+<main class="u-guttered">
 	<LogEntry entry={existingEntry}></LogEntry>
 </main>
 <style lang="scss">

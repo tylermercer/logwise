@@ -10,7 +10,7 @@
 </script>
 
 <slot />
-<footer class="container">
+<footer class="u-guttered">
 	<hr>
 	<div>
 		{#if $user.isLoggedIn}
