@@ -40,7 +40,6 @@
   "type": "module",
   "dependencies": {
     "@iconify-json/teenyicons": "^1.1.9",
-    "@picocss/pico": "^2.0.6",
     "dexie": "^4.0.4",
     "dexie-cloud-addon": "^4.0.2",
     "nanoid": "^5.0.7",
