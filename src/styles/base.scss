@@ -89,3 +89,9 @@ button {
         background-color: var(--primary-10);
     }
 }
+input,
+textarea {
+    border-radius: 4px;
+    display: block;
+    padding: 0.25rem;
+}
