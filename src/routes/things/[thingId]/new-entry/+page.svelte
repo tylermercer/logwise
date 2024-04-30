@@ -49,10 +49,10 @@
 	}
 </script>
 
-<header class="container">
+<header class="u-guttered">
 	<h1>{name}</h1>
 </header>
-<main class="container">
+<main class="u-guttered">
 	<form on:submit={saveEntry}>
 		{#each questionAnswers as questionWithAnswer (questionWithAnswer.question.id)}
 			<div class="question">

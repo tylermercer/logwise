@@ -5,7 +5,7 @@
 	export let form: ActionData;
 </script>
 
-<main class="container">
+<main class="u-guttered">
     <h1>Guestbook</h1>
     {#each data.comments as { author, body }}
     <blockquote>

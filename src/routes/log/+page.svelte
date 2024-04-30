@@ -14,7 +14,7 @@
 	</a>
 	<h1>Log</h1>
 </HeaderBar>
-<main class="container">
+<main class="u-guttered">
 	{#if $entries}
 		{#if $entries.length}
 			<ul class="entries-list">

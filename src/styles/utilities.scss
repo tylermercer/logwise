@@ -1,3 +1,13 @@
+.u-guttered {
+    padding: var(--space-m);
+    margin-inline: auto;
+    max-inline-size: 60ch;
+}
+.u-guttered-lg {
+    padding: var(--space-m);
+    margin-inline: auto;
+        max-inline-size: 90ch;
+}
 a.u-link-block {
     display: block;
     height: 100%;
