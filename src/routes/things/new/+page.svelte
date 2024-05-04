@@ -14,7 +14,7 @@
 </script>
 
 <HeaderBar>
-	<a href="/app/things" class="secondary" aria-label="Home">
+	<a href="/app/things" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>New thing</h1>

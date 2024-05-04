@@ -9,7 +9,7 @@
 </script>
 
 <HeaderBar>
-	<a href="/app/" class="secondary" aria-label="Home">
+	<a href="/app/" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>Log</h1>
