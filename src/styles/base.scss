@@ -124,6 +124,9 @@ button, a[role=button] {
         outline-offset: 1px;
     }
 }
+textarea {
+    resize: vertical;
+}
 input,
 textarea,
 select {
