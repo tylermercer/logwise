@@ -28,7 +28,7 @@
 			<p>
 				There's nothing in your log yet.
 				Get started by
-				<a href="/app/entries/new">creating a Thing to log</a>.
+				<a href="/app/things/new">creating a Thing to log</a>.
 			</p>
 		{/if}
 	{:else}
