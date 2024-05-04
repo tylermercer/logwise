@@ -25,7 +25,11 @@
 				{/each}
 			</ul>
 		{:else}
-			<p>You don't have any entries yet. Get started by <a href="/app/entries/new">creating a Thing to log</a>.</p>
+			<p>
+				There's nothing in your log yet.
+				Get started by
+				<a href="/app/entries/new">creating a Thing to log</a>.
+			</p>
 		{/if}
 	{:else}
 		<p><span aria-busy="true">Loading...</span></p>
