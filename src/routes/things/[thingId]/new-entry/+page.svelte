@@ -76,7 +76,7 @@
 				<DatetimeInput id="datetime" bind:value={datetime} />
 			</label>
 			<div class="l-cluster-r">
-				<button class="secondary" on:click={cancel} type="button">Cancel</button>
+				<button class="btn-secondary" on:click={cancel} type="button">Cancel</button>
 				<button type="submit" aria-busy={saving}>
 					{#if saving}
 						Saving

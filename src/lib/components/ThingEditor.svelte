@@ -110,7 +110,7 @@
 						<button
 							type="button"
 							on:click={() => deleteQuestion(question.tempId)}
-							class="outline secondary"
+							class="btn-outline btn-secondary"
 						>
 							Delete
 						</button>
@@ -122,7 +122,7 @@
 		{/if}
 	</fieldset>
 	<div class="l-cluster-r">
-		<button class="secondary" type="button" on:click={addQuestion}>Add Question</button>
+		<button class="btn-secondary" type="button" on:click={addQuestion}>Add Question</button>
 	</div>
 	<hr />
 	<p>{status}</p>

@@ -23,6 +23,6 @@
 		{/if}
 	</div>
 	<small>
-		Created by <a class="secondary" href="https://tylermercer.net">Tyler Mercer</a>. Got feedback? <MungedEmailLink class="secondary">Email me!</MungedEmailLink>
+		Created by <a class="btn-secondary" href="https://tylermercer.net">Tyler Mercer</a>. Got feedback? <MungedEmailLink class="btn-secondary">Email me!</MungedEmailLink>
 	</small>
 </footer>

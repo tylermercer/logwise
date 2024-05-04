@@ -77,18 +77,47 @@ blockquote {
     }
 }
 
-button {
-    background-color: var(--primary-9);
-    color: var(--gray-contrast);
+a[role=button] {
+    line-height: 1.15;
+    display: inline-block;
+    text-decoration: none;
+}
+
+button, a[role=button] {
+    background-color: var(--button-color);
+    color: var(--button-text-color);
     border-radius: 4px;
     border: none;
     padding: var(--space-xs);
     font-size: inherit;
+    cursor: pointer;
+    --button-color: var(--primary-9);
+    --button-color-hov: var(--primary-10);
+    --button-text-color: var(--gray-contrast);
+    --button-text-color-hov: var(--gray-contrast);
+    --outline-color: var(--primary-8);
+    &.btn-secondary {
+        --button-color: var(--gray-9);
+        --button-color-hov: var(--gray-10);
+        --outline-color: var(--gray-8);
+    }
+    &.btn-contrast {
+        --button-color: var(--gray-11);
+        --button-color-hov: var(--gray-12);
+        --outline-color: var(--gray-8);
+    }
+    &.btn-outline {
+        --button-text-color: var(--button-color);
+        --button-text-color-hov: var(--button-color-hov);
+        background-color: transparent;
+        border: 2px solid var(--button-color);
+    }
     &:hover {
-        background-color: var(--primary-10);
+        --button-color: var(--button-color-hov);
+        --button-text-color: var(--button-text-color-hov);
     }
     &:focus-visible {
-        outline: 2px solid var(--primary-8);
+        outline: 2px solid var(--outline-color);
         outline-offset: 1px;
     }
 }

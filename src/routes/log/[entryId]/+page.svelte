@@ -25,14 +25,14 @@
 </script>
 
 <HeaderBar>
-	<a href="/app/log" class="secondary" aria-label="Home">
+	<a href="/app/log" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>Entry</h1>
 	<button
-		class="btn-delete outline"
-		class:secondary={!pendingDeletion}
-		class:contrast={pendingDeletion}
+		class="btn-delete btn-outline"
+		class:btn-secondary={!pendingDeletion}
+		class:btn-contrast={pendingDeletion}
 		on:click={deleteEntry}
 	>
 		{#if pendingDeletion}

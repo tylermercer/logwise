@@ -29,7 +29,7 @@
     {#if thing}
         <h2>
             {thing.name}
-            <a href={`/app/log/${entry.id}`} class="secondary">
+            <a href={`/app/log/${entry.id}`} class="btn-secondary">
                 <time class="datetime" use:svelteTime={{
                     relative: useRelativeTime(entry.displayDatetime),
                     live: true,

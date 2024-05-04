@@ -25,7 +25,7 @@
 </script>
 
 <HeaderBar>
-	<a href="/app/" class="secondary" aria-label="Home">
+	<a href="/app/" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>My Things</h1>
@@ -42,15 +42,15 @@
 								<div class="l-cluster-r actions">
 									<a
 										href="/app/things/{thing.id}/edit"
-										class="outline secondary"
+										class="btn-outline btn-secondary"
 										role="button"
 									>
 										Edit
 									</a>
 									<button
-										class="outline"
-										class:secondary={pendingDeletionId !== thing.id}
-										class:contrast={pendingDeletionId === thing.id}
+										class="btn-outline"
+										class:btn-secondary={pendingDeletionId !== thing.id}
+										class:btn-contrast={pendingDeletionId === thing.id}
 										on:click={(e) => deleteThing(e, thing.id)}
 									>
 										{#if pendingDeletionId === thing.id}
