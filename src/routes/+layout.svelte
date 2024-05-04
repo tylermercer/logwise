@@ -2,6 +2,7 @@
 	import MungedEmailLink from '$lib/components/MungedEmailLink.svelte';
 	import '@fontsource-variable/figtree';
 	import '@fontsource-variable/rubik';
+	import "modern-normalize/modern-normalize.css";
 	import '../styles/theme.scss';
 	import '../styles/base.scss';
 	import '../styles/layouts.scss';
