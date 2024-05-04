@@ -142,7 +142,5 @@
 		margin-block-end: 2rem;
 		border: 1px solid var(--pico-muted-border-color);
 		border-radius: 0.5rem;
-		padding: 1rem;
-		margin-inline: -1rem;
 	}
 </style>
