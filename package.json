@@ -44,6 +44,7 @@
     "@iconify-json/teenyicons": "^1.1.9",
     "dexie": "^4.0.4",
     "dexie-cloud-addon": "^4.0.2",
+    "modern-normalize": "^2.0.0",
     "nanoid": "^5.0.7",
     "sass": "^1.74.1",
     "svelte-time": "^0.9.0",
