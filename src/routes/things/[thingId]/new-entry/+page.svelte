@@ -6,6 +6,8 @@
 	import { goto } from '$lib/navigation';
 	import DatetimeInput from '$lib/components/DatetimeInput.svelte';
 	import { getType, typeid } from 'typeid-unboxed';
+	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
+	import HeaderBar from '$lib/components/HeaderBar.svelte';
 
 	export let data: PageData;
 
@@ -43,15 +45,13 @@
 			replaceState: true
 		});
 	}
-
-	function cancel() {
-		history.back();
-	}
 </script>
-
-<header class="u-guttered">
+<HeaderBar>
+	<a href="/app/things" class="btn-secondary" aria-label="Home">
+		<LeftArrow></LeftArrow>
+	</a>
 	<h1>{name}</h1>
-</header>
+</HeaderBar>
 <main class="u-guttered">
 	<form on:submit={saveEntry}>
 		{#each questionAnswers as questionWithAnswer (questionWithAnswer.question.id)}
@@ -76,7 +76,6 @@
 				<DatetimeInput id="datetime" bind:value={datetime} />
 			</label>
 			<div class="l-cluster-r">
-				<button class="btn-secondary" on:click={cancel} type="button">Cancel</button>
 				<button type="submit" aria-busy={saving}>
 					{#if saving}
 						Saving
