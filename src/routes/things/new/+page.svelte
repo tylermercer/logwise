@@ -13,6 +13,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>New Thing</title>
+</svelte:head>
 <HeaderBar>
 	<a href="/app/things" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>

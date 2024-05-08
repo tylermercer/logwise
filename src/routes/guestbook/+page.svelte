@@ -4,7 +4,9 @@
 	export let data: PageData;
 	export let form: ActionData;
 </script>
-
+<svelte:head>
+    <title>Guestbook</title>
+</svelte:head>
 <main class="u-guttered">
     <h1>Guestbook</h1>
     {#each data.comments as { author, body }}

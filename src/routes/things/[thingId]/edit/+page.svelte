@@ -21,7 +21,9 @@
 		goto('/things');
 	}
 </script>
-
+<svelte:head>
+	<title>Editing "{existingThing.name}"</title>
+</svelte:head>
 <HeaderBar>
 	<a href="/app/things" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>

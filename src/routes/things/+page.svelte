@@ -24,6 +24,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>My Things</title>
+</svelte:head>
 <HeaderBar>
 	<a href="/app/" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>

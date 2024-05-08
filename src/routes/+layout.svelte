@@ -12,6 +12,9 @@
 	let user = db.cloud.currentUser;
 </script>
 
+<svelte:head>
+	<title>Log Thing</title>
+</svelte:head>
 <slot />
 <footer class="u-guttered">
 	<hr>

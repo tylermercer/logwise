@@ -8,6 +8,9 @@
 	let entries = liveQuery(() => db.entries.orderBy('displayDatetime').reverse().limit(10).toArray());
 </script>
 
+<svelte:head>
+	<title>Log</title>
+</svelte:head>
 <HeaderBar>
 	<a href="/app/" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>

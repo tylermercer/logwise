@@ -23,7 +23,9 @@
 		}
 	}
 </script>
-
+<svelte:head>
+	<title>Entry</title>
+</svelte:head>
 <HeaderBar>
 	<a href="/app/log" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>

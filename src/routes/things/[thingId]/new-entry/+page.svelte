@@ -46,6 +46,10 @@
 		});
 	}
 </script>
+
+<svelte:head>
+    <title>{name}</title>
+</svelte:head>
 <HeaderBar>
 	<a href="/app/things" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
