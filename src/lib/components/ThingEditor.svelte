@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { DB_NULL, type ThingRaw } from '$lib/db';
 	import type { DraftQuestion } from '$lib/question';
+	import assertNever from '$lib/util/assertNever';
 	import { nanoid } from 'nanoid';
 	import { getType, typeid } from 'typeid-unboxed';
 
@@ -62,7 +63,7 @@
 									id: typeid('text'),
 									text: q.data.text
 								}
-							: null!
+						: assertNever(q.type)
 				)
 			});
 
@@ -94,6 +95,8 @@
 									"What's on your mind?"
 								{:else if question.type === 'likert'}
 									"How are you feeling?"
+								{:else}
+									{assertNever(question.type)}
 								{/if}
 							</small>
 						</label>

@@ -3,6 +3,7 @@
 	import db from "$lib/db";
 	import { isLikertQuestion } from "$lib/question/likert";
 	import { isTextQuestion } from "$lib/question/text";
+	import assertNever from "$lib/util/assertNever";
 	import { svelteTime } from "svelte-time";
 
     export let entry: EntryRaw;
@@ -54,6 +55,8 @@
                     <span class="none">(Empty)</span>
                 {/if}
             </p>
+        {:else}
+            {assertNever(q)}
         {/if}
         {/each}
     {:else}
