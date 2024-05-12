@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { EntryRaw, ThingRaw } from "$lib/db";
 	import db from "$lib/db";
-	import { isLikertQuestion } from "$lib/question/likert/likertQuestion";
-	import { isTextQuestion } from "$lib/question/text/textQuestion";
+	import { isLikertQuestion } from "$lib/question/likert";
+	import { isTextQuestion } from "$lib/question/text";
 	import { svelteTime } from "svelte-time";
 
     export let entry: EntryRaw;

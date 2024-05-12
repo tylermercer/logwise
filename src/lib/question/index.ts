@@ -1,6 +1,6 @@
 import { getType, type TypeID } from 'typeid-unboxed';
-import type { TextQuestion } from './text/textQuestion';
-import type { LikertQuestion } from './likert/likertQuestion';
+import type { TextQuestion } from './text';
+import type { LikertQuestion } from './likert';
 
 export interface BaseQuestion<T extends string> {
     text: string;
