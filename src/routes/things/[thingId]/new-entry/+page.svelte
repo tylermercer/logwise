@@ -7,9 +7,10 @@
 	import { typeid } from 'typeid-unboxed';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
-	import { isTextQuestion } from '$lib/question/text';
-	import { isLikertQuestion } from '$lib/question/likert';
+	import { isAnsweredTextQuestion } from '$lib/question/text';
+	import { isAnsweredLikertQuestion } from '$lib/question/likert';
 	import assertNever from '$lib/util/assertNever';
+	import { toAnsweredQuestion } from '$lib/question';
 
 	export let data: PageData;
 
@@ -18,14 +19,7 @@
 
 	let { name, questions, id: thingId } = data.thing;
 
-	let questionAnswers = questions.map((q) => ({
-		question: q,
-		answer: isTextQuestion(q)
-			? ''
-			: isLikertQuestion(q)
-				? 3
-				: assertNever(q)
-	}));
+	let answeredQuestions = questions.map(toAnsweredQuestion);
 
 	let datetime = new Date();
 	datetime.setSeconds(0);
@@ -34,7 +28,7 @@
 		saving = true;
 		const answers: Map<QuestionId, any> = new Map<QuestionId, any>();
 
-		questionAnswers.forEach((qa) => answers.set(qa.question.id, qa.answer));
+		answeredQuestions.forEach((qa) => answers.set(qa.question.id, qa.answer));
 
 		const now = new Date();
 
@@ -64,17 +58,17 @@
 </HeaderBar>
 <main class="u-guttered">
 	<form on:submit={saveEntry}>
-		{#each questionAnswers as questionWithAnswer (questionWithAnswer.question.id)}
+		{#each answeredQuestions as answeredQuestion (answeredQuestion.question.id)}
 			<div class="question">
 				<div class="grid">
 					<label>
-						{questionWithAnswer.question.text}
-						{#if isTextQuestion(questionWithAnswer.question)}
-							<textarea bind:value={questionWithAnswer.answer} />
-						{:else if isLikertQuestion(questionWithAnswer.question)}
-							<input type="range" bind:value={questionWithAnswer.answer} min="1" max="5" />
+						{answeredQuestion.question.text}
+						{#if isAnsweredTextQuestion(answeredQuestion)}
+							<textarea bind:value={answeredQuestion.answer} />
+						{:else if isAnsweredLikertQuestion(answeredQuestion)}
+							<input type="range" bind:value={answeredQuestion.answer} min="1" max="5" />
 						{:else}
-							{assertNever(questionWithAnswer.question)}
+							{assertNever(answeredQuestion)}
 						{/if}
 					</label>
 				</div>
