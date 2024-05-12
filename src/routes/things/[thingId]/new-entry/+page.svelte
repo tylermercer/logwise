@@ -8,6 +8,8 @@
 	import { getType, typeid } from 'typeid-unboxed';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
+	import { isTextQuestion } from '$lib/question/text';
+	import { isLikertQuestion } from '$lib/question/likert';
 
 	export let data: PageData;
 
@@ -63,9 +65,9 @@
 				<div class="grid">
 					<label>
 						{questionWithAnswer.question.text}
-						{#if getType(questionWithAnswer.question.id) === 'text'}
+						{#if isTextQuestion(questionWithAnswer.question)}
 							<textarea bind:value={questionWithAnswer.answer} />
-						{:else if getType(questionWithAnswer.question.id) === 'likert'}
+						{:else if isLikertQuestion(questionWithAnswer.question)}
 							<input type="range" bind:value={questionWithAnswer.answer} min="1" max="5" />
 						{/if}
 					</label>

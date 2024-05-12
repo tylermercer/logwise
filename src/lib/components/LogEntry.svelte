@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { EntryRaw, ThingRaw } from "$lib/db";
 	import db from "$lib/db";
+	import { isLikertQuestion } from "$lib/question/likert/likertQuestion";
+	import { isTextQuestion } from "$lib/question/text/textQuestion";
 	import { svelteTime } from "svelte-time";
-	import { getType } from "typeid-unboxed";
 
     export let entry: EntryRaw;
     export let thing: ThingRaw | undefined = undefined;
@@ -39,16 +40,16 @@
                 </time>
             </a>
         </h2>
-        {#each thing.questions as question(question.id)}
-        <h3>{question.text}</h3>
-        {#if getType(question.id) == 'likert'}
+        {#each thing.questions as q(q.id)}
+        <h3>{q.text}</h3>
+        {#if isLikertQuestion(q)}
             <p data-qtype='likert'>
-                {entry.answers.get(question.id)} / 5
+                {entry.answers.get(q.id)} / 5
             </p>
-        {:else if getType(question.id) == 'text'}
+        {:else if isTextQuestion(q)}
             <p data-qtype='text'>
-                {#if entry.answers.get(question.id)}
-                    {entry.answers.get(question.id)}
+                {#if entry.answers.get(q.id)}
+                    {entry.answers.get(q.id)}
                 {:else}
                     <span class="none">(Empty)</span>
                 {/if}
