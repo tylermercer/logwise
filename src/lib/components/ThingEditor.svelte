@@ -63,6 +63,11 @@
 									id: typeid('text'),
 									text: q.data.text
 								}
+						: q.type === 'bool'
+							? {
+									id: typeid('bool'),
+									text: q.data.text
+								}
 						: assertNever(q.type)
 				)
 			});
@@ -95,6 +100,8 @@
 									"What's on your mind?"
 								{:else if question.type === 'likert'}
 									"How are you feeling?"
+								{:else if question.type === 'bool'}
+									"Did you do your habit today?"
 								{:else}
 									{assertNever(question.type)}
 								{/if}
@@ -105,6 +112,7 @@
 							<select bind:value={question.type}>
 								<option value="text">Text</option>
 								<option value="likert">1-to-5 scale</option>
+								<option value="bool">Yes/No (checkbox)</option>
 							</select>
 						</label>
 					</div>

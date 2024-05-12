@@ -1,6 +1,7 @@
 import { getType, type TypeID } from 'typeid-unboxed';
 import { isTextQuestion, type TextQuestion, type AnsweredTextQuestion } from './text';
 import { isLikertQuestion, type LikertQuestion, type AnsweredLikertQuestion } from './likert';
+import { isBoolQuestion, type BoolQuestion, type AnsweredBoolQuestion } from './bool';
 import assertNever from '$lib/util/assertNever';
 
 export interface BaseQuestion<T extends string> {
@@ -12,11 +13,13 @@ export interface BaseQuestion<T extends string> {
 export type Question =
   TextQuestion
   | LikertQuestion
+  | BoolQuestion
   ;
 
 export type AnsweredQuestion =
 AnsweredTextQuestion
   | AnsweredLikertQuestion
+  | AnsweredBoolQuestion
   ;
 
 export type ExtractType<TQuestion extends Question> = TQuestion extends BaseQuestion<infer T> ? T : never;
@@ -44,6 +47,12 @@ export function toAnsweredQuestion(question: Question): AnsweredQuestion {
     return {
       question,
       answer: 3
+    }
+  }
+  else if (isBoolQuestion(question)) {
+    return {
+      question,
+      answer: false,
     }
   }
   else {
