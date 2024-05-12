@@ -9,6 +9,7 @@
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
 	import { isAnsweredTextQuestion } from '$lib/question/text';
 	import { isAnsweredLikertQuestion } from '$lib/question/likert';
+	import { isAnsweredBoolQuestion } from '$lib/question/bool';
 	import assertNever from '$lib/util/assertNever';
 	import { toAnsweredQuestion } from '$lib/question';
 
@@ -67,6 +68,8 @@
 							<textarea bind:value={answeredQuestion.answer} />
 						{:else if isAnsweredLikertQuestion(answeredQuestion)}
 							<input type="range" bind:value={answeredQuestion.answer} min="1" max="5" />
+						{:else if isAnsweredBoolQuestion(answeredQuestion)}
+							<input type="checkbox" bind:checked={answeredQuestion.answer} />
 						{:else}
 							{assertNever(answeredQuestion)}
 						{/if}

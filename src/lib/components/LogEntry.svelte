@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { EntryRaw, ThingRaw } from "$lib/db";
 	import db from "$lib/db";
+	import { isBoolQuestion } from "$lib/question/bool";
 	import { isLikertQuestion } from "$lib/question/likert";
 	import { isTextQuestion } from "$lib/question/text";
 	import assertNever from "$lib/util/assertNever";
@@ -55,6 +56,10 @@
                     <span class="none">(Empty)</span>
                 {/if}
             </p>
+        {:else if isBoolQuestion(q)}
+            <p data-qtype='bool'>
+                {entry.answers.get(q.id) ? "Yes" : "No"}
+            </p>
         {:else}
             {assertNever(q)}
         {/if}
@@ -85,7 +90,8 @@
     p {
         margin-bottom: 0;
     }
-    p[data-qtype=likert] {
+    p[data-qtype=likert],
+    p[data-qtype=bool] {
         font-weight: bold;
         font-size: 1.5em;
         line-height: 1;
