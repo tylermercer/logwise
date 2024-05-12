@@ -19,7 +19,11 @@ AnsweredTextQuestion
   | AnsweredLikertQuestion
   ;
 
-export	type DraftQuestion = { tempId: string; type: 'text' | 'likert'; data: Omit<Question, 'id'> };
+export type ExtractType<TQuestion extends Question> = TQuestion extends BaseQuestion<infer T> ? T : never;
+
+type QuestionType = ExtractType<Question>;
+
+export	type DraftQuestion = { tempId: string; type: QuestionType; data: Omit<Question, 'id'> };
 
 export function makeTypeGuard<QType extends Question>(idType: string) {
     return (q: Question): q is QType => getType(q.id) == idType;
