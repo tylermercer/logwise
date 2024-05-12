@@ -1,15 +1,15 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-
 	import db from '$lib/db';
 	import type { QuestionId } from '$lib/db';
 	import { goto } from '$lib/navigation';
 	import DatetimeInput from '$lib/components/DatetimeInput.svelte';
-	import { getType, typeid } from 'typeid-unboxed';
+	import { typeid } from 'typeid-unboxed';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
 	import { isTextQuestion } from '$lib/question/text';
 	import { isLikertQuestion } from '$lib/question/likert';
+	import assertNever from '$lib/util/assertNever';
 
 	export let data: PageData;
 
@@ -20,7 +20,11 @@
 
 	let questionAnswers = questions.map((q) => ({
 		question: q,
-		answer: getType(q.id) === 'text' ? '' : getType(q.id) === 'likert' ? 3 : null!
+		answer: isTextQuestion(q)
+			? ''
+			: isLikertQuestion(q)
+				? 3
+				: assertNever(q)
 	}));
 
 	let datetime = new Date();
@@ -30,7 +34,7 @@
 		saving = true;
 		const answers: Map<QuestionId, any> = new Map<QuestionId, any>();
 
-		questionAnswers.forEach((qa) => (answers.set(qa.question.id, qa.answer)));
+		questionAnswers.forEach((qa) => answers.set(qa.question.id, qa.answer));
 
 		const now = new Date();
 
@@ -69,6 +73,8 @@
 							<textarea bind:value={questionWithAnswer.answer} />
 						{:else if isLikertQuestion(questionWithAnswer.question)}
 							<input type="range" bind:value={questionWithAnswer.answer} min="1" max="5" />
+						{:else}
+							{assertNever(questionWithAnswer.question)}
 						{/if}
 					</label>
 				</div>
