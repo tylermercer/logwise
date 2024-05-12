@@ -2,14 +2,7 @@ import Dexie, { type Table } from 'dexie';
 import dexieCloud from "dexie-cloud-addon";
 import { type TypeID } from 'typeid-unboxed';
 import { PUBLIC_DEXIE_CLOUD_URL } from '$env/static/public';
-import type { TextQuestion } from './question-types/text/textQuestion';
-import type { LikertQuestion } from './question-types/likert/likertQuestion';
-
-//Funky formatting for git-friendliness
-export type Question =
-  TextQuestion
-  | LikertQuestion
-  ;
+import type { Question } from './question';
 
 export type QuestionId = Question['id']
 

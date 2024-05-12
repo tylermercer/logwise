@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { DB_NULL, type Question, type ThingRaw } from '$lib/db';
+	import { DB_NULL, type ThingRaw } from '$lib/db';
+	import type { DraftQuestion } from '$lib/question';
 	import { nanoid } from 'nanoid';
 	import { getType, typeid } from 'typeid-unboxed';
 
@@ -11,8 +12,6 @@
 	let saving = false;
 
 	let thingName = existingThing?.name ?? '';
-
-	type DraftQuestion = { tempId: string; type: 'text' | 'likert'; data: Omit<Question, 'id'> };
 
 	function newQuestion(): DraftQuestion {
 		return {
