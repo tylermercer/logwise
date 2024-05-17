@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     --l-switcher-threshold: 50rem;
     --l-switcher-modifier: calc(var(--l-switcher-threshold) - 100%);
-    gap: var(--space-m);
+    gap: var(--l-switcher-gap, var(--space-m));
 }
 .l-switcher > * {
     flex-grow: 1;

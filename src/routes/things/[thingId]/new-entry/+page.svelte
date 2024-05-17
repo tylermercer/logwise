@@ -49,7 +49,7 @@
 </script>
 
 <svelte:head>
-    <title>{name}</title>
+	<title>{name}</title>
 </svelte:head>
 <HeaderBar>
 	<a href="/app/things" class="btn-secondary" aria-label="Home">
@@ -62,18 +62,43 @@
 		{#each answeredQuestions as answeredQuestion (answeredQuestion.question.id)}
 			<div class="question">
 				<div class="grid">
-					<label>
-						{answeredQuestion.question.text}
-						{#if isAnsweredTextQuestion(answeredQuestion)}
+					{#if isAnsweredTextQuestion(answeredQuestion)}
+						<label>
+							{answeredQuestion.question.text}
 							<textarea bind:value={answeredQuestion.answer} />
-						{:else if isAnsweredLikertQuestion(answeredQuestion)}
+						</label>
+					{:else if isAnsweredLikertQuestion(answeredQuestion)}
+						<label>
+							{answeredQuestion.question.text}
 							<input type="range" bind:value={answeredQuestion.answer} min="1" max="5" />
-						{:else if isAnsweredBoolQuestion(answeredQuestion)}
-							<input type="checkbox" bind:checked={answeredQuestion.answer} />
-						{:else}
-							{assertNever(answeredQuestion)}
-						{/if}
-					</label>
+						</label>
+					{:else if isAnsweredBoolQuestion(answeredQuestion)}
+						<fieldset class="yes-no l-switcher">
+							<legend>
+								{answeredQuestion.question.text}
+							</legend>
+							<label>
+								<input
+									type="radio"
+									name="yes"
+									checked={answeredQuestion.answer}
+									on:change={() => (answeredQuestion.answer = true)}
+								/>
+								Yes
+							</label>
+							<label>
+								<input
+									type="radio"
+									name="no"
+									checked={!answeredQuestion.answer}
+									on:change={() => (answeredQuestion.answer = false)}
+								/>
+								No
+							</label>
+						</fieldset>
+					{:else}
+						{assertNever(answeredQuestion)}
+					{/if}
 				</div>
 			</div>
 		{/each}
@@ -104,5 +129,9 @@
 	}
 	.label-datetime {
 		margin-bottom: 0;
+	}
+	fieldset.yes-no.l-switcher {
+		--l-switcher-gap: 0;
+		--l-switcher-threshold: 10rem;
 	}
 </style>
