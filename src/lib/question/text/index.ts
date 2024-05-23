@@ -1,4 +1,9 @@
-import { makeAnsweredTypeGuard, makeTypeGuard, type BaseQuestion } from "../";
+import {
+    makeAnsweredTypeGuard,
+    makeTypeGuard,
+    type BaseAnsweredQuestion,
+    type BaseQuestion,
+} from "..";
 
 export const isTextQuestion = makeTypeGuard<TextQuestion>('text');
 
@@ -6,7 +11,4 @@ export const isAnsweredTextQuestion = makeAnsweredTypeGuard<AnsweredTextQuestion
 
 export interface TextQuestion extends BaseQuestion<'text'> {}
 
-export interface AnsweredTextQuestion {
-    question: TextQuestion;
-    answer: string
-}
+export interface AnsweredTextQuestion extends BaseAnsweredQuestion<TextQuestion, string> {}

@@ -9,6 +9,11 @@ export interface BaseQuestion<T extends string> {
     id: TypeID<T>; //uuid prefixed with type
 }
 
+export interface BaseAnsweredQuestion<Q extends BaseQuestion<any>, A> {
+  question: Q
+  answer: A
+}
+
 //Funky formatting for git-friendliness
 export type Question =
   TextQuestion

@@ -1,4 +1,9 @@
-import { makeAnsweredTypeGuard, makeTypeGuard, type BaseQuestion } from "..";
+import {
+    makeAnsweredTypeGuard,
+    makeTypeGuard,
+    type BaseAnsweredQuestion,
+    type BaseQuestion
+} from "..";
 
 export const isBoolQuestion = makeTypeGuard<BoolQuestion>('bool');
 
@@ -6,7 +11,4 @@ export const isAnsweredBoolQuestion = makeAnsweredTypeGuard<AnsweredBoolQuestion
 
 export interface BoolQuestion extends BaseQuestion<'bool'> {}
 
-export interface AnsweredBoolQuestion {
-    question: BoolQuestion;
-    answer: boolean
-}
+export interface AnsweredBoolQuestion extends BaseAnsweredQuestion<BoolQuestion, boolean> {}
