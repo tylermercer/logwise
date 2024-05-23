@@ -11,7 +11,7 @@ export interface BaseQuestion<T extends string> {
 
 export interface BaseAnsweredQuestion<Q extends BaseQuestion<any>, A> {
   question: Q
-  answer: A
+  answer: A | undefined
 }
 
 //Funky formatting for git-friendliness
@@ -51,13 +51,13 @@ export function toAnsweredQuestion(question: Question): AnsweredQuestion {
   else if (isLikertQuestion(question)) {
     return {
       question,
-      answer: 3
+      answer: undefined,
     }
   }
   else if (isBoolQuestion(question)) {
     return {
       question,
-      answer: false,
+      answer: undefined,
     }
   }
   else {
