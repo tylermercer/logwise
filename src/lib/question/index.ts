@@ -5,8 +5,8 @@ import { isBoolQuestion, type BoolQuestion, type AnsweredBoolQuestion } from './
 import assertNever from '$lib/util/assertNever';
 
 export interface BaseQuestion<T extends string> {
-    text: string;
-    id: TypeID<T>; //uuid prefixed with type
+  text: string;
+  id: TypeID<T>; //uuid prefixed with type
 }
 
 export interface BaseAnsweredQuestion<Q extends BaseQuestion<any>, A> {
@@ -22,7 +22,7 @@ export type Question =
   ;
 
 export type AnsweredQuestion =
-AnsweredTextQuestion
+  AnsweredTextQuestion
   | AnsweredLikertQuestion
   | AnsweredBoolQuestion
   ;
@@ -31,10 +31,10 @@ export type ExtractType<TQuestion extends Question> = TQuestion extends BaseQues
 
 type QuestionType = ExtractType<Question>;
 
-export	type DraftQuestion = { tempId: string; type: QuestionType; data: Omit<Question, 'id'> };
+export type DraftQuestion = { tempId: string; type: QuestionType; data: Omit<Question, 'id'> };
 
 export function makeTypeGuard<QType extends Question>(idType: string) {
-    return (q: Question): q is QType => getType(q.id) == idType;
+  return (q: Question): q is QType => getType(q.id) == idType;
 }
 
 export function makeAnsweredTypeGuard<QType extends AnsweredQuestion>(idType: string) {
