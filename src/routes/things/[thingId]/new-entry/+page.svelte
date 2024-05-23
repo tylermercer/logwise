@@ -90,7 +90,7 @@
 								<input
 									type="radio"
 									name="no"
-									checked={!answeredQuestion.answer}
+									checked={answeredQuestion.answer === false}
 									on:change={() => (answeredQuestion.answer = false)}
 								/>
 								No

@@ -46,19 +46,31 @@
         <h3>{q.text}</h3>
         {#if isLikertQuestion(q)}
             <p data-qtype='likert'>
-                {entry.answers.get(q.id)} / 5
+                {#if entry.answers.get(q.id) != null}
+                    <span class="some">
+                        {entry.answers.get(q.id)} / 5
+                    </span>
+                {:else}
+                    <span class="none">(No answer)</span>
+                {/if}
             </p>
         {:else if isTextQuestion(q)}
             <p data-qtype='text'>
                 {#if entry.answers.get(q.id)}
                     {entry.answers.get(q.id)}
                 {:else}
-                    <span class="none">(Empty)</span>
+                    <span class="none">(No answer)</span>
                 {/if}
             </p>
         {:else if isBoolQuestion(q)}
             <p data-qtype='bool'>
-                {entry.answers.get(q.id) ? "Yes" : "No"}
+                {#if entry.answers.get(q.id) != null}
+                    <span class="some">
+                        {entry.answers.get(q.id) ? "Yes" : "No"}
+                    </span>
+                {:else}
+                    <span class="none">(No Answer)</span>
+                {/if}
             </p>
         {:else}
             {assertNever(q)}
@@ -90,8 +102,8 @@
     p {
         margin-bottom: 0;
     }
-    p[data-qtype=likert],
-    p[data-qtype=bool] {
+    p[data-qtype=likert] > .some,
+    p[data-qtype=bool] > .some {
         font-weight: bold;
         font-size: 1.5em;
         line-height: 1;
