@@ -20,7 +20,10 @@
 	<hr>
 	<div>
 		{#if $user.isLoggedIn}
-			Logged in as {$user.name}. <a href="/app/" on:click={() => db.cloud.logout()}>Log out</a>
+			<div>
+				Logged in as {$user.name}. <a href="/app/" on:click={() => db.cloud.logout()}>Log out</a>
+			</div>
+			<div>License: {$user.license?.type ?? 'No license'} ({$user.license?.status ?? 'no status'})</div>
 		{:else}
 			<button on:click={() => db.cloud.login()}>Log in</button>
 		{/if}
