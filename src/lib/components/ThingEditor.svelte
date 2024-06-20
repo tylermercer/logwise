@@ -37,7 +37,7 @@
 	}
 
 	function deleteQuestion(tempId: string) {
-		questions = questions.filter((q) => q.tempId === tempId);
+		questions = questions.filter((q) => q.tempId !== tempId);
 	}
 
 	async function saveThing() {
