@@ -8,6 +8,7 @@
 	import '../styles/layouts.scss';
 	import '../styles/utilities.scss';
 	import db from "$lib/db";
+	import LogIn from '$lib/components/LogIn.svelte';
 
 	let user = db.cloud.currentUser;
 </script>
@@ -32,3 +33,4 @@
 		Created by <a class="btn-secondary" href="https://tylermercer.net">Tyler Mercer</a>. Got feedback? <MungedEmailLink class="btn-secondary">Email me!</MungedEmailLink>
 	</small>
 </footer>
+<LogIn/>

@@ -51,6 +51,7 @@ export class LogThingDexie extends Dexie {
       databaseUrl: PUBLIC_DEXIE_CLOUD_URL!,
       tryUseServiceWorker: false,
       requireAuth: false,
+      customLoginGui: true,
     });
   }
 }
