@@ -1,20 +1,20 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
-	import db, { DB_NULL, type ThingId } from '$lib/db';
+	import db, { DB_NULL, type FormId } from '$lib/db';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
 
-	let things = liveQuery(() => db.things.where('nextVersionId').equals(DB_NULL).toArray());
+	let forms = liveQuery(() => db.forms.where('nextVersionId').equals(DB_NULL).toArray());
 
-	let pendingDeletionId: ThingId | undefined;
-	async function deleteThing(e: Event, id: ThingId) {
+	let pendingDeletionId: FormId | undefined;
+	async function deleteForm(e: Event, id: FormId) {
 		e.preventDefault();
 		e.stopImmediatePropagation();
 		if (pendingDeletionId) {
 			let capturedId = pendingDeletionId!;
-			await db.transaction('rw', db.things, db.entries, async () => {
-				await db.things.delete(capturedId);
-				await db.entries.where('thingId').equals(capturedId).delete();
+			await db.transaction('rw', db.forms, db.entries, async () => {
+				await db.forms.delete(capturedId);
+				await db.entries.where('formId').equals(capturedId).delete();
 			});
 			pendingDeletionId = undefined;
 		} else {
@@ -25,26 +25,26 @@
 </script>
 
 <svelte:head>
-	<title>My Things</title>
+	<title>My Forms</title>
 </svelte:head>
 <HeaderBar>
 	<a href="/app/" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
-	<h1>My Things</h1>
+	<h1>My forms</h1>
 </HeaderBar>
 <main class="u-guttered">
-	{#if $things}
-		{#if $things.length}
-			<ul class="things-list">
-				{#each $things as thing (thing.id)}
-					<li class="thing">
-						<a href="/app/things/{thing.id}/new-entry" class="u-link-block">
-							<div class="thing-contents">
-								{thing.name || '(Unnamed)'}
+	{#if $forms}
+		{#if $forms.length}
+			<ul class="forms-list">
+				{#each $forms as form (form.id)}
+					<li class="form">
+						<a href="/app/forms/{form.id}/new-entry" class="u-link-block">
+							<div class="form-contents">
+								{form.name || '(Unnamed)'}
 								<div class="l-cluster-r actions">
 									<a
-										href="/app/things/{thing.id}/edit"
+										href="/app/forms/{form.id}/edit"
 										class="btn-outline btn-secondary"
 										role="button"
 									>
@@ -52,11 +52,11 @@
 									</a>
 									<button
 										class="btn-outline"
-										class:btn-secondary={pendingDeletionId !== thing.id}
-										class:btn-contrast={pendingDeletionId === thing.id}
-										on:click={(e) => deleteThing(e, thing.id)}
+										class:btn-secondary={pendingDeletionId !== form.id}
+										class:btn-contrast={pendingDeletionId === form.id}
+										on:click={(e) => deleteForm(e, form.id)}
 									>
-										{#if pendingDeletionId === thing.id}
+										{#if pendingDeletionId === form.id}
 											Confirm
 										{:else}
 											Delete
@@ -69,18 +69,18 @@
 				{/each}
 			</ul>
 		{:else}
-			<p>You don't have any Things yet. Get started by <a href="/app/things/new">creating one</a>.</p>
+			<p>You don't have any forms yet. Get started by <a href="/app/forms/new">creating one</a>.</p>
 		{/if}
 	{:else}
-		<p><span aria-busy={!$things}>Loading...</span></p>
+		<p><span aria-busy={!$forms}>Loading...</span></p>
 	{/if}
 	<div class="l-cluster-r">
-		<a href="/app/things/new" role="button">Add new thing</a>
+		<a href="/app/forms/new" role="button">Add new form</a>
 	</div>
 </main>
 
 <style lang="scss">
-	.things-list {
+	.forms-list {
 		padding-left: 0;
 		& > li {
 			&:first-child {
@@ -90,7 +90,7 @@
 			border-bottom: 1px solid var(--pico-muted-border-color);
 		}
 	}
-	.thing-contents {
+	.form-contents {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;

@@ -6,19 +6,19 @@ import type { Question } from './question';
 
 export type QuestionId = Question['id']
 
-export type ThingId = TypeID<'thing'>
+export type FormId = TypeID<'form'>
 
 export const DB_NULL = 'NULL';
 
 export type DbNull = typeof DB_NULL;
 
-export interface ThingRaw {
-  id: ThingId; //uuid
+export interface FormRaw {
+  id: FormId; //uuid
   name: string;
   modifiedDatetime: Date;
   createdDatetime: Date;
-  prevVersionId: ThingId | DbNull;
-  nextVersionId: ThingId | DbNull;
+  prevVersionId: FormId | DbNull;
+  nextVersionId: FormId | DbNull;
   questions: Question[];
 }
 
@@ -28,14 +28,14 @@ export interface EntryRaw {
   displayDatetime: Date;
   modifiedDatetime: Date;
   createdDatetime: Date;
-  thingId: ThingId;
+  formId: FormId;
   answers: Map<QuestionId, any>; //Question ID -> answer contents
 }
 
-export class LogThingDexie extends Dexie {
+export class AppDexie extends Dexie {
   // 'tables' is added by dexie when declaring the stores()
   // We just tell the typing system this is the case
-  things!: Table<ThingRaw>;
+  forms!: Table<FormRaw>;
   entries!: Table<EntryRaw>;
 
   constructor() {
@@ -44,8 +44,8 @@ export class LogThingDexie extends Dexie {
     });
     this.version(1).stores({
       //Ids are not autoincrementing because we are going to use typeid() instead
-      things: 'id, name, modifiedDatetime, createdDatetime, prevVersionId, nextVersionId',
-      entries: 'id, thingId, displayDatetime, createdDatetime, modifiedDatetime'
+      forms: 'id, name, modifiedDatetime, createdDatetime, prevVersionId, nextVersionId',
+      entries: 'id, formId, displayDatetime, createdDatetime, modifiedDatetime'
     });
     this.cloud.configure({
       databaseUrl: PUBLIC_DEXIE_CLOUD_URL!,
@@ -56,7 +56,7 @@ export class LogThingDexie extends Dexie {
   }
 }
 
-const db = new LogThingDexie();
+const db = new AppDexie();
 
 //Note that this invokes db.open() when the module is loaded
 export const dbOpenPromise = new Promise<void>(r => db.open().then(() => r()));

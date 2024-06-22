@@ -18,7 +18,7 @@
 	let saving = false;
 	let status = '';
 
-	let { name, questions, id: thingId } = data.thing;
+	let { name, questions, id: formId } = data.form;
 
 	let answeredQuestions = questions.map(toAnsweredQuestion);
 
@@ -39,7 +39,7 @@
 			createdDatetime: now,
 			modifiedDatetime: now,
 			answers,
-			thingId
+			formId
 		});
 		saving = false;
 		goto('/log', {
@@ -52,7 +52,7 @@
 	<title>{name}</title>
 </svelte:head>
 <HeaderBar>
-	<a href="/app/things" class="btn-secondary" aria-label="Home">
+	<a href="/app/forms" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>{name}</h1>

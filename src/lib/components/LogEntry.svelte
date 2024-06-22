@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EntryRaw, ThingRaw } from '$lib/db';
+	import type { EntryRaw, FormRaw } from '$lib/db';
 	import db from '$lib/db';
 	import { isBoolQuestion } from '$lib/question/bool';
 	import { isLikertQuestion } from '$lib/question/likert';
@@ -8,10 +8,10 @@
 	import { svelteTime } from 'svelte-time';
 
 	export let entry: EntryRaw;
-	export let thing: ThingRaw | undefined = undefined;
+	export let form: FormRaw | undefined = undefined;
 
-	async function getThing() {
-		return thing ?? (await db.things.where('id').equals(entry.thingId).first());
+	async function getForm() {
+		return form ?? (await db.forms.where('id').equals(entry.formId).first());
 	}
 
 	const now = new Date().getTime();
@@ -21,16 +21,16 @@
 		return date.getTime() > now - 2 * 24 * 60 * 60 * 1000;
 	}
 
-	let thingPromise = getThing();
+	let formPromise = getForm();
 </script>
 
 <div>
-	{#await thingPromise}
+	{#await formPromise}
 		<div aria-busy="true"></div>
-	{:then thing}
-		{#if thing}
+	{:then form}
+		{#if form}
 			<h2>
-				{thing.name}
+				{form.name}
 				<a href={`/app/log/${entry.id}`} class="btn-secondary">
 					<time
 						class="datetime"
@@ -44,7 +44,7 @@
 					</time>
 				</a>
 			</h2>
-			{#each thing.questions as q (q.id)}
+			{#each form.questions as q (q.id)}
 				<h3>{q.text}</h3>
 				{#if isLikertQuestion(q)}
 					<p data-qtype="likert">
