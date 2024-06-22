@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
-	import db, { type ThingId } from '$lib/db';
+	import db, { type FormId } from '$lib/db';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
 	import Entry from '$lib/components/LogEntry.svelte';
@@ -31,7 +31,7 @@
 			<p>
 				There's nothing in your log yet.
 				Get started by
-				<a href="/app/things/new">creating a Thing to log</a>.
+				<a href="/app/forms/new">creating a Form to log</a>.
 			</p>
 		{/if}
 	{:else}
