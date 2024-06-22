@@ -16,3 +16,5 @@ vite.config.ts.timestamp-*
 #dexie files
 dexie-cloud.key
 dexie-cloud.json
+
+/.backups
