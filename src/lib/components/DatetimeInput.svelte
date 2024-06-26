@@ -1,17 +1,64 @@
 <script lang="ts">
-	export let value = new Date();
+	import { createEventDispatcher } from 'svelte';
+	import { parse } from 'chrono-node';
+	import { dateToString } from '$lib/util/dateUtils';
+
+	export let date = new Date();
 	export let id = '';
 
-	let internal: string = '';
+	// const dispatch = createEventDispatcher();
+	let inputValue = dateToString(date);
+	let displayValue = '';
 
-	const input = (date: Date) =>
-		(internal = new Date(date.getTime() + date.getTimezoneOffset() * -60 * 1000)
-			.toISOString()
-			.slice(0, 19));
-	const output = (x: string) => (value = new Date(x));
+	function getDate(input: string) {
+		const results = parse(input);
+		return results.length > 0 ? results[0].date() : undefined;
+	}
 
-	$: input(value);
-	$: output(internal);
+	function handleInput(event: Event) {
+		const input = (event.target as HTMLInputElement).value;
+		const result = getDate(input);
+		displayValue = result ? dateToString(result) : '';
+	}
+
+	function handleBlur() {
+		inputValue = dateToString(date);
+		displayValue = '';
+	}
+
+	function handleEnter(event: Event) {
+		const kbdEvent = (event as KeyboardEvent);
+		if (kbdEvent.key === 'Enter' && displayValue) {
+			const result = getDate((kbdEvent.target as HTMLInputElement).value);
+			if (result) {
+				// dispatch('dateSelected', result);
+				date = result; // Update the bound date
+				inputValue = result.toLocaleString();
+				(kbdEvent.target as HTMLInputElement).blur();
+			}
+		}
+	}
+
+	function handleFocus(event: FocusEvent) {
+	(event.target as HTMLInputElement).select();
+	}
 </script>
 
-<input {id} type="datetime-local" bind:value={internal} />
+<input
+	id={id}
+	type="text"
+	bind:value={inputValue}
+	on:input={handleInput}
+	on:blur={handleBlur}
+	on:keydown={handleEnter}
+	on:focus={handleFocus}
+/>
+{#if displayValue}
+	<div class="result">{displayValue}</div>
+{/if}
+
+<style>
+	.result {
+		margin-top: 5px;
+	}
+</style>

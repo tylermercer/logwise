@@ -107,7 +107,7 @@
 		<div class="l-switcher date-and-buttons">
 			<label for="datetime" class="label-datetime">
 				Date and time
-				<DatetimeInput id="datetime" bind:value={datetime} />
+				<DatetimeInput id="datetime" bind:date={datetime} />
 			</label>
 			<div class="l-cluster-r">
 				<button type="submit" aria-busy={saving}>
