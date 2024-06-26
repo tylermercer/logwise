@@ -42,6 +42,7 @@
     "@fontsource-variable/figtree": "^5.0.21",
     "@fontsource-variable/rubik": "^5.0.22",
     "@iconify-json/teenyicons": "^1.1.9",
+    "chrono-node": "^2.7.6",
     "dexie": "^4.0.4",
     "dexie-cloud-addon": "^4.0.2",
     "modern-normalize": "^2.0.0",
