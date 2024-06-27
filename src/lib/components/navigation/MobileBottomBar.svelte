@@ -1,10 +1,18 @@
 <script lang="ts">
 	import mediaQueries from '$lib/config/mediaQueries';
+	import { createEventDispatcher } from 'svelte';
 	import MediaQuery from 'svelte-media-queries';
 	import HomeIcon from 'virtual:icons/teenyicons/home-outline';
 	import LogIcon from 'virtual:icons/teenyicons/list-layout-outline';
 	import MenuIcon from 'virtual:icons/teenyicons/menu-outline';
+	import CloseIcon from 'virtual:icons/teenyicons/x-outline';
+	import { page } from '$app/stores';
 
+	const dispatch = createEventDispatcher();
+
+	function toggleMenu() {
+		dispatch('toggleMenu');
+	}
 </script>
 
 <MediaQuery query={mediaQueries.mobile} let:matches>
@@ -16,9 +24,13 @@
 			<a role="button" href="/app/log">
 				<LogIcon></LogIcon>
 			</a>
-			<a role="button" href="/app/logs">
-				<MenuIcon></MenuIcon>
-			</a>
+			<button on:click={toggleMenu}>
+				{#if $page.state.showMenu}
+					<CloseIcon></CloseIcon>
+				{:else}
+					<MenuIcon></MenuIcon>
+				{/if}
+			</button>
 		</nav>
 	{/if}
 </MediaQuery>
@@ -32,7 +44,8 @@
 		align-items: stretch;
 		border-top: 1px solid var(--primary-6);
 		background-color: var(--primary-2);
-		& > a {
+		& > a,
+		& > button {
 			flex: 1;
 			display: flex;
 			align-items: center;

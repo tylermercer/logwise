@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import db, { DB_NULL, type FormId } from '$lib/db';
-	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/HeaderBar.svelte';
 
 	let forms = liveQuery(() => db.forms.where('nextVersionId').equals(DB_NULL).toArray());
@@ -24,13 +23,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>My Forms</title>
-</svelte:head>
 <HeaderBar>
-	<a href="/app/" class="btn-secondary" aria-label="Home">
-		<LeftArrow></LeftArrow>
-	</a>
 	<h1>My logs</h1>
 </HeaderBar>
 <main class="u-guttered l-column l-space-m">
