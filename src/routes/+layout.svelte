@@ -17,9 +17,9 @@
 	<title>Log Thing</title>
 </svelte:head>
 <slot />
-<footer class="u-guttered">
+<footer class="u-guttered l-column l-space-xs">
 	<hr>
-	<div>
+	<div class="l-column l-space-xs">
 		{#if $user.isLoggedIn}
 			<div>
 				Logged in as {$user.name}. <a href="/app/" on:click={() => db.cloud.logout()}>Log out</a>

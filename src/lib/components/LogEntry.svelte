@@ -24,7 +24,7 @@
 	let formPromise = getForm();
 </script>
 
-<div>
+<div class="l-column l-space-s">
 	{#await formPromise}
 		<div aria-busy="true"></div>
 	{:then form}
@@ -45,38 +45,40 @@
 				</a>
 			</h2>
 			{#each form.questions as q (q.id)}
-				<h3>{q.text}</h3>
-				{#if isLikertQuestion(q)}
-					<p data-qtype="likert">
-						{#if entry.answers.get(q.id) != null}
-							<span class="some">
-								{entry.answers.get(q.id)} / 5
-							</span>
-						{:else}
-							<span class="none">(No answer)</span>
-						{/if}
-					</p>
-				{:else if isTextQuestion(q)}
-					<p data-qtype="text">
-						{#if entry.answers.get(q.id)}
-							{entry.answers.get(q.id)}
-						{:else}
-							<span class="none">(No answer)</span>
-						{/if}
-					</p>
-				{:else if isBoolQuestion(q)}
-					<p data-qtype="bool">
-						{#if entry.answers.get(q.id) != null}
-							<span class="some">
-								{entry.answers.get(q.id) ? 'Yes' : 'No'}
-							</span>
-						{:else}
-							<span class="none">(No Answer)</span>
-						{/if}
-					</p>
-				{:else}
-					{assertNever(q)}
-				{/if}
+				<div class="l-column l-space-xs">
+					<h3>{q.text}</h3>
+					{#if isLikertQuestion(q)}
+						<p data-qtype="likert">
+							{#if entry.answers.get(q.id) != null}
+								<span class="some">
+									{entry.answers.get(q.id)} / 5
+								</span>
+							{:else}
+								<span class="none">(No answer)</span>
+							{/if}
+						</p>
+					{:else if isTextQuestion(q)}
+						<p data-qtype="text">
+							{#if entry.answers.get(q.id)}
+								{entry.answers.get(q.id)}
+							{:else}
+								<span class="none">(No answer)</span>
+							{/if}
+						</p>
+					{:else if isBoolQuestion(q)}
+						<p data-qtype="bool">
+							{#if entry.answers.get(q.id) != null}
+								<span class="some">
+									{entry.answers.get(q.id) ? 'Yes' : 'No'}
+								</span>
+							{:else}
+								<span class="none">(No Answer)</span>
+							{/if}
+						</p>
+					{:else}
+						{assertNever(q)}
+					{/if}
+				</div>
 			{/each}
 		{:else}
 			<!-- TODO: handle this?? -->
@@ -90,7 +92,6 @@
 	h2,
 	h3 {
 		font-weight: 600;
-		margin-block: 0.5em;
 	}
 	h2 {
 		font-size: 0.9em;
@@ -102,9 +103,6 @@
 		float: right;
 		font-weight: normal;
 		font-size: 0.9em;
-	}
-	p {
-		margin-bottom: 0;
 	}
 	p[data-qtype='likert'] > .some,
 	p[data-qtype='bool'] > .some {

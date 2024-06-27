@@ -49,6 +49,7 @@ h6 {
     color: var(--primary-12);
     font-family: var(--font-heading);
     font-weight: bold;
+    margin: 0;
     > a {
         line-height: inherit;
     }
@@ -56,6 +57,7 @@ h6 {
 
 hr {
     border: 1px solid var(--gray-6);
+    width: 100%;
 }
 
 small {
@@ -63,7 +65,7 @@ small {
 }
 
 p {
-    margin-block: var(--space-s);
+    margin: 0;
 }
 
 blockquote {
@@ -146,8 +148,14 @@ select {
         outline-offset: 1px;
     }
 }
+input[type=range] {
+    padding: 0;
+}
 label {
     display: block;
+    color: var(--gray-11);
+}
+legend {
     color: var(--gray-11);
 }
 fieldset {   

@@ -14,7 +14,7 @@
 	<main class="u-guttered" aria-busy="true">
 	</main>
 {:else}
-	<main class="u-guttered">
+	<main class="u-guttered l-column l-space-xs">
 		<p><a href="/app/forms">My forms</a></p>
 		<p><a href="/app/log">View log</a></p>
 	</main>

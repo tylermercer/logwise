@@ -63,12 +63,12 @@
 									id: typeid('text'),
 									text: q.data.text
 								}
-						: q.type === 'bool'
-							? {
-									id: typeid('bool'),
-									text: q.data.text
-								}
-						: assertNever(q.type)
+							: q.type === 'bool'
+								? {
+										id: typeid('bool'),
+										text: q.data.text
+									}
+								: assertNever(q.type)
 				)
 			});
 
@@ -79,19 +79,19 @@
 	}
 </script>
 
-<form on:submit={saveForm}>
+<form on:submit={saveForm} class="l-column l-space-m">
 	<label>
 		Name
 		<div></div>
 		<input type="text" bind:value={formName} />
 	</label>
-	<fieldset>
+	<fieldset class="questions l-column l-space-s">
 		<legend><h2>Questions</h2></legend>
 		{#if questions.length}
 			{#each questions as question (question.tempId)}
-				<div class="question">
-					<div class="grid">
-						<label>
+				<div class="question l-column l-space-2xs">
+					<div class="l-row l-space-xs">
+						<label class="question-text">
 							Question
 							<input type="text" bind:value={question.data.text} />
 							<small>
@@ -107,12 +107,12 @@
 								{/if}
 							</small>
 						</label>
-						<label>
+						<label class="question-type">
 							Type
 							<select bind:value={question.type}>
 								<option value="text">Text</option>
 								<option value="likert">1-to-5 scale</option>
-								<option value="bool">Yes/No (checkbox)</option>
+								<option value="bool">Yes/No</option>
 							</select>
 						</label>
 					</div>
@@ -135,7 +135,9 @@
 		<button class="btn-secondary" type="button" on:click={addQuestion}>Add Question</button>
 	</div>
 	<hr />
-	<p>{status}</p>
+	{#if status}
+		<p>{status}</p>
+	{/if}
 	<div class="l-cluster-r">
 		<button type="submit" aria-busy={saving}>
 			{#if saving}
@@ -149,8 +151,16 @@
 
 <style lang="scss">
 	.question {
-		margin-block-end: 2rem;
 		border: 1px solid var(--pico-muted-border-color);
-		border-radius: 0.5rem;
+		border-radius: var(--space-xs);
+	}
+	.question-text {
+		flex: 2;
+	}
+	.question-type {
+		flex: 1;
+	}
+	.questions {
+		padding-block: var(--l-space);
 	}
 </style>

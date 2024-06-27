@@ -20,7 +20,7 @@
 <main class="u-guttered">
 	{#if $entries}
 		{#if $entries.length}
-			<ul class="entries-list">
+			<ul class="entries-list l-column l-space-m">
 				{#each $entries as entry (entry.id)}
 					<li class="entry">
 						<Entry entry={entry}></Entry>
