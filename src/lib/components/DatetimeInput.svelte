@@ -27,7 +27,7 @@
 	}
 
 	function handleEnter(event: Event) {
-		const kbdEvent = (event as KeyboardEvent);
+		const kbdEvent = event as KeyboardEvent;
 		if (kbdEvent.key === 'Enter' && displayValue) {
 			const result = getDate((kbdEvent.target as HTMLInputElement).value);
 			if (result) {
@@ -40,12 +40,12 @@
 	}
 
 	function handleFocus(event: FocusEvent) {
-	(event.target as HTMLInputElement).select();
+		(event.target as HTMLInputElement).select();
 	}
 </script>
 
 <input
-	id={id}
+	{id}
 	type="text"
 	bind:value={inputValue}
 	on:input={handleInput}
