@@ -57,59 +57,57 @@
 	</a>
 	<h1>{name}</h1>
 </HeaderBar>
-<main class="u-guttered">
-	<form on:submit={saveEntry}>
+<main class="u-guttered l-column l-space-m">
+	<form on:submit={saveEntry} class="l-column l-space-s">
 		{#each answeredQuestions as answeredQuestion (answeredQuestion.question.id)}
-			<div class="question">
-				<div class="grid">
-					{#if isAnsweredTextQuestion(answeredQuestion)}
-						<label>
+			<div class="question l-column l-space-xs">
+				{#if isAnsweredTextQuestion(answeredQuestion)}
+					<label>
+						{answeredQuestion.question.text}
+						<textarea bind:value={answeredQuestion.answer} />
+					</label>
+				{:else if isAnsweredLikertQuestion(answeredQuestion)}
+					<label>
+						{answeredQuestion.question.text}
+						<input type="range" bind:value={answeredQuestion.answer} min="1" max="5" />
+					</label>
+				{:else if isAnsweredBoolQuestion(answeredQuestion)}
+					<fieldset class="yes-no l-switcher l-space-none">
+						<legend>
 							{answeredQuestion.question.text}
-							<textarea bind:value={answeredQuestion.answer} />
-						</label>
-					{:else if isAnsweredLikertQuestion(answeredQuestion)}
+						</legend>
 						<label>
-							{answeredQuestion.question.text}
-							<input type="range" bind:value={answeredQuestion.answer} min="1" max="5" />
+							<input
+								type="radio"
+								name="yes"
+								checked={answeredQuestion.answer}
+								on:change={() => (answeredQuestion.answer = true)}
+							/>
+							Yes
 						</label>
-					{:else if isAnsweredBoolQuestion(answeredQuestion)}
-						<fieldset class="yes-no l-switcher">
-							<legend>
-								{answeredQuestion.question.text}
-							</legend>
-							<label>
-								<input
-									type="radio"
-									name="yes"
-									checked={answeredQuestion.answer}
-									on:change={() => (answeredQuestion.answer = true)}
-								/>
-								Yes
-							</label>
-							<label>
-								<input
-									type="radio"
-									name="no"
-									checked={answeredQuestion.answer === false}
-									on:change={() => (answeredQuestion.answer = false)}
-								/>
-								No
-							</label>
-						</fieldset>
-					{:else}
-						{assertNever(answeredQuestion)}
-					{/if}
-				</div>
+						<label>
+							<input
+								type="radio"
+								name="no"
+								checked={answeredQuestion.answer === false}
+								on:change={() => (answeredQuestion.answer = false)}
+							/>
+							No
+						</label>
+					</fieldset>
+				{:else}
+					{assertNever(answeredQuestion)}
+				{/if}
 			</div>
 		{/each}
 		<hr />
 		<p>{status}</p>
-		<div class="l-switcher date-and-buttons">
+		<div class="l-switcher l-space-xs date-and-buttons">
 			<label for="datetime" class="label-datetime">
 				Date and time
 				<DatetimeInput id="datetime" bind:date={datetime} />
 			</label>
-			<div class="l-cluster-r">
+			<div class="l-cluster-r l-space-xs">
 				<button type="submit" aria-busy={saving}>
 					{#if saving}
 						Saving
@@ -131,7 +129,6 @@
 		margin-bottom: 0;
 	}
 	fieldset.yes-no.l-switcher {
-		--l-switcher-gap: 0;
 		--l-switcher-threshold: 10rem;
 	}
 </style>

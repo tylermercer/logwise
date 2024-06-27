@@ -33,16 +33,16 @@
 	</a>
 	<h1>My forms</h1>
 </HeaderBar>
-<main class="u-guttered">
+<main class="u-guttered l-column l-space-m">
 	{#if $forms}
 		{#if $forms.length}
-			<ul class="forms-list">
+			<ul class="forms-list l-column l-space-s">
 				{#each $forms as form (form.id)}
 					<li class="form">
 						<a href="/app/forms/{form.id}/new-entry" class="u-link-block">
-							<div class="form-contents">
+							<div class="form-contents l-row l-space-xs">
 								{form.name || '(Unnamed)'}
-								<div class="l-cluster-r actions">
+								<div class="l-cluster-r l-space-2xs actions">
 									<a
 										href="/app/forms/{form.id}/edit"
 										class="btn-outline btn-secondary"
@@ -83,20 +83,12 @@
 	.forms-list {
 		padding-left: 0;
 		& > li {
-			&:first-child {
-				border-top: 1px solid var(--pico-muted-border-color);
-			}
 			list-style-type: none;
-			border-bottom: 1px solid var(--pico-muted-border-color);
 		}
 	}
 	.form-contents {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		justify-content: space-between;
 		align-items: center;
-		padding-block: 0.5rem;
+		justify-content: space-between;
 		& .actions {
 			align-items: center;
 		}

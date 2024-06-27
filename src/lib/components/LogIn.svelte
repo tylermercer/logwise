@@ -27,13 +27,13 @@
 {#if $ui}
 	<dialog open>
 		<h2>Log in to Log Thing</h2>
-		<h3>{$ui.title}</h3>
+		<p>{$ui.title}</p>
 		{#each $ui.alerts as alert, i}
 			<p class={`dxcdlg-alert-${alert.type}`}>{resolveText(alert)}</p>
 		{/each}
-		<form on:submit={(e) => handleSubmit(e, $ui)}>
-			{#each entries as e, idx}
-				<label>
+		<form on:submit={(e) => handleSubmit(e, $ui)} class="l-column">
+			{#each entries as e}
+				<label class="l-column">
 					{e.label ? `${e.label}: ` : e.fieldName}
 					<input
                         class="dlg-input"
@@ -66,13 +66,14 @@
 		-webkit-backdrop-filter: blur(2px);
 	}
 	dialog {
-		position: relative;
+		position: absolute;
+		top: 20%;
 		color: #222;
 		background-color: #fff;
 		padding: 30px;
 		margin-bottom: 2em;
 		max-width: 90%;
-		max-height: 90%;
+		max-height: 60%;
 		overflow-y: auto;
 		border: 3px solid #3d3d5d;
 		border-radius: 8px;
