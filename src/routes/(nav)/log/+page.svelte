@@ -12,9 +12,6 @@
 	<title>Log</title>
 </svelte:head>
 <HeaderBar>
-	<a href="/app/" class="btn-secondary" aria-label="Home">
-		<LeftArrow></LeftArrow>
-	</a>
 	<h1>Log</h1>
 </HeaderBar>
 <main class="u-guttered">
