@@ -5,8 +5,7 @@
 
 	export let date = new Date();
 	export let id = '';
-
-	// const dispatch = createEventDispatcher();
+	
 	let inputValue = dateToString(date);
 	let displayValue = '';
 
@@ -31,8 +30,7 @@
 		if (kbdEvent.key === 'Enter' && displayValue) {
 			const result = getDate((kbdEvent.target as HTMLInputElement).value);
 			if (result) {
-				// dispatch('dateSelected', result);
-				date = result; // Update the bound date
+				date = result;
 				inputValue = result.toLocaleString();
 				(kbdEvent.target as HTMLInputElement).blur();
 			}
