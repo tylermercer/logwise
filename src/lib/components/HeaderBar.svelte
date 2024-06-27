@@ -1,9 +1,9 @@
-<header class="u-guttered l-cluster-l">
+<header class="u-guttered l-cluster-l l-space-xs">
 	<slot></slot>
 </header>
 <style lang="scss">
 	header {
 		align-items: center;
-		gap: 0.5em;
+		padding-block: var(--space-m);
 	}
 </style>
