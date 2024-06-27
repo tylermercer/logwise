@@ -18,14 +18,14 @@
 		}
 		await db.forms.add(form);
 
-		goto('/forms');
+		goto('/logs');
 	}
 </script>
 <svelte:head>
 	<title>Editing "{existingForm.name}"</title>
 </svelte:head>
 <HeaderBar>
-	<a href="/app/forms" class="btn-secondary" aria-label="Home">
+	<a href="/app/logs" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>Editing "{existingForm.name}"</h1>

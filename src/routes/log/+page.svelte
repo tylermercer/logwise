@@ -31,7 +31,7 @@
 			<p>
 				There's nothing in your log yet.
 				Get started by
-				<a href="/app/forms/new">creating a Form to log</a>.
+				<a href="/app/logs/new">creating a log</a>.
 			</p>
 		{/if}
 	{:else}
