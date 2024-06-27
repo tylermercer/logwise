@@ -123,7 +123,7 @@
 <style lang="scss">
 	.date-and-buttons {
 		align-items: flex-end;
-		--l-switcher-threshold: 676px;
+		--l-switcher-threshold: 500px;
 	}
 	.label-datetime {
 		margin-bottom: 0;
