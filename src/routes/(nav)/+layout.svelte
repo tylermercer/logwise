@@ -1,10 +1,11 @@
 <script lang="ts">
 	import MungedEmailLink from '$lib/components/MungedEmailLink.svelte';
+	import mediaQueries from '$lib/config/mediaQueries';
 	import db from '$lib/db';
+	import MediaQuery from 'svelte-media-queries';
 	import HomeIcon from 'virtual:icons/teenyicons/home-outline';
 	import LogIcon from 'virtual:icons/teenyicons/list-layout-outline';
 	import MenuIcon from 'virtual:icons/teenyicons/menu-outline';
-	import LogIn from '$lib/components/LogIn.svelte';
 
 	let user = db.cloud.currentUser;
 </script>
@@ -29,17 +30,21 @@
 		feedback? <MungedEmailLink class="btn-secondary">Email me!</MungedEmailLink>
 	</small>
 </footer>
-<nav class="bottom-bar l-row">
-	<a role="button" href="/app/">
-		<HomeIcon></HomeIcon>
-	</a>
-	<a role="button" href="/app/log">
-		<LogIcon></LogIcon>
-	</a>
-	<a role="button" href="/app/logs">
-		<MenuIcon></MenuIcon>
-	</a>
-</nav>
+<MediaQuery query={mediaQueries.mobile} let:matches>
+	{#if matches}
+		<nav class="bottom-bar l-row">
+			<a role="button" href="/app/">
+				<HomeIcon></HomeIcon>
+			</a>
+			<a role="button" href="/app/log">
+				<LogIcon></LogIcon>
+			</a>
+			<a role="button" href="/app/logs">
+				<MenuIcon></MenuIcon>
+			</a>
+		</nav>
+	{/if}
+</MediaQuery>
 
 <style lang="scss">
 	footer {
