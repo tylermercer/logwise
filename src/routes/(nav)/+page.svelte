@@ -15,7 +15,6 @@
 	</main>
 {:else}
 	<main class="u-guttered l-column l-space-xs">
-		<p><a href="/app/logs">My logs</a></p>
-		<p><a href="/app/log">Unified log view</a></p>
+		<p>Put something useful here</p>
 	</main>
 {/if}

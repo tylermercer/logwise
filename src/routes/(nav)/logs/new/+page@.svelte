@@ -9,7 +9,7 @@
 	async function handleSubmit(form: FormRaw) {
 		await db.forms.add(form);
 
-		goto('/logs');
+		goto('/');
 	}
 </script>
 
@@ -17,7 +17,7 @@
 	<title>New Form</title>
 </svelte:head>
 <HeaderBar>
-	<a href="/app/logs" class="btn-secondary" aria-label="Home">
+	<a href="/app/" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
 	<h1>New form</h1>
