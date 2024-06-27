@@ -29,7 +29,7 @@
 
 {#if $ui}
 	<dialog use:showModal class="l-column l-space-s">
-		<h2>Log in to Log Thing</h2>
+		<h2>Sign in to Logwise</h2>
 		<p>{$ui.title}</p>
 		{#each $ui.alerts as alert, i}
 			<p class={`dxcdlg-alert-${alert.type}`}>{resolveText(alert)}</p>

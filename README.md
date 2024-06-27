@@ -1,3 +1,3 @@
-# log-thing
+# Logwise
 
-An app for logging things
+Keep a log of anything

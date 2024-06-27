@@ -1,4 +1,4 @@
-name: Build Log Thing
+name: Build Logwise
 
 on:
   # schedule:

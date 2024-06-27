@@ -5,10 +5,10 @@
 </script>
 
 <svelte:head>
-	<title>Log Thing</title>
+	<title>Logwise</title>
 </svelte:head>
 <header class="u-guttered">
-	<h1>Log Thing</h1>
+	<h1>Logwise</h1>
 </header>
 {#if data.shouldRenderShell}
 	<main class="u-guttered" aria-busy="true">
