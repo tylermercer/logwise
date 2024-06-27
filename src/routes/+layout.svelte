@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-	<title>Log Thing</title>
+	<title>Logwise</title>
 </svelte:head>
 <slot />
 <footer class="u-guttered l-column l-space-xs">
