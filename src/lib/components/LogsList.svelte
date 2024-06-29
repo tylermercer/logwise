@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import db, { DB_NULL, type FormId } from '$lib/db';
-	import HeaderBar from '$lib/components/HeaderBar.svelte';
 
 	let forms = liveQuery(() => db.forms.where('nextVersionId').equals(DB_NULL).toArray());
 
@@ -23,13 +22,13 @@
 	}
 </script>
 
-<HeaderBar>
-	<h1>My logs</h1>
-</HeaderBar>
-<main class="u-guttered l-column l-space-m">
+<div class="u-guttered l-column l-space-xs">
+	<p class="h4">
+		Logs
+	</p>
 	{#if $forms}
 		{#if $forms.length}
-			<ul class="forms-list l-column l-space-s">
+			<ul class="forms-list l-column l-space-xs">
 				{#each $forms as form (form.id)}
 					<li class="form">
 						<a href="/app/logs/{form.id}/new-entry" class="u-link-block">
@@ -70,7 +69,7 @@
 	<div class="l-cluster-r">
 		<a href="/app/logs/new" role="button">Add new log</a>
 	</div>
-</main>
+</div>
 
 <style lang="scss">
 	.forms-list {
