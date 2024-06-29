@@ -21,6 +21,7 @@
 		{/if}
 	</div>
 </header>
+<slot></slot>
 <LogsList></LogsList>
 <footer class="u-guttered">
 	<small>
