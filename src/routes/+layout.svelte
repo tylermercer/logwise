@@ -14,14 +14,15 @@
 <div class="with-maybe-sidebar">
 	<MediaQuery query={mediaQueries.mobile} let:matches>
 		{#if !matches}
-			<nav class="sidebar l-column l-space-xs">
-				<NavMenu></NavMenu>
-				<a role="button" href="/app/">
-					<HomeIcon></HomeIcon> Home
-				</a>
-				<a role="button" href="/app/log">
-					<LogIcon></LogIcon> Unified Log
-				</a>
+			<nav class="sidebar">
+				<NavMenu>
+					<a role="button" href="/app/">
+						<HomeIcon></HomeIcon> Home
+					</a>
+					<a role="button" href="/app/log">
+						<LogIcon></LogIcon> Unified Log
+					</a>
+				</NavMenu>
 			</nav>
 		{/if}
 	</MediaQuery>
