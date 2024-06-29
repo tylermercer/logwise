@@ -100,7 +100,6 @@
 				{/if}
 			</div>
 		{/each}
-		<hr />
 		<p>{status}</p>
 		<div class="l-switcher l-space-xs date-and-buttons">
 			<label for="datetime" class="label-datetime">
