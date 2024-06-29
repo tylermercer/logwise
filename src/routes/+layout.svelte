@@ -16,12 +16,14 @@
 		{#if !matches}
 			<nav class="sidebar">
 				<NavMenu>
-					<a role="button" href="/app/">
-						<HomeIcon></HomeIcon> Home
-					</a>
-					<a role="button" href="/app/log">
-						<LogIcon></LogIcon> Unified Log
-					</a>
+					<div class="l-column l-space-none">
+						<a class="nav-link" role="button" href="/app/">
+							<HomeIcon></HomeIcon> Home
+						</a>
+						<a class="nav-link" role="button" href="/app/log">
+							<LogIcon></LogIcon> Unified Log
+						</a>
+					</div>
 				</NavMenu>
 			</nav>
 		{/if}
@@ -45,12 +47,11 @@
 	.sidebar {
 		width: 20rem;
 		background-color: var(--primary-3);
-		& > a {
-			color: var(--primary-9);
-			background-color: transparent;
-			padding: var(--space-xs);
-			padding-left: var(--space-m);
-		}
 	}
-	
+	.nav-link {
+		color: var(--primary-9);
+		background-color: transparent;
+		padding: var(--space-xs);
+		padding-left: var(--space-m);
+	}
 </style>
