@@ -37,7 +37,7 @@
 		<form on:submit={(e) => handleSubmit(e, $ui)} class="l-column">
 			{#each entries as e}
 				<label>
-					{e.label ? `${e.label}: ` : e.fieldName}
+					{e.label ? `${e.label}` : e.fieldName}
 					<input
 						class="dlg-input"
 						type={e.type}
@@ -50,7 +50,9 @@
 			{/each}
 			<div class="l-cluster-r l-space-xs">
 				{#if $ui.cancelLabel}
-					<button class="btn-secondary" on:click={$ui.onCancel}>{$ui.cancelLabel}</button>
+					<button type="button" class="btn-secondary" on:click={$ui.onCancel}>
+						{$ui.cancelLabel}
+					</button>
 				{/if}
 				<button type="submit">
 					{$ui.submitLabel}
