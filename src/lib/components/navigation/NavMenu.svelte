@@ -2,6 +2,7 @@
 	import MungedEmailLink from '$lib/components/MungedEmailLink.svelte';
 	import LogsList from "../LogsList.svelte";
 	import db from '$lib/db';
+	import UserAccountMenu from '../account/UserAccountMenu.svelte';
 
 	let user = db.cloud.currentUser;
 </script>
@@ -9,7 +10,7 @@
 
 <header class="u-guttered l-column l-space-xs">
 	<div class="l-column l-space-xs">
-		{#if $user.isLoggedIn}
+		<!-- {#if $user.isLoggedIn}
 			<div>
 				Logged in as {$user.name}. <a href="/app/" on:click={() => db.cloud.logout()}>Log out</a>
 			</div>
@@ -18,7 +19,8 @@
 			</div>
 		{:else}
 			<button on:click={() => db.cloud.login()}>Log in</button>
-		{/if}
+		{/if} -->
+		<UserAccountMenu></UserAccountMenu>
 	</div>
 </header>
 <slot></slot>
