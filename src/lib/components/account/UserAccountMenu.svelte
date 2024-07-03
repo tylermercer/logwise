@@ -46,7 +46,7 @@
 		color: var(--gray-12);
 		flex-direction: column;
 		border-radius: var(--space-2xs);
-		padding: var(--space-xs);
+		padding: calc(var(--space-xs) - var(--space-3xs));
 		box-shadow:
 			0 10px 15px -3px rgba(0, 0, 0, 0.1),
 			0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -54,19 +54,20 @@
     .btn-upgrade {
         display: inline-block;
         font-size: var(--step--1);
-        padding: 0.5rem;
+        padding: var(--space-2xs);
     }
     .upgrade-container {
-        padding: 0.25rem;
+        padding-left: var(--space-2xs);
+        padding-right: var(--space-2xs);
     }
 	.item {
 		position: relative;
-		height: 24px;
-		min-height: 24px;
+		height: var(--space-m);
+		min-height: var(--space-m);
 		user-select: none;
-		border-radius: 0.125rem;
-		padding-left: 0.25rem;
-		padding-right: 0.25rem;
+		border-radius: var(--space-3xs);
+		padding-left: var(--space-2xs);
+		padding-right: var(--space-2xs);
 		z-index: 40;
 		color: var(--gray-12);
 		display: flex;
