@@ -153,6 +153,19 @@
             outline: 2px solid var(--outline-color);
             outline-offset: 1px;
         }
+        
+        &.btn-icon {
+            color: var(--primary-11);
+            background-color: transparent;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover {
+                background-color: var(--primary-4);
+                color: var(--primary-12);
+            }
+        }
     }
 
     textarea {
