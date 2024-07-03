@@ -10,7 +10,7 @@
         @include utopia.generateSpaceScale(("minWidth": 320,
                 "maxWidth": 1240,
                 "minSize": 18,
-                "maxSize": 20,
+                "maxSize": 16,
                 "positiveSteps": (1.5, 2, 3, 4, 6),
                 "negativeSteps": (0.75, 0.5, 0.25),
                 "customSizes": ("s-l"),
