@@ -10,7 +10,7 @@
 </script>
 
 
-<header class="u-guttered l-column l-space-xs">
+<header class="header u-guttered l-column l-space-xs">
 	<div class="l-column l-space-xs">
 		<UserAccountMenu>
 			<div class="buttons l-row l-space-none">
@@ -47,5 +47,8 @@
 	}
 	.buttons {
 		margin-right: calc(var(--space-xs) * -1);
+	}
+	.header {
+		padding-bottom: var(--space-xs);
 	}
 </style>
