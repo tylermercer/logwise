@@ -1,0 +1,7 @@
+@layer theme, base, layouts, utilities;
+//Components are declared in an anonymous layer, which takes precedence, according to https://github.com/sveltejs/svelte/issues/11345
+
+@import './theme.scss';
+@import './base.scss';
+@import './layouts.scss';
+@import './utilities.scss';
