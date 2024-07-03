@@ -22,10 +22,3 @@
 	<slot />
 {/if}
 <MobileBottomBar on:toggleMenu={toggleMenu} />
-
-<style lang="scss">
-	
-	footer {
-		margin-bottom: var(--bottom-bar-height);
-	}
-</style>
