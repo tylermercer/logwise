@@ -13,7 +13,7 @@
 <header class="u-guttered l-column l-space-xs">
 	<div class="l-column l-space-xs">
 		<UserAccountMenu>
-			<div class="l-row l-space-none">
+			<div class="buttons l-row l-space-none">
 				<button class="btn-icon" aria-label="Give feedback">
 					<Message></Message>
 				</button>
@@ -44,5 +44,8 @@
 			background-color: var(--primary-4);
 			color: var(--primary-12);
 		}
+	}
+	.buttons {
+		margin-right: calc(var(--space-xs) * -1);
 	}
 </style>
