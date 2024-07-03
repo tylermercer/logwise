@@ -78,6 +78,7 @@
 		align-items: center;
 		font-size: 0.875rem;
 		line-height: 1;
+		cursor: pointer;
 		&:focus {
 			outline: none;
 		}
@@ -91,6 +92,7 @@
 		}
 		&.info {
 			color: var(--gray-11);
+			cursor: default;
 		}
 	}
 	.trigger {
@@ -111,7 +113,6 @@
 		font-weight: 500;
 	}
 	.separator {
-		margin: 0.3125rem 0;
 		height: 1px;
 		background-color: #e2e8f0;
 	}
