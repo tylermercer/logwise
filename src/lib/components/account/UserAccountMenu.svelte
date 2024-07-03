@@ -16,7 +16,7 @@
 
 <div class="menu-container l-row l-space-xs">
     {#if $user.isLoggedIn}
-        <button type="button" class="trigger" use:melt={$trigger} aria-label="Open Popover"> ac </button>
+        <button type="button" class="trigger" use:melt={$trigger} aria-label="Open Popover">{$user.name?.substring(0,2).toUpperCase() ?? 'ME'}</button>
     
         {#if $open}
             <div class="menu l-column l-space-2xs" use:melt={$menu} transition:fly={{ duration: 150, y: -10 }}>
