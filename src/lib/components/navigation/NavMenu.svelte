@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Message from 'virtual:icons/teenyicons/message-text-alt-outline';
+	import Cog from 'virtual:icons/teenyicons/cog-outline';
 	import MungedEmailLink from '$lib/components/MungedEmailLink.svelte';
 	import LogsList from "../LogsList.svelte";
 	import db from '$lib/db';
@@ -10,17 +12,16 @@
 
 <header class="u-guttered l-column l-space-xs">
 	<div class="l-column l-space-xs">
-		<!-- {#if $user.isLoggedIn}
-			<div>
-				Logged in as {$user.name}. <a href="/app/" on:click={() => db.cloud.logout()}>Log out</a>
+		<UserAccountMenu>
+			<div class="l-row l-space-none">
+				<button class="btn-icon" aria-label="Give feedback">
+					<Message></Message>
+				</button>
+				<button class="btn-icon" aria-label="Settings">
+					<Cog></Cog>
+				</button>
 			</div>
-			<div>
-				License: {$user.license?.type ?? 'No license'} ({$user.license?.status ?? 'no status'})
-			</div>
-		{:else}
-			<button on:click={() => db.cloud.login()}>Log in</button>
-		{/if} -->
-		<UserAccountMenu></UserAccountMenu>
+		</UserAccountMenu>
 	</div>
 </header>
 <slot></slot>
@@ -31,3 +32,17 @@
 		feedback? <MungedEmailLink class="btn-secondary">Email me!</MungedEmailLink>
 	</small>
 </footer>
+<style lang="scss">
+	.btn-icon {
+		color: var(--primary-11);
+		background-color: transparent;
+		aspect-ratio: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		&:hover {
+			background-color: var(--primary-4);
+			color: var(--primary-12);
+		}
+	}
+</style>

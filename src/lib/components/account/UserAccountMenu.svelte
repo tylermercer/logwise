@@ -32,11 +32,15 @@
             </div>
         {/if}
     {:else}
-        <button on:click={() => db.cloud.login()}>Sign in</button>
+        <button class="sign-in" on:click={() => db.cloud.login()}>Sign in</button>
     {/if}
+	<slot></slot>
 </div>
 
 <style lang="scss">
+	.menu-container {
+		align-items: center;
+	}
 	.menu {
 		z-index: 40;
 		display: flex;
@@ -110,5 +114,9 @@
 		margin: 0.3125rem 0;
 		height: 1px;
 		background-color: #e2e8f0;
+	}
+	.trigger,
+	.sign-in {
+		margin-right: auto;
 	}
 </style>
