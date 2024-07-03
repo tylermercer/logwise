@@ -172,7 +172,7 @@
         resize: vertical;
     }
 
-    input:not([type=button]),
+    input:not(:is([type=button], [type=radio])),
     textarea,
     select {
         width: 100%;
