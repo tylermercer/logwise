@@ -64,6 +64,7 @@ jobs:
           PUBLIC_DEXIE_CLOUD_URL: ${{ secrets.PUBLIC_DEXIE_CLOUD_URL }}
         run: |
           npm install
+          npm run generate-pwa-assets
           npm run check
           npm run build
           echo "result=built" >> $GITHUB_OUTPUT
