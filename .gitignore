@@ -18,3 +18,11 @@ dexie-cloud.key
 dexie-cloud.json
 
 /.backups
+
+#generated PWA icons
+static/assets/apple-touch-icon-180x180.png
+static/assets/favicon.ico
+static/assets/maskable-icon-512x512.png
+static/assets/pwa-192x192.png
+static/assets/pwa-512x512.png
+static/assets/pwa-64x64.png
