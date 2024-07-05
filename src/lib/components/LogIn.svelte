@@ -32,7 +32,7 @@
 		<h2>Sign in to Logwise</h2>
 		<p>{$ui.title}</p>
 		{#each $ui.alerts as alert, i}
-			<p class={`dxcdlg-alert-${alert.type}`}>{resolveText(alert)}</p>
+			<p class={`u-${alert.type}`}>{resolveText(alert)}</p>
 		{/each}
 		<form on:submit={(e) => handleSubmit(e, $ui)} class="l-column">
 			{#each entries as e}
@@ -66,26 +66,13 @@
 	dialog::backdrop {
 		opacity: 0.5;
 		background-color: #000;
-		backdrop-filter: blur(2px);
-		-webkit-backdrop-filter: blur(2px);
 	}
 	dialog {
-		position: absolute;
-		top: 20%;
-		color: #222;
-		background-color: #fff;
-		padding: var(--space-s);
-		max-width: 90%;
-		max-height: 60%;
-		overflow-y: auto;
-		border: 3px solid var(--space-s);
+                padding: var(--space-s);
+		max-width: min(90%, 60ch);
+		border: none;
 		border-radius: var(--space-xs);
 		width: auto;
-		font-family: sans-serif;
-	}
-	.dxcdlg-alert-error {
-		color: red;
-		font-weight: bold;
 	}
 	.dxcdlg-alert-warning {
 		color: #f80;
