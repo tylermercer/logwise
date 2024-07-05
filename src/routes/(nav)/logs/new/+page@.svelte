@@ -14,13 +14,13 @@
 </script>
 
 <svelte:head>
-	<title>New Form</title>
+	<title>New Log</title>
 </svelte:head>
 <HeaderBar>
 	<a href="/app/" class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
 	</a>
-	<h1>New form</h1>
+	<h1>New Log</h1>
 </HeaderBar>
 <main class="u-guttered">
 	<FormEditor onSubmit={handleSubmit}></FormEditor>
