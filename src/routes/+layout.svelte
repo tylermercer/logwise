@@ -14,7 +14,7 @@
 <div class="with-maybe-sidebar">
 	<MediaQuery query={mediaQueries.mobile} let:matches>
 		{#if !matches}
-			<nav class="sidebar">
+			<nav class="sidebar u-desktop-only">
 				<NavMenu>
 					<div class="l-column l-space-none">
 						<a class="u-nav-link l-row l-space-s" role="button" href="/app/">

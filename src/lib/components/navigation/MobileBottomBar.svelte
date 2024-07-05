@@ -17,7 +17,7 @@
 
 <MediaQuery query={mediaQueries.mobile} let:matches>
 	{#if matches}
-		<nav class="bottom-bar l-row">
+		<nav class="u-mobile-only bottom-bar l-row">
 			<a role="button" href="/app/">
 				<HomeIcon></HomeIcon>
 			</a>
