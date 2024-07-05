@@ -17,10 +17,10 @@
 			<nav class="sidebar">
 				<NavMenu>
 					<div class="l-column l-space-none">
-						<a class="nav-link l-row l-space-s" role="button" href="/app/">
+						<a class="u-nav-link l-row l-space-s" role="button" href="/app/">
 							<HomeIcon></HomeIcon> Home
 						</a>
-						<a class="nav-link l-row l-space-s" role="button" href="/app/log">
+						<a class="u-nav-link l-row l-space-s" role="button" href="/app/log">
 							<LogIcon></LogIcon> Unified Log
 						</a>
 					</div>
@@ -47,17 +47,5 @@
 	.sidebar {
 		width: 20rem;
 		background-color: var(--primary-3);
-	}
-	.nav-link {
-		color: var(--primary-9);
-		background-color: transparent;
-		padding: var(--space-xs);
-		padding-left: var(--space-m);
-		font-size: var(--step-0);
-		align-items: center;
-		&:hover {
-			background-color: var(--primary-4);
-			color: var(--primary-12);
-		}
 	}
 </style>

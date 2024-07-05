@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import db, { DB_NULL, type FormId } from '$lib/db';
+	import Plus from 'virtual:icons/teenyicons/add-small-outline';
 
 	let forms = liveQuery(() => db.forms.where('nextVersionId').equals(DB_NULL).toArray());
 
@@ -22,19 +23,22 @@
 	}
 </script>
 
-<div class="u-guttered l-column l-space-xs">
-	<p class="h4">
-		Logs
+<div class="logs-list l-column l-space-none">
+	<p class="heading l-row h4">
+		<span class="h4">Logs</span>
+		<a href="/app/logs/new" class="btn-icon add-new-button" role="button" aria-label="Add new log">
+			<Plus />
+		</a>
 	</p>
 	{#if $forms}
 		{#if $forms.length}
-			<ul class="forms-list l-column l-space-xs">
+			<ul class="list l-column l-space-none">
 				{#each $forms as form (form.id)}
 					<li class="form">
-						<a href="/app/logs/{form.id}/new-entry" class="u-link-block">
-							<div class="form-contents l-row l-space-xs">
+						<a href="/app/logs/{form.id}/new-entry" class="u-nav-link u-link-block">
+							<div class="form-contents l-row l-space-none">
 								{form.name || '(Unnamed)'}
-								<div class="l-cluster-r l-space-2xs actions">
+								<!-- <div class="l-cluster-r l-space-2xs actions">
 									<a
 										href="/app/logs/{form.id}/edit"
 										class="btn-outline btn-secondary"
@@ -54,7 +58,7 @@
 											Delete
 										{/if}
 									</button>
-								</div>
+								</div> -->
 							</div>
 						</a>
 					</li>
@@ -66,14 +70,12 @@
 	{:else}
 		<p><span aria-busy={!$forms}>Loading...</span></p>
 	{/if}
-	<div class="l-cluster-r">
-		<a href="/app/logs/new" role="button">Add new log</a>
-	</div>
 </div>
 
 <style lang="scss">
-	.forms-list {
+	.list {
 		padding-left: 0;
+		margin: 0;
 		& > li {
 			list-style-type: none;
 		}
@@ -84,5 +86,17 @@
 		& .actions {
 			align-items: center;
 		}
+	}
+	.heading {
+		align-items: center;
+		justify-content: space-between;
+		padding-left: var(--space-m);
+		padding-right: var(--space-m);
+	}
+	.logs-list {
+		margin-top: var(--space-s);
+	}
+	.add-new-button {
+		margin-right: calc(var(--space-xs) * -1);
 	}
 </style>
