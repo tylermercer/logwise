@@ -15,6 +15,13 @@ declare global {
             showMenu: boolean
         }
     }
+    interface Window {
+        setThemeFromLocalStorageOrMediaPreference(): void;
+        LOCAL_STORAGE_KEY_THEME: string;
+        THEME_VALUE_AUTO: string;
+        THEME_VALUE_LIGHT: string;
+        THEME_VALUE_DARK: string;
+    }
 }
 
 export { };
