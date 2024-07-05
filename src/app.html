@@ -79,11 +79,6 @@
             }
 
             console.log(`theme is: ${theme}`)
-
-            document.querySelectorAll(`.theme_toggle input[value='${theme}']`).forEach((toggle) => {
-                console.log(`set toggle`)
-                toggle.checked = true;
-            })
         }
 
         // See comment above, but this call must be made inline to avoid briefly
@@ -104,6 +99,12 @@
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
             setThemeFromLocalStorageOrMediaPreference()
         })
+
+        window.setThemeFromLocalStorageOrMediaPreference = setThemeFromLocalStorageOrMediaPreference;
+        window.LOCAL_STORAGE_KEY_THEME = LOCAL_STORAGE_KEY_THEME;
+        window.THEME_VALUE_AUTO = THEME_VALUE_AUTO;
+        window.THEME_VALUE_LIGHT = THEME_VALUE_LIGHT;
+        window.THEME_VALUE_DARK = THEME_VALUE_DARK;
 
     </script>
 </body>
