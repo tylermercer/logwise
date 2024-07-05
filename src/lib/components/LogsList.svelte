@@ -65,7 +65,7 @@
 				{/each}
 			</ul>
 		{:else}
-			<p>You don't have any logs yet. Get started by <a href="/app/logs/new">creating one</a>.</p>
+			<p class="empty">You don't have any logs yet. Get started by <a href="/app/logs/new">creating one</a>.</p>
 		{/if}
 	{:else}
 		<p><span aria-busy={!$forms}>Loading...</span></p>
@@ -90,6 +90,9 @@
 	.heading {
 		align-items: center;
 		justify-content: space-between;
+	}
+	.heading,
+	.empty {
 		padding-left: var(--space-m);
 		padding-right: var(--space-m);
 	}
