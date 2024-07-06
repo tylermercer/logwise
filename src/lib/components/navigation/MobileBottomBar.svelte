@@ -23,7 +23,7 @@
 				<HomeIcon></HomeIcon>
 				<span class="bar-link-label">Home</span>
 			</a>
-			<a class="bar-link" use:ariaCurrent role="button" href="/app/log">
+			<a class="bar-link" use:ariaCurrent role="button" href="/app/logs">
 				<LogIcon></LogIcon>
 				<span class="bar-link-label">Unified Log</span>
 			</a>

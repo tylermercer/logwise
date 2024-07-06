@@ -42,7 +42,7 @@
 			formId
 		});
 		saving = false;
-		goto('/log', {
+		goto('/logs', {
 			replaceState: true
 		});
 	}

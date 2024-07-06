@@ -14,7 +14,7 @@
                     <a class="u-nav-link l-row l-space-s" role="button" href="/app/">
                         <HomeIcon></HomeIcon> Home
                     </a>
-                    <a class="u-nav-link l-row l-space-s" role="button" href="/app/log">
+                    <a class="u-nav-link l-row l-space-s" role="button" href="/app/logs">
                         <LogIcon></LogIcon> Unified Log
                     </a>
                 </div>

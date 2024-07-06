@@ -31,7 +31,7 @@
 		{#if form}
 			<h2>
 				{form.name}
-				<a href={`/app/log/${entry.id}`} class="btn-secondary">
+				<a href={`/app/logs/${entry.formId}/${entry.id}`} class="btn-secondary">
 					<time
 						class="datetime"
 						use:svelteTime={{
