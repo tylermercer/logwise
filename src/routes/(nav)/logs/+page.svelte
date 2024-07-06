@@ -38,7 +38,7 @@
 </HeaderBar>
 <main class="u-guttered">
 	<ul class="entries-list l-column l-space-m">
-		{#each $pages as page}
+		{#each $pages as page, i}
 			{#if page}
 				{#if page.length}
 					{#each page as entry (entry.id)}
@@ -46,7 +46,8 @@
 							<Entry {entry}></Entry>
 						</li>
 					{/each}
-				{:else if $pages.length === 1}
+				{:else if i === 0}
+					<!-- Empty first page, show empty state -->
 					<li>
 						There's nothing in your log yet. Get started by
 						<a href="/app/logs/new">creating a log</a>.
