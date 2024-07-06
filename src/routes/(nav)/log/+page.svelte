@@ -2,7 +2,7 @@
 	import { liveQuery } from 'dexie';
 	import db, { type FormId } from '$lib/db';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
-	import HeaderBar from '$lib/components/HeaderBar.svelte';
+	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import Entry from '$lib/components/LogEntry.svelte';
 
 	let entries = liveQuery(() => db.entries.orderBy('displayDatetime').reverse().limit(10).toArray());

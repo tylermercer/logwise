@@ -2,6 +2,9 @@
 	import '../styles/styles.scss';
 	import LogIn from '$lib/components/LogIn.svelte';
 	import DesktopSidebar from '$lib/components/navigation/DesktopSidebar.svelte';
+	import { initBackButtonLinks } from '$lib/util/actions/backButtonLink';
+
+	initBackButtonLinks();
 </script>
 
 <svelte:head>

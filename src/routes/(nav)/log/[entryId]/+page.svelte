@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
-	import HeaderBar from '$lib/components/HeaderBar.svelte';
+	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import LogEntry from '$lib/components/LogEntry.svelte';
 	import { goto } from '$app/navigation';
 	import db from '$lib/db';
@@ -26,10 +25,7 @@
 <svelte:head>
 	<title>Entry</title>
 </svelte:head>
-<HeaderBar>
-	<a href="/app/log" class="btn-secondary" aria-label="Home">
-		<LeftArrow></LeftArrow>
-	</a>
+<HeaderBar backHref="/app/log">
 	<h1>Entry</h1>
 	<button
 		class="btn-delete btn-outline"

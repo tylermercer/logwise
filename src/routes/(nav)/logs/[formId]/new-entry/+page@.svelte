@@ -6,7 +6,7 @@
 	import DatetimeInput from '$lib/components/DatetimeInput.svelte';
 	import { typeid } from 'typeid-unboxed';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
-	import HeaderBar from '$lib/components/HeaderBar.svelte';
+	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import { isAnsweredTextQuestion } from '$lib/question/text';
 	import { isAnsweredLikertQuestion } from '$lib/question/likert';
 	import { isAnsweredBoolQuestion } from '$lib/question/bool';
