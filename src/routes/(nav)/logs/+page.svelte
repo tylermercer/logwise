@@ -1,25 +1,33 @@
 <script lang="ts">
-	import liveQueryAsStore from '$lib/util/dexie/liveQueryAsStore';
-	import db from '$lib/db';
-	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
+	import InfiniteScroll from '$lib/components/InfiniteScroll.svelte';
 	import Entry from '$lib/components/LogEntry.svelte';
-	import { writable, derived } from 'svelte/store';
+	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
+	import db from '$lib/db';
+	import liveQueryAsStore from '$lib/util/dexie/liveQueryAsStore';
+	import { derived, writable } from 'svelte/store';
 
 	const PAGE_SIZE = 10;
 
 	const getPageLiveQuery = (pageIndex: number) =>
-		liveQueryAsStore(() =>
-			db.entries
-				.orderBy('displayDatetime')
-				.reverse()
-				.offset(PAGE_SIZE * pageIndex)
-				.limit(PAGE_SIZE)
-				.toArray()
+		liveQueryAsStore(
+			() =>
+				db.entries
+					.orderBy('displayDatetime')
+					.reverse()
+					.offset(PAGE_SIZE * pageIndex)
+					.limit(PAGE_SIZE)
+					.toArray(),
+			[]
 		);
 
 	const pagesStoreOfStores = writable([getPageLiveQuery(0)]);
 
 	$: pages = derived($pagesStoreOfStores, (x) => x);
+
+	let nextPageToLoad = 0;
+
+	const loadNextPage = () =>
+		pagesStoreOfStores.update((a) => [...a, getPageLiveQuery(nextPageToLoad++)]);
 </script>
 
 <svelte:head>
@@ -29,26 +37,29 @@
 	<h1>Log</h1>
 </HeaderBar>
 <main class="u-guttered">
-	{#each $pages as page}
-		{#if page}
-			{#if page.length}
-				<ul class="entries-list l-column l-space-m">
+	<ul class="entries-list l-column l-space-m">
+		{#each $pages as page}
+			{#if page}
+				{#if page.length}
 					{#each page as entry (entry.id)}
 						<li class="entry">
 							<Entry {entry}></Entry>
 						</li>
 					{/each}
-				</ul>
+				{:else if $pages.length === 1}
+					<li>
+						There's nothing in your log yet. Get started by
+						<a href="/app/logs/new">creating a log</a>.
+					</li>
+				{:else}
+					<li>Nothing more to show</li>
+				{/if}
 			{:else}
-				<p>
-					There's nothing in your log yet. Get started by
-					<a href="/app/logs/new">creating a log</a>.
-				</p>
+				<li><span aria-busy="true">Loading...</span></li>
 			{/if}
-		{:else}
-			<p><span aria-busy="true">Loading...</span></p>
-		{/if}
-	{/each}
+		{/each}
+	</ul>
+	<InfiniteScroll on:loadMore={loadNextPage} hasMore={!!$pages.at(-1)?.length} />
 </main>
 
 <style lang="scss">
