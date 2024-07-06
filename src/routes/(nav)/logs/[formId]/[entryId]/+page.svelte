@@ -15,7 +15,7 @@
 		e.stopImmediatePropagation();
 		if (pendingDeletion) {
 			await db.entries.delete(existingEntry.id);
-			goto('/app/log', { replaceState: true });
+			goto('/app/logs', { replaceState: true });
 		} else {
 			pendingDeletion = true;
 			setTimeout(() => (pendingDeletion = false), 3000);
@@ -25,7 +25,7 @@
 <svelte:head>
 	<title>Entry</title>
 </svelte:head>
-<HeaderBar backHref="/app/log">
+<HeaderBar backHref="/app/logs">
 	<h1>Entry</h1>
 	<button
 		class="btn-delete btn-outline"
