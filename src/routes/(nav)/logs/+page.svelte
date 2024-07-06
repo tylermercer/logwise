@@ -48,12 +48,12 @@
 					{/each}
 				{:else if i === 0}
 					<!-- Empty first page, show empty state -->
-					<li>
+					<li class="nothing-more">
 						There's nothing in your log yet. Get started by
 						<a href="/app/logs/new">creating a log</a>.
 					</li>
 				{:else}
-					<li>Nothing more to show</li>
+					<li class="nothing-more">Nothing more to show</li>
 				{/if}
 			{:else}
 				<li><span aria-busy="true">Loading...</span></li>
@@ -70,5 +70,9 @@
 			list-style-type: none;
 			margin-bottom: 2rem;
 		}
+	}
+	// Hide subsequent pages after the end marker, e.g. when the user logs out
+	.nothing-more ~ li {
+		display: none;
 	}
 </style>
