@@ -83,9 +83,9 @@
 	.form-contents {
 		align-items: center;
 		justify-content: space-between;
-		& .actions {
-			align-items: center;
-		}
+		// & .actions {
+		// 	align-items: center;
+		// }
 	}
 	.heading {
 		align-items: center;
