@@ -24,7 +24,7 @@
 
 	$: pages = derived($pagesStoreOfStores, (x) => x);
 
-	let nextPageToLoad = 0;
+	let nextPageToLoad = 1;
 
 	const loadNextPage = () =>
 		pagesStoreOfStores.update((a) => [...a, getPageLiveQuery(nextPageToLoad++)]);
