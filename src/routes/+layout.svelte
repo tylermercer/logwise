@@ -3,6 +3,15 @@
 	import LogIn from '$lib/components/LogIn.svelte';
 	import DesktopSidebar from '$lib/components/navigation/DesktopSidebar.svelte';
 	import { initBackButtonLinks } from '$lib/util/actions/backButtonLink';
+	import { beforeNavigate } from '$app/navigation';
+	import { updated } from '$app/stores';
+
+	//Auto-upgrade
+	beforeNavigate(({ willUnload, to }) => {
+		if ($updated && !willUnload && to?.url) {
+			location.href = to.url.href;
+		}
+	});
 
 	initBackButtonLinks();
 </script>

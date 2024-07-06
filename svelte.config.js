@@ -15,6 +15,10 @@ const config = {
 		}),
 		paths: {
 			base: '/app'
+		},
+		version: {
+			name: process.env.PUBLIC_COMMIT_HASH,
+			pollInterval: 60*1000
 		}
 	}
 };
