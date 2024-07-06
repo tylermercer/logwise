@@ -56,7 +56,7 @@
 			gap: var(--space-3xs);
 			height: var(--bottom-bar-height);
 			justify-content: center;
-			color: var(--primary-9);
+			color: var(--primary-11);
 			background-color: transparent;
 			&:active {
 				background-color: var(--primary-3);
