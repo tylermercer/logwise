@@ -68,11 +68,12 @@
 		background-color: #000;
 	}
 	dialog {
-                padding: var(--space-s);
+		padding: var(--space-s);
 		max-width: min(90%, 60ch);
 		border: none;
 		border-radius: var(--space-xs);
 		width: auto;
+		transform: translateY(-5vh);
 	}
 	.dxcdlg-alert-warning {
 		color: #f80;
