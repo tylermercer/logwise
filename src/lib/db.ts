@@ -3,6 +3,8 @@ import dexieCloud from "dexie-cloud-addon";
 import { type TypeID } from 'typeid-unboxed';
 import { PUBLIC_DEXIE_CLOUD_URL } from '$env/static/public';
 import type { Question } from './question';
+import { exportDB } from "dexie-export-import";
+import type { ImportProgress } from 'dexie-export-import/dist/import';
 
 export type QuestionId = Question['id']
 
@@ -60,5 +62,11 @@ const db = new AppDexie();
 
 //Note that this invokes db.open() when the module is loaded
 export const dbOpenPromise = new Promise<void>(r => db.open().then(() => r()));
+
+export const exportToFile = async (progressCallback: (progress: ImportProgress) => boolean) => {
+  return await exportDB(db, {
+    progressCallback
+  });
+}
 
 export default db;

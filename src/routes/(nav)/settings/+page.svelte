@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
+	import { exportToFile } from '$lib/db';
+	import download from 'downloadjs';
 
 	let selected = localStorage.getItem(window.LOCAL_STORAGE_KEY_THEME) ?? window.THEME_VALUE_AUTO;
 
@@ -32,6 +34,16 @@
 			}
 		}
 	});
+
+	const exportDatabase = async () => {
+		try {
+			const blob = exportToFile(console.log);
+			const time = new Date().toISOString().substring(0, 16).replace(':', '-').replace('T', '-');
+			download(await blob, `${time}-logwise-export.json`, "application/json");
+			} catch (error) {
+			console.error(error);
+		}
+	}
 </script>
 
 <svelte:head>
@@ -40,7 +52,7 @@
 <header class="u-guttered">
 	<h1>Settings</h1>
 </header>
-<main class="u-guttered">
+<main class="u-guttered l-prose">
 	<h2>Appearance</h2>
 	<fieldset>
 		<legend>Theme</legend>
@@ -75,4 +87,6 @@
 			Dark
 		</label>
 	</fieldset>
+	<h2>Data Export</h2>
+	<button class="btn-primary" on:click={exportDatabase}>Export Data</button>
 </main>	
