@@ -12,6 +12,19 @@
         flex-basis: calc(var(--l-switcher-modifier) * 999);
     }
 
+    .l-prose {
+        display: block;
+
+        &>* {
+            margin-top: 1em;
+            margin-bottom: 0;
+        }
+
+        &> :first-child {
+            margin-top: 0;
+        }
+    }
+
     .l-row {
         display: flex;
         flex-wrap: wrap;

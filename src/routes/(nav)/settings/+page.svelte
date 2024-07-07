@@ -1,6 +1,8 @@
 <script lang="ts">
 	import MungedEmailLink from '$lib/components/controls/MungedEmailLink.svelte';
 	import { onMount } from 'svelte';
+	import { exportToFile } from '$lib/db';
+	import download from 'downloadjs';
 
 	let selected = localStorage.getItem(window.LOCAL_STORAGE_KEY_THEME) ?? window.THEME_VALUE_AUTO;
 
@@ -32,6 +34,20 @@
 			}
 		};
 	});
+
+	// onMount is used so that downloadjs will be tree-shaken out of the server bundle
+	let handleExport: () => Promise<void> = async () => {};
+	onMount(() => {
+		handleExport = async () => {
+			try {
+				const filePromise = exportToFile();
+				const time = new Date().toISOString().substring(0, 16).replace(':', '-').replace('T', '-');
+				download(await filePromise, `${time}-logwise-export.json`, 'application/json');
+			} catch (e) {
+				console.error(e);
+			}
+		};
+	})
 </script>
 
 <svelte:head>
@@ -75,7 +91,9 @@
 			Dark
 		</label>
 	</fieldset>
+	<h2>Data Export</h2>
+	<button class="btn-primary" on:click={handleExport}>Export Data</button>
 	<h2>Support</h2>
 	<p>Having problems? Try logging out and logging back in again.</p>
 	<p><MungedEmailLink>Send feedback about Logwise</MungedEmailLink></p>
-</main>
+</main>	
