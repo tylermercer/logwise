@@ -68,6 +68,8 @@
 		background-color: #000;
 	}
 	dialog {
+		color: var(--gray-12);
+		background-color: var(--gray-2);
 		padding: var(--space-s);
 		max-width: min(90%, 60ch);
 		border: none;
