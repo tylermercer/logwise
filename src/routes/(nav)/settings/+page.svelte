@@ -40,7 +40,7 @@
 <header class="u-guttered">
 	<h1>Settings</h1>
 </header>
-<main class="u-guttered">
+<main class="u-guttered l-prose">
 	<h2>Appearance</h2>
 	<fieldset>
 		<legend>Theme</legend>
