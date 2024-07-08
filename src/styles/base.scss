@@ -171,6 +171,7 @@
 
     textarea {
         resize: vertical;
+        min-height: var(--space-3xl);
     }
 
     input:not(:is([type=button], [type=radio])),
