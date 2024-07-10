@@ -11,9 +11,7 @@
 	const backHref = `/app/logs/${data.form.id}/${data.entry.id}`;
 
 	async function onSubmit() {
-		goto(backHref, {
-			replaceState: true
-		});
+		history.back();
 	}
 </script>
 
