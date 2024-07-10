@@ -2,6 +2,7 @@
 	import { liveQuery } from 'dexie';
 	import db, { DB_NULL, type FormId } from '$lib/db';
 	import Plus from 'virtual:icons/teenyicons/add-small-outline';
+	import Tooltip from './Tooltip.svelte';
 
 	let forms = liveQuery(() => db.forms.where('nextVersionId').equals(DB_NULL).toArray());
 
@@ -26,9 +27,11 @@
 <div class="logs-list l-column l-space-none">
 	<p class="heading l-row h4">
 		<span class="h4">Logs</span>
-		<a href="/app/logs/new" class="btn-icon add-new-button" role="button" aria-label="Add new log">
-			<Plus />
-		</a>
+		<Tooltip text="Add new log">
+			<a href="/app/logs/new" class="btn-icon add-new-button" role="button" aria-label="Add new log">
+				<Plus />
+			</a>
+		</Tooltip>
 	</p>
 	{#if $forms}
 		{#if $forms.length}
