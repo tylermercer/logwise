@@ -22,13 +22,17 @@
 		}
 	}
 </script>
+
 <svelte:head>
 	<title>Entry</title>
 </svelte:head>
 <HeaderBar backHref="/app/logs">
 	<h1>Entry</h1>
+	<a class="btn-edit btn-secondary btn-outline" role="button" href={`/app/logs/${data.existingEntry.formId}/${data.existingEntry.id}/edit`}>
+		Edit
+	</a>
 	<button
-		class="btn-delete btn-outline"
+		class="btn-outline"
 		class:btn-secondary={!pendingDeletion}
 		class:btn-contrast={pendingDeletion}
 		on:click={deleteEntry}
@@ -43,8 +47,9 @@
 <main class="u-guttered">
 	<LogEntry entry={existingEntry}></LogEntry>
 </main>
+
 <style lang="scss">
-	.btn-delete {
+	.btn-edit {
 		margin-inline-start: auto;
 	}
 </style>

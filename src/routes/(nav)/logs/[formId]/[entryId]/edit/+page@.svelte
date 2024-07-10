@@ -5,21 +5,24 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { name } = data.form;
+
+	const title = 'Editing entry';
+
+	const backHref = `/app/logs/${data.form.id}/${data.entry.id}`;
 
 	async function onSubmit() {
-		goto('/app/logs', {
+		goto(backHref, {
 			replaceState: true
 		});
 	}
 </script>
 
 <svelte:head>
-	<title>{name}</title>
+	<title>{title}</title>
 </svelte:head>
-<HeaderBar backHref="/app/">
-	<h1>{name}</h1>
+<HeaderBar {backHref}>
+	<h1>{title}</h1>
 </HeaderBar>
 <main class="u-guttered l-column l-space-m">
-	<EntryForm form={data.form} on:submit={onSubmit}></EntryForm>
+	<EntryForm form={data.form} on:submit={onSubmit} entry={data.entry}></EntryForm>
 </main>
