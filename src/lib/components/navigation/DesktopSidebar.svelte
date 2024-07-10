@@ -25,6 +25,7 @@
 
 <style lang="scss">
 	.sidebar {
+        max-width: 40vw;
 		width: 20rem;
 		background-color: var(--primary-3);
 	}

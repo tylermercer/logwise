@@ -14,7 +14,7 @@
 	let user = db.cloud.currentUser;
 </script>
 
-<div class="menu-container l-row l-space-xs">
+<div class="menu-container l-row l-space-s">
     {#if $user.isLoggedIn}
         <button type="button" class="trigger" use:melt={$trigger} aria-label="Open Popover">{$user.name?.substring(0,2).toUpperCase() ?? 'ME'}</button>
     

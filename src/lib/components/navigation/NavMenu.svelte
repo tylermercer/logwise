@@ -31,6 +31,7 @@
 <style lang="scss">
 	.buttons {
 		margin-right: calc(var(--space-xs) * -1);
+		margin-left: calc(var(--space-xs) * -1);
 	}
 	.header {
 		padding-bottom: var(--space-xs);
