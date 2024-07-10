@@ -1,7 +1,6 @@
 <script lang="ts">
 	import db from '$lib/db';
 	import type { FormRaw, QuestionId } from '$lib/db';
-	import { goto } from '$lib/navigation';
 	import DatetimeInput from '$lib/components/DatetimeInput.svelte';
 	import { typeid } from 'typeid-unboxed';
 	import { isAnsweredTextQuestion } from '$lib/question/text';
@@ -9,6 +8,7 @@
 	import { isAnsweredBoolQuestion } from '$lib/question/bool';
 	import assertNever from '$lib/util/assertNever';
 	import { toAnsweredQuestion } from '$lib/question';
+	import { goto } from '$app/navigation';
 
 	export let form: FormRaw;
 
@@ -39,7 +39,7 @@
 			formId
 		});
 		saving = false;
-		goto('/logs', {
+		goto('/app/logs', {
 			replaceState: true
 		});
 	}

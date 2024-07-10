@@ -4,9 +4,8 @@
 	import db, { DB_NULL } from '$lib/db';
 	import FormEditor from '$lib/components/FormEditor.svelte';
 	import type { FormRaw } from '$lib/db';
-	import { goto } from '$lib/navigation';
-	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 
@@ -18,9 +17,10 @@
 		}
 		await db.forms.add(form);
 
-		goto('/logs');
+		goto('/app/logs');
 	}
 </script>
+
 <svelte:head>
 	<title>Editing "{existingForm.name}"</title>
 </svelte:head>
