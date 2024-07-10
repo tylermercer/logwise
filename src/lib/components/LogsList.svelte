@@ -68,7 +68,7 @@
 			<p class="empty">You don't have any logs yet. Get started by <a href="/app/logs/new">creating one</a>.</p>
 		{/if}
 	{:else}
-		<p><span aria-busy={!$forms}>Loading...</span></p>
+		<p class="loader"><span aria-busy={!$forms}>Loading...</span></p>
 	{/if}
 </div>
 
@@ -91,8 +91,14 @@
 		align-items: center;
 		justify-content: space-between;
 	}
+	.empty,
+	.loader {
+		padding-top: var(--space-xs);
+		padding-bottom: var(--space-xs);
+	}
 	.heading,
-	.empty {
+	.empty,
+	.loader {
 		padding-left: var(--space-m);
 		padding-right: var(--space-m);
 	}
