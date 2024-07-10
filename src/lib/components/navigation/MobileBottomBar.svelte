@@ -49,6 +49,7 @@
 		border-top: 1px solid var(--primary-6);
 		background-color: var(--primary-2);
 		& > .bar-link {
+			padding: 0;
 			flex: 1;
 			display: flex;
 			align-items: center;
