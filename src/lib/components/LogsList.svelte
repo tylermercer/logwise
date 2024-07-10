@@ -73,13 +73,6 @@
 </div>
 
 <style lang="scss">
-	.list {
-		padding-left: 0;
-		margin: 0;
-		& > li {
-			list-style-type: none;
-		}
-	}
 	.form-contents {
 		align-items: center;
 		justify-content: space-between;

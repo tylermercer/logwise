@@ -1,6 +1,6 @@
 @import 'modern-normalize/modern-normalize.css' layer(base);
 
-@layer base {    
+@layer base {
 
     :root {
         --bottom-bar-height: 64px;
@@ -73,6 +73,16 @@
 
         >a {
             line-height: inherit;
+        }
+    }
+
+    ul,
+    ol {
+        padding-left: 0;
+        margin: 0;
+
+        &>li {
+            list-style-type: none;
         }
     }
 
@@ -154,7 +164,7 @@
             outline: 2px solid var(--outline-color);
             outline-offset: 1px;
         }
-        
+
         &.btn-icon {
             color: var(--primary-11);
             background-color: transparent;
@@ -162,6 +172,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
             &:hover {
                 background-color: var(--primary-4);
                 color: var(--primary-12);
