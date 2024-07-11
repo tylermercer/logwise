@@ -97,13 +97,14 @@
 	}
 	.trigger {
 		display: inline-flex;
+		border: 1px solid var(--primary-11);
 		height: 2.25rem;
 		width: 2.25rem;
 		align-items: center;
 		justify-content: center;
 		border-radius: 9999px;
 		background-color: var(--primary-9);
-		color: var(--gray-1);
+		color: var(--primary-contrast);
 		&[data-highlighted] {
 			outline: 2px solid var(--primary-6);
 			outline-offset: 2px;
