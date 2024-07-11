@@ -46,6 +46,28 @@
 		questions = questions.filter((q) => q.tempId !== tempId);
 	}
 
+	function moveQuestionUp(startIndex: number) {
+		if (startIndex <= 0 || startIndex >= questions.length) return;
+
+		questions = [
+			...questions.slice(0, startIndex - 1),
+			questions[startIndex],
+			questions[startIndex - 1],
+			...questions.slice(startIndex + 1)
+		];
+	}
+
+	function moveQuestionDown(startIndex: number) {
+		if (startIndex < 0 || startIndex >= questions.length - 1) return;
+
+		questions = [
+			...questions.slice(0, startIndex),
+			questions[startIndex + 1],
+			questions[startIndex],
+			...questions.slice(startIndex + 2)
+		];
+	}
+
 	async function saveForm() {
 		try {
 			saving = true;
@@ -94,7 +116,7 @@
 	<fieldset class="questions l-column l-space-s">
 		<legend><h2>Questions</h2></legend>
 		{#if questions.length}
-			{#each questions as question (question.tempId)}
+			{#each questions as question, i (question.tempId)}
 				<div class="question l-row l-space-s">
 					<div class="l-column l-space-2xs">
 						<label>
@@ -130,27 +152,31 @@
 						>
 							<TrashIcon />
 						</button>
+						<button
+							type="button"
+							on:click={() => moveQuestionUp(i)}
+							class="btn-icon"
+							aria-disabled={i === 0 ? 'true' : undefined}
+							disabled={i === 0}
+						>
+							<UpIcon />
+						</button>
 						<!-- <button
 							type="button"
 							on:click={() => deleteQuestion(question.tempId)}
 							class="btn-icon"
 						>
-							<UpIcon/>
-						</button>
-						<button
-							type="button"
-							on:click={() => deleteQuestion(question.tempId)}
-							class="btn-icon"
-						>
 							<DragIcon/>
-						</button>
+							</button> -->
 						<button
 							type="button"
-							on:click={() => deleteQuestion(question.tempId)}
+							on:click={() => moveQuestionDown(i)}
 							class="btn-icon"
+							aria-disabled={i === questions.length - 1 ? 'true' : undefined}
+							disabled={i === questions.length - 1}
 						>
-							<DownIcon/>
-						</button> -->
+							<DownIcon />
+						</button>
 					</div>
 				</div>
 			{/each}
@@ -161,7 +187,7 @@
 	<div class="btn-add-question-container l-cluster-r">
 		<Tooltip text="Add question">
 			<button class="btn-icon" aria-label="Add question" type="button" on:click={addQuestion}>
-				<PlusIcon/>
+				<PlusIcon />
 			</button>
 		</Tooltip>
 	</div>

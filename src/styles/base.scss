@@ -156,7 +156,7 @@
             border: 1px solid var(--button-color);
         }
 
-        &:hover {
+        &:hover:not([disabled]) {
             --button-color: var(--button-color-hov);
             --button-text-color: var(--button-text-color-hov);
         }
@@ -174,10 +174,15 @@
             align-items: center;
             justify-content: center;
 
-            &:hover {
+            &:hover:not([disabled]) {
                 background-color: var(--primary-4);
                 color: var(--primary-12);
             }
+        }
+        &[disabled] {
+            opacity: 0.7;
+            filter: grayscale(0.8);
+            cursor: default;
         }
     }
 
