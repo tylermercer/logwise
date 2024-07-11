@@ -4,6 +4,12 @@
 	import assertNever from '$lib/util/assertNever';
 	import { nanoid } from 'nanoid';
 	import { getType, typeid } from 'typeid-unboxed';
+	import TrashIcon from 'virtual:icons/teenyicons/bin-outline';
+	import UpIcon from 'virtual:icons/teenyicons/up-outline';
+	import DownIcon from 'virtual:icons/teenyicons/down-outline';
+	import DragIcon from 'virtual:icons/teenyicons/drag-vertical-outline';
+	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
+	import Tooltip from './Tooltip.svelte';
 
 	export let onSubmit = async (_: FormRaw) => {};
 
@@ -89,9 +95,9 @@
 		<legend><h2>Questions</h2></legend>
 		{#if questions.length}
 			{#each questions as question (question.tempId)}
-				<div class="question l-column l-space-2xs">
-					<div class="l-row l-space-xs">
-						<label class="question-text">
+				<div class="question l-row l-space-s">
+					<div class="l-column l-space-2xs">
+						<label>
 							Question
 							<input type="text" bind:value={question.data.text} />
 							<small>
@@ -107,7 +113,7 @@
 								{/if}
 							</small>
 						</label>
-						<label class="question-type">
+						<label>
 							Type
 							<select bind:value={question.type}>
 								<option value="text">Text</option>
@@ -116,14 +122,35 @@
 							</select>
 						</label>
 					</div>
-					<div class="l-cluster-r">
+					<div class="question-buttons l-column l-space-none">
 						<button
 							type="button"
 							on:click={() => deleteQuestion(question.tempId)}
-							class="btn-outline btn-secondary"
+							class="btn-delete btn-icon"
 						>
-							Delete
+							<TrashIcon />
 						</button>
+						<!-- <button
+							type="button"
+							on:click={() => deleteQuestion(question.tempId)}
+							class="btn-icon"
+						>
+							<UpIcon/>
+						</button>
+						<button
+							type="button"
+							on:click={() => deleteQuestion(question.tempId)}
+							class="btn-icon"
+						>
+							<DragIcon/>
+						</button>
+						<button
+							type="button"
+							on:click={() => deleteQuestion(question.tempId)}
+							class="btn-icon"
+						>
+							<DownIcon/>
+						</button> -->
 					</div>
 				</div>
 			{/each}
@@ -131,10 +158,13 @@
 			<p>No questions</p>
 		{/if}
 	</fieldset>
-	<div class="l-cluster-r">
-		<button class="btn-secondary" type="button" on:click={addQuestion}>Add Question</button>
+	<div class="btn-add-question-container l-cluster-r">
+		<Tooltip text="Add question">
+			<button class="btn-icon" aria-label="Add question" type="button" on:click={addQuestion}>
+				<PlusIcon/>
+			</button>
+		</Tooltip>
 	</div>
-	<hr />
 	{#if status}
 		<p>{status}</p>
 	{/if}
@@ -151,16 +181,25 @@
 
 <style lang="scss">
 	.question {
-		border: 1px solid var(--pico-muted-border-color);
+		border: 1px solid var(--gray-6);
+		padding: var(--space-s);
+		padding-top: var(--space-2xs);
 		border-radius: var(--space-xs);
+		& > :first-child {
+			flex: 1;
+		}
+		& > :last-child {
+			width: fit-content;
+		}
 	}
-	.question-text {
-		flex: 2;
-	}
-	.question-type {
-		flex: 1;
+	.question-buttons {
+		justify-content: center;
+		margin-right: calc(var(--space-xs) * -1);
 	}
 	.questions {
 		padding-block: var(--l-space);
+	}
+	.btn-add-question-container {
+		margin-top: calc(var(--l-space) * -1);
 	}
 </style>
