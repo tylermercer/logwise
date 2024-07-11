@@ -32,7 +32,7 @@
 		display: flex;
 		align-items: stretch;
 		min-height: 100vh;
-		min-height: 100lvh;
+		min-height: 100svh;
 		& > :not(.sidebar) {
 			flex: 1;
 		}
