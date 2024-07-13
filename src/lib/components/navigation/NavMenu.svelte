@@ -35,5 +35,8 @@
 	}
 	.header {
 		padding-bottom: var(--space-xs);
+		background-color: inherit;
+		position: sticky;
+		top: 0;
 	}
 </style>
