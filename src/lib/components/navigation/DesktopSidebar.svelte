@@ -25,8 +25,13 @@
 
 <style lang="scss">
 	.sidebar {
-        max-width: 40vw;
+		max-width: 40vw;
+		max-height: 100vh;
 		width: 20rem;
 		background-color: var(--primary-3);
+		overflow-y: auto;
+		position: sticky;
+		top: 0;
+        
 	}
 </style>
