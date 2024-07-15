@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const inputSvgFilePath = path.join(__dirname, './static/assets/favicon-raw.svg');
-const inputManifestFilePath = path.join(__dirname, './static/assets/site-raw.webmanifest');
+const inputSvgFilePath = path.join(__dirname, './static/assets-raw/favicon.svg');
+const inputManifestFilePath = path.join(__dirname, './static/assets-raw/site.webmanifest');
 const outputSvgFilePath = path.join(__dirname, './static/assets/favicon.svg');
 const outputManifestFilePath = path.join(__dirname, './static/assets/site.webmanifest');
 
