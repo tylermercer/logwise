@@ -3,29 +3,35 @@
     margin-inline: auto;
     max-inline-size: 60ch;
 }
+
 .u-guttered-lg {
     padding: var(--space-m);
     margin-inline: auto;
-        max-inline-size: 90ch;
+    max-inline-size: 90ch;
 }
+
 a.u-link-block {
     display: block;
     height: 100%;
     color: unset;
+
     &:link {
         text-decoration: none;
     }
 }
+
 .u-error {
     background-color: lightcoral;
     color: darkred;
     padding: 0.5em;
 }
+
 .u-success {
     background-color: lightgreen;
     color: darkgreen;
     padding: 0.5em;
 }
+
 .u-nav-link {
     color: var(--primary-11);
     background-color: transparent;
@@ -33,6 +39,7 @@ a.u-link-block {
     padding-left: var(--space-m);
     font-size: var(--step-0);
     align-items: center;
+
     &:hover {
         background-color: var(--primary-4);
         color: var(--primary-12);
@@ -48,5 +55,26 @@ a.u-link-block {
 @media (min-width: 513px) {
     .u-mobile-only {
         display: none;
+    }
+}
+
+.u-styled-scrollbars {
+    --u-styled-scrollbars-fg: var(--primary-4);
+    --u-styled-scrollbars-bg: var(--primary-2);
+    scrollbar-color: var(--u-styled-scrollbars-fg) var(--u-styled-scrollbars-bg);
+    scrollbar-width: thin;
+    ::-webkit-scrollbar-corner
+
+    &::-webkit-scrollbar {
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--u-styled-scrollbars-fg);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--u-styled-scrollbars-bg);
     }
 }
