@@ -45,6 +45,9 @@ a.u-link-block {
         color: var(--primary-12);
     }
 }
+.u-cascading-bg {
+    background-color: var(--u-cascading-bg);
+}
 
 @media (max-width: 512px) {
     .u-desktop-only {
