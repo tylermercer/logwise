@@ -58,23 +58,27 @@ a.u-link-block {
     }
 }
 
-.u-styled-scrollbars {
-    --u-styled-scrollbars-fg: var(--primary-4);
-    --u-styled-scrollbars-bg: var(--primary-2);
-    scrollbar-color: var(--u-styled-scrollbars-fg) var(--u-styled-scrollbars-bg);
-    scrollbar-width: thin;
-    ::-webkit-scrollbar-corner
-
-    &::-webkit-scrollbar {
-        width: 0.5rem;
-        height: 0.5rem;
+@media (min-width: 513px) {
+    .u-desktop-scrollbars-y {
+        overflow-y: auto;
     }
+    .u-styled-scrollbars {
+        --u-styled-scrollbars-fg: var(--primary-4);
+        --u-styled-scrollbars-bg: var(--primary-2);
+        scrollbar-color: var(--u-styled-scrollbars-fg) var(--u-styled-scrollbars-bg);
+        scrollbar-width: thin;
 
-    &::-webkit-scrollbar-thumb {
-        background: var(--u-styled-scrollbars-fg);
-    }
+        ::-webkit-scrollbar-corner &::-webkit-scrollbar {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
 
-    &::-webkit-scrollbar-track {
-        background: var(--u-styled-scrollbars-bg);
+        &::-webkit-scrollbar-thumb {
+            background: var(--u-styled-scrollbars-fg);
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--u-styled-scrollbars-bg);
+        }
     }
 }
