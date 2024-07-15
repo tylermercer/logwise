@@ -26,6 +26,6 @@
     ],
     "start_url": "/app/",
     "theme_color": "#FF00FF",
-    "background_color": "#000000",
+    "background_color": "#FF00FF",
     "display": "standalone"
 }
