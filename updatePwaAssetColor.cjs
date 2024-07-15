@@ -1,11 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 
+// Define file paths
 const inputSvgFilePath = path.join(__dirname, './static/assets-raw/favicon.svg');
 const inputManifestFilePath = path.join(__dirname, './static/assets-raw/site.webmanifest');
 const outputSvgFilePath = path.join(__dirname, './static/assets/favicon.svg');
 const outputManifestFilePath = path.join(__dirname, './static/assets/site.webmanifest');
 
+// Ensure the output directory exists
+function ensureDirectoryExistence(filePath) {
+    const dirname = path.dirname(filePath);
+    if (!fs.existsSync(dirname)) {
+        fs.mkdirSync(dirname, { recursive: true });
+    }
+}
+
+// Function to get the accent color from the SCSS file
 function getAccentColor() {
     const scssFilePath = path.join(__dirname, './src/styles/theme.scss');
     const scssContent = fs.readFileSync(scssFilePath, 'utf8');
@@ -17,12 +27,13 @@ function getAccentColor() {
     }
 }
 
-// Function to update the SVG file with the accent color
+// Function to update the file with the accent color
 function updateFile(inputFile, outputFile, accentColor) {
+    ensureDirectoryExistence(outputFile);
     const content = fs.readFileSync(inputFile, 'utf8');
     const updatedContent = content.replace(/#FF00FF/g, accentColor);
     fs.writeFileSync(outputFile, updatedContent, 'utf8');
-    console.log(`Theme color interpolated into ${inputFile}`);
+    console.log(`Theme color interpolated into ${inputFile} and saved as ${outputFile}`);
 }
 
 try {
