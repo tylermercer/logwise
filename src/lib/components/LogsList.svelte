@@ -89,6 +89,9 @@
 	.heading {
 		align-items: center;
 		justify-content: space-between;
+		position: sticky;
+		top: 0;
+		background-color: var(--u-cascading-bg, var(--primary-1));
 	}
 	.empty,
 	.loader {
@@ -102,6 +105,6 @@
 		padding-right: var(--space-m);
 	}
 	.add-new-button {
-		margin-right: calc(var(--space-xs) * -1);
+		margin-right: calc(var(--space-xs) * -1 - 0.5rem);
 	}
 </style>

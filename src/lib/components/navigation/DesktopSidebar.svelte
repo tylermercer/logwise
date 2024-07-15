@@ -9,7 +9,7 @@
 
 <MediaQuery query={mediaQueries.mobile} let:matches>
 	{#if !matches}
-		<nav class="sidebar l-column u-desktop-only u-styled-scrollbars">
+		<nav class="sidebar l-column u-desktop-only u-styled-scrollbars u-cascading-bg">
 			<NavHeaderMenu />
 			<div class="l-column l-space-none">
 				<a class="u-nav-link l-row l-space-s" role="button" href="/app/">
@@ -26,11 +26,11 @@
 
 <style lang="scss">
 	.sidebar {
+		--u-cascading-bg: var(--primary-3);
 		max-width: 40vw;
 		max-height: 100vh;
 		width: 20rem;
 		height: 100vh;
-		background-color: var(--primary-3);
 		position: sticky;
 		top: 0;
 		bottom: 0;
