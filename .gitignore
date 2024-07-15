@@ -22,6 +22,7 @@ dexie-cloud.json
 #generated PWA icons
 static/assets/apple-touch-icon-180x180.png
 static/assets/favicon.ico
+static/assets/favicon.svg
 static/assets/maskable-icon-512x512.png
 static/assets/pwa-192x192.png
 static/assets/pwa-512x512.png
