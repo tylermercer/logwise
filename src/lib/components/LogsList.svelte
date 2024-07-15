@@ -24,7 +24,7 @@
 	}
 </script>
 
-<div class="logs-list l-column l-space-none">
+<div class="logs-list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
 	<p class="heading l-row h4">
 		<span class="h4">Logs</span>
 		<Tooltip text="Add new log">
@@ -76,6 +76,9 @@
 </div>
 
 <style lang="scss">
+	.logs-list {
+		margin-top: var(--space-s);
+	}
 	.form-contents {
 		align-items: center;
 		justify-content: space-between;
@@ -97,9 +100,6 @@
 	.loader {
 		padding-left: var(--space-m);
 		padding-right: var(--space-m);
-	}
-	.logs-list {
-		margin-top: var(--space-s);
 	}
 	.add-new-button {
 		margin-right: calc(var(--space-xs) * -1);

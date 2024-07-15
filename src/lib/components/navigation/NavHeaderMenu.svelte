@@ -2,7 +2,6 @@
 	import MungedEmailLink from '$lib/components/MungedEmailLink.svelte';
 	import Cog from 'virtual:icons/teenyicons/cog-outline';
 	import Message from 'virtual:icons/teenyicons/message-text-alt-outline';
-	import LogsList from "../LogsList.svelte";
 	import UserAccountMenu from '../account/UserAccountMenu.svelte';
 	import Tooltip from '../Tooltip.svelte';
 </script>
@@ -25,8 +24,6 @@
 		</UserAccountMenu>
 	</div>
 </header>
-<slot></slot>
-<LogsList></LogsList>
 
 <style lang="scss">
 	.buttons {
@@ -34,6 +31,7 @@
 		margin-left: calc(var(--space-xs) * -1);
 	}
 	.header {
+		width: 100%;
 		padding-bottom: var(--space-xs);
 		background-color: inherit;
 		position: sticky;

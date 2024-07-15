@@ -1,24 +1,25 @@
 <script lang="ts">
-	import NavMenu from './NavMenu.svelte';
+	import NavHeaderMenu from './NavHeaderMenu.svelte';
 	import MediaQuery from 'svelte-media-queries';
 	import mediaQueries from '$lib/config/mediaQueries';
 	import HomeIcon from 'virtual:icons/teenyicons/home-outline';
 	import LogIcon from 'virtual:icons/teenyicons/list-layout-outline';
+	import LogsList from '../LogsList.svelte';
 </script>
 
 <MediaQuery query={mediaQueries.mobile} let:matches>
-    {#if !matches}
-        <nav class="sidebar u-desktop-only u-styled-scrollbars">
-            <NavMenu>
-				<div class="l-column l-space-none">
-					<a class="u-nav-link l-row l-space-s" role="button" href="/app/">
-						<HomeIcon></HomeIcon> Home
-					</a>
-					<a class="u-nav-link l-row l-space-s" role="button" href="/app/logs">
-						<LogIcon></LogIcon> Unified Log
-					</a>
-				</div>
-			</NavMenu>
+	{#if !matches}
+		<nav class="sidebar l-column u-desktop-only u-styled-scrollbars">
+			<NavHeaderMenu />
+			<div class="l-column l-space-none">
+				<a class="u-nav-link l-row l-space-s" role="button" href="/app/">
+					<HomeIcon></HomeIcon> Home
+				</a>
+				<a class="u-nav-link l-row l-space-s" role="button" href="/app/logs">
+					<LogIcon></LogIcon> Unified Log
+				</a>
+			</div>
+            <LogsList/>
 		</nav>
 	{/if}
 </MediaQuery>
@@ -28,9 +29,10 @@
 		max-width: 40vw;
 		max-height: 100vh;
 		width: 20rem;
+		height: 100vh;
 		background-color: var(--primary-3);
-		overflow-y: auto;
 		position: sticky;
 		top: 0;
+		bottom: 0;
 	}
 </style>

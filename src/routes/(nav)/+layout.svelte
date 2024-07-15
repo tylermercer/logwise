@@ -2,8 +2,8 @@
 	import MobileBottomBar from '$lib/components/navigation/MobileBottomBar.svelte';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
-	import NavMenu from '$lib/components/navigation/NavMenu.svelte';
-
+	import NavHeaderMenu from '$lib/components/navigation/NavHeaderMenu.svelte';
+	import LogsList from '$lib/components/LogsList.svelte';
 
 	function toggleMenu() {
 		if ($page.state.showMenu) {
@@ -17,8 +17,18 @@
 </script>
 
 {#if $page.state.showMenu}
-	<NavMenu></NavMenu>
+	<div class="menu">
+		<NavHeaderMenu></NavHeaderMenu>
+		<LogsList />
+	</div>
 {:else}
 	<slot />
 {/if}
 <MobileBottomBar on:toggleMenu={toggleMenu} />
+
+<style lang="scss">
+	.menu {
+		background-color: var(--primary-1);
+		padding-bottom: calc(var(--bottom-bar-height) + var(--l-space));
+	}
+</style>
