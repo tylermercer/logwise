@@ -6,7 +6,7 @@
 
 </script>
 
-<header class="u-guttered l-cluster-l l-space-xs">
+<header class="u-guttered l-row l-space-xs">
 	{#if backHref}
 	<a href={backHref} use:backButtonLink class="btn-secondary" aria-label="Home">
 		<LeftArrow></LeftArrow>
@@ -16,6 +16,7 @@
 </header>
 <style lang="scss">
 	header {
+		flex-wrap: nowrap;
 		align-items: center;
 		padding-block: var(--space-m);
 	}
