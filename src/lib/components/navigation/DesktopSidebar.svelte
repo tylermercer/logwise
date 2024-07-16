@@ -9,7 +9,7 @@
 
 <MediaQuery query={mediaQueries.mobile} let:matches>
 	{#if !matches}
-		<nav class="sidebar l-column u-desktop-only u-styled-scrollbars u-cascading-bg">
+		<nav class="sidebar l-column l-space-2xs u-desktop-only u-styled-scrollbars u-cascading-bg">
 			<NavHeaderMenu />
 			<div class="l-column l-space-none">
 				<a class="u-nav-link l-row l-space-s" role="button" href="/app/">
