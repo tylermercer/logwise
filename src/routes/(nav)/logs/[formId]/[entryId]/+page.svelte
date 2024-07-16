@@ -27,7 +27,7 @@
 </svelte:head>
 <HeaderBar backHref="/app/logs">
 	<h1>Entry</h1>
-	<div class="buttons l-row l-space-none">
+	<svelte:fragment slot="actions">
 		<Tooltip text="Edit">
 			<a
 				class="btn-edit btn-icon"
@@ -43,7 +43,7 @@
 					<span>Delete</span>
 			</DropdownMenuItem>
 		</DropdownMenu>
-	</div>
+	</svelte:fragment>
 </HeaderBar>
 <main class="u-guttered l-column l-space-s">
 	<LogEntry entry={existingEntry}></LogEntry>
@@ -58,9 +58,3 @@
 		{/if}
 	</div>
 </main>
-
-<style lang="scss">
-	.buttons {
-		margin-inline-start: auto;
-	}
-</style>

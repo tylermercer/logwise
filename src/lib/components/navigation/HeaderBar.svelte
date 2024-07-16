@@ -13,11 +13,17 @@
 	</a>
 	{/if}
 	<slot></slot>
+	<div class="buttons l-row l-space-none">
+		<slot name="actions"></slot>
+	</div>
 </header>
 <style lang="scss">
 	header {
 		flex-wrap: nowrap;
 		align-items: center;
 		padding-block: var(--space-m);
+	}
+	.buttons {
+		margin-left: auto;
 	}
 </style>
