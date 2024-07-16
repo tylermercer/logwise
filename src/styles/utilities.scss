@@ -51,6 +51,10 @@
         background-color: var(--u-cascading-bg);
     }
 
+    .u-danger {
+        color: var(--danger);
+    }
+
     @media (max-width: 512px) {
         .u-desktop-only {
             display: none;
