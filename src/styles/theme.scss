@@ -71,8 +71,6 @@
         --lh-3: 1;
         --lh-4: 1;
         --lh-5: 1;
-
-        --danger: #d3003c;
     }
 
     $accentColor: '#3E4970';
@@ -89,4 +87,11 @@
         $grayColor,
         '#111111'
     );
+
+    .light {
+        --danger: #d3003c;
+    }
+    .dark {
+        --danger: #fd4c7e;
+    }
 }
