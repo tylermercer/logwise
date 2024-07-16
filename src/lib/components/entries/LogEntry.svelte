@@ -31,18 +31,16 @@
 		{#if form}
 			<h2>
 				{form.name}
-				<a href={`/app/logs/${entry.formId}/${entry.id}`} class="btn-secondary">
-					<time
-						class="datetime"
-						use:svelteTime={{
-							relative: useRelativeTime(entry.displayDatetime),
-							live: true,
-							timestamp: entry.displayDatetime,
-							format: 'h:mm A · MMM D, YYYY'
-						}}
-					>
-					</time>
-				</a>
+				<time
+					class="datetime"
+					use:svelteTime={{
+						relative: useRelativeTime(entry.displayDatetime),
+						live: true,
+						timestamp: entry.displayDatetime,
+						format: 'h:mm A · MMM D, YYYY'
+					}}
+				>
+				</time>
 			</h2>
 			{#each form.questions as q (q.id)}
 				<div class="l-column l-space-xs">

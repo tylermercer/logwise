@@ -36,7 +36,9 @@
 				{#if page.length}
 					{#each page as entry (entry.id)}
 						<li class="entry">
-							<Entry {entry}></Entry>
+							<a href={`/app/logs/${entry.formId}/${entry.id}`} class="u-link-block">
+								<Entry {entry}></Entry>
+							</a>
 						</li>
 					{/each}
 				{:else if i === 0}
