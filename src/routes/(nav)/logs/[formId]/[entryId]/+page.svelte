@@ -5,22 +5,20 @@
 	import { goto } from '$app/navigation';
 	import db from '$lib/db';
 	import { dateToString } from '$lib/util/dateUtils';
+	import PencilIcon from 'virtual:icons/teenyicons/edit-outline';
+	import TrashIcon from 'virtual:icons/teenyicons/bin-outline';
+	import DropdownMenu from '$lib/components/util/dropdown-menu/DropdownMenu.svelte';
+	import DropdownMenuItem from '$lib/components/util/dropdown-menu/DropdownMenuItem.svelte';
+	import Tooltip from '$lib/components/util/Tooltip.svelte';
 
 	export let data: PageData;
 
 	let existingEntry = data.existingEntry;
-
-	let pendingDeletion: boolean = false;
 	async function deleteEntry(e: Event) {
 		e.preventDefault();
 		e.stopImmediatePropagation();
-		if (pendingDeletion) {
-			await db.entries.delete(existingEntry.id);
-			goto('/app/logs', { replaceState: true });
-		} else {
-			pendingDeletion = true;
-			setTimeout(() => (pendingDeletion = false), 3000);
-		}
+		await db.entries.delete(existingEntry.id);
+		goto('/app/logs', { replaceState: true });
 	}
 </script>
 
@@ -29,25 +27,23 @@
 </svelte:head>
 <HeaderBar backHref="/app/logs">
 	<h1>Entry</h1>
-	<a
-		class="btn-edit btn-secondary btn-outline"
-		role="button"
-		href={`/app/logs/${data.existingEntry.formId}/${data.existingEntry.id}/edit`}
-	>
-		Edit
-	</a>
-	<button
-		class="btn-outline"
-		class:btn-secondary={!pendingDeletion}
-		class:btn-contrast={pendingDeletion}
-		on:click={deleteEntry}
-	>
-		{#if pendingDeletion}
-			Confirm
-		{:else}
-			Delete
-		{/if}
-	</button>
+	<div class="buttons l-row l-space-none">
+		<Tooltip text="Edit">
+			<a
+				class="btn-edit btn-icon"
+				role="button"
+				href={`/app/logs/${data.existingEntry.formId}/${data.existingEntry.id}/edit`}
+			>
+				<PencilIcon />
+			</a>
+		</Tooltip>
+		<DropdownMenu>
+			<DropdownMenuItem class="u-danger" on:item-click={deleteEntry}>
+					<TrashIcon />
+					<span>Delete</span>
+			</DropdownMenuItem>
+		</DropdownMenu>
+	</div>
 </HeaderBar>
 <main class="u-guttered l-column l-space-s">
 	<LogEntry entry={existingEntry}></LogEntry>
@@ -64,7 +60,7 @@
 </main>
 
 <style lang="scss">
-	.btn-edit {
+	.buttons {
 		margin-inline-start: auto;
 	}
 </style>
