@@ -41,7 +41,7 @@
         font-size: var(--step-0);
         align-items: center;
 
-        &:hover {
+        &:hover, &:focus {
             background-color: var(--primary-4);
             color: var(--primary-12);
         }
