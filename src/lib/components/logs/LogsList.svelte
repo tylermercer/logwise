@@ -2,7 +2,7 @@
 	import { liveQuery } from 'dexie';
 	import db, { DB_NULL, type FormId } from '$lib/db';
 	import Plus from 'virtual:icons/teenyicons/add-small-outline';
-	import Tooltip from './Tooltip.svelte';
+	import Tooltip from '$lib/components/util/Tooltip.svelte';
 
 	let forms = liveQuery(() => db.forms.where('nextVersionId').equals(DB_NULL).toArray());
 

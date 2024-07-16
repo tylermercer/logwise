@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
-	import LogEntry from '$lib/components/LogEntry.svelte';
+	import LogEntry from '$lib/components/entries/LogEntry.svelte';
 	import { goto } from '$app/navigation';
 	import db from '$lib/db';
 	import { dateToString } from '$lib/util/dateUtils';

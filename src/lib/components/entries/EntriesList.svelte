@@ -1,6 +1,6 @@
 <script lang="ts">
-	import InfiniteScroll from '$lib/components/InfiniteScroll.svelte';
-	import Entry from '$lib/components/LogEntry.svelte';
+	import InfiniteScroll from '$lib/components/util/InfiniteScroll.svelte';
+	import Entry from '$lib/components/entries/LogEntry.svelte';
 	import db from '$lib/db';
 	import liveQueryAsStore from '$lib/util/dexie/liveQueryAsStore';
 	import { derived, writable } from 'svelte/store';

@@ -4,7 +4,7 @@
 	import mediaQueries from '$lib/config/mediaQueries';
 	import HomeIcon from 'virtual:icons/teenyicons/home-outline';
 	import LogIcon from 'virtual:icons/teenyicons/list-layout-outline';
-	import LogsList from '../LogsList.svelte';
+	import LogsList from '$lib/components/logs/LogsList.svelte';
 </script>
 
 <MediaQuery query={mediaQueries.mobile} let:matches>

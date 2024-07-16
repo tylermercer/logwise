@@ -1,9 +1,9 @@
 <script lang="ts">
-	import MungedEmailLink from '$lib/components/MungedEmailLink.svelte';
+	import MungedEmailLink from '$lib/components/controls/MungedEmailLink.svelte';
 	import Cog from 'virtual:icons/teenyicons/cog-outline';
 	import Message from 'virtual:icons/teenyicons/message-text-alt-outline';
 	import UserAccountMenu from '../account/UserAccountMenu.svelte';
-	import Tooltip from '../Tooltip.svelte';
+	import Tooltip from '../util/Tooltip.svelte';
 </script>
 
 <header class="header u-guttered l-column l-space-xs">

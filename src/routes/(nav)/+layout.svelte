@@ -3,7 +3,7 @@
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
 	import NavHeaderMenu from '$lib/components/navigation/NavHeaderMenu.svelte';
-	import LogsList from '$lib/components/LogsList.svelte';
+	import LogsList from '$lib/components/logs/LogsList.svelte';
 
 	function toggleMenu() {
 		if ($page.state.showMenu) {

@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 
 	import db, { DB_NULL } from '$lib/db';
-	import FormEditor from '$lib/components/FormEditor.svelte';
+	import FormEditor from '$lib/components/logs/FormEditor.svelte';
 	import type { FormRaw } from '$lib/db';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import { goto } from '$app/navigation';

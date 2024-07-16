@@ -9,7 +9,7 @@
 	import DownIcon from 'virtual:icons/teenyicons/down-outline';
 	import DragIcon from 'virtual:icons/teenyicons/drag-vertical-outline';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
-	import Tooltip from './Tooltip.svelte';
+	import Tooltip from '../util/Tooltip.svelte';
 	import autoAnimate from '@formkit/auto-animate';
 
 	export let onSubmit = async (_: FormRaw) => {};

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../styles/styles.scss';
-	import LogIn from '$lib/components/LogIn.svelte';
+	import LogIn from '$lib/components/auth/LogIn.svelte';
 	import DesktopSidebar from '$lib/components/navigation/DesktopSidebar.svelte';
 	import { initBackButtonLinks } from '$lib/util/actions/backButtonLink';
 	import { beforeNavigate } from '$app/navigation';

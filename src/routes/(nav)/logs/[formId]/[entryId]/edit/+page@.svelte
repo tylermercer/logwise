@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import EntryForm from '$lib/components/EntryForm.svelte';
+	import EntryForm from '$lib/components/entries/EntryForm.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import type { PageData } from './$types';
 

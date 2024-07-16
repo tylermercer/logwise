@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import DatetimeInput from '$lib/components/DatetimeInput.svelte';
+	import DatetimeInput from '$lib/components/controls/DatetimeInput.svelte';
 	import type { EntryRaw, FormRaw, QuestionId } from '$lib/db';
 	import db from '$lib/db';
 	import { toAnsweredQuestion, type AnsweredQuestion } from '$lib/question';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import EntriesList from '$lib/components/EntriesList.svelte';
+	import EntriesList from '$lib/components/entries/EntriesList.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 </script>
 
