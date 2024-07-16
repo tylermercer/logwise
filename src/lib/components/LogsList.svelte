@@ -35,7 +35,7 @@
 	</p>
 	{#if $forms}
 		{#if $forms.length}
-			<ul class="list l-column l-space-none">
+			<ul class="list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
 				{#each $forms as form (form.id)}
 					<li class="form">
 						<a href="/app/logs/{form.id}/new-entry" class="u-nav-link u-link-block">
@@ -105,6 +105,6 @@
 		padding-right: var(--space-m);
 	}
 	.add-new-button {
-		margin-right: calc(var(--space-xs) * -1 - 0.5rem);
+		margin-right: calc(var(--space-xs) * -1);
 	}
 </style>
