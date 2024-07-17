@@ -42,7 +42,7 @@ $output: map-merge($output, ('--#{$prefix}-surface': $surface-wide-gamut,
 @mixin generateRadixScales($appearance, $accent, $gray, $background) {
 
     // Generate scales by invoking TS custom function
-    $colors: generateRadixColors($appearance, $accent, $gray, $background);
+    $colors: generateRadixColors($appearance, '#{$accent}', '#{$gray}', '#{$background}');
 
     // Generate CSS variables for accent and gray scales
     $accent-vars: generate-css-variables('primary',
