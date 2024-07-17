@@ -73,17 +73,17 @@
         --lh-5: 1;
     }
 
-    $accentColor: '#3E4970';
+    $themeColor: '#3E4970';
     $grayColor: '#8b8d98';
 
     @include radix.generateRadixScales('light',
-        $accentColor,
+        $themeColor,
         $grayColor,
         '#ffffff'
     );
 
     @include radix.generateRadixScales('dark',
-        $accentColor,
+        $themeColor,
         $grayColor,
         '#111111'
     );

@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "deploy": "wrangler pages deploy .svelte-kit/cloudflare",
     "build-cf-types": "wrangler types && move worker-configuration.d.ts src/",
-    "generate-pwa-assets": "node updatePwaAssetColor.cjs && pwa-assets-generator --preset minimal-2023 static/assets/favicon.svg"
+    "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 static/assets/favicon.svg"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240405.0",
