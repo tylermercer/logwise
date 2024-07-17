@@ -19,7 +19,7 @@ function ensureDirectoryExistence(filePath: string) {
 export function getThemeColor() {
     const scssFilePath = './src/styles/theme.scss';
     const scssContent = fs.readFileSync(scssFilePath, 'utf8');
-    const colorMatch = scssContent.match(/\$themeColor:\s*'(#[A-Fa-f0-9]+)';/);
+    const colorMatch = scssContent.match(/\$themeColor:\s*(#[A-Fa-f0-9]+);/);
     if (colorMatch && colorMatch[1]) {
         return colorMatch[1];
     } else {
