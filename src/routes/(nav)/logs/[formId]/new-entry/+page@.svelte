@@ -5,7 +5,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { name } = data.form;
+	const { name } = data.log;
 
 	async function onSubmit() {
 		goto('/app/logs', {

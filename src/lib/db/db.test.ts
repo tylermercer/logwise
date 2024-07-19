@@ -7,7 +7,7 @@ test('loading data works', async () => {
   db.forms.bulkAdd([
     {
       id: typeid('form'),
-      name: 'Test form 1',
+      logId: typeid('log'),
       modifiedDatetime: new Date(),
       createdDatetime: new Date(),
       prevVersionId: DB_NULL,
@@ -16,7 +16,7 @@ test('loading data works', async () => {
     },
     {
       id: typeid('form'),
-      name: 'Test form 2',
+      logId: typeid('log'),
       modifiedDatetime: new Date(),
       createdDatetime: new Date(),
       prevVersionId: DB_NULL,
@@ -25,7 +25,7 @@ test('loading data works', async () => {
     },
     {
       id: typeid('form'),
-      name: 'Test form 3',
+      logId: typeid('log'),
       modifiedDatetime: new Date(),
       createdDatetime: new Date(),
       prevVersionId: DB_NULL,
