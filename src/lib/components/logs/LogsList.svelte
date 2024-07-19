@@ -53,7 +53,7 @@
 			<ul class="list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
 				{#each $logs as log (log.id)}
 					<li class="form">
-						<a href="/app/logs/{log.form.id}/new-entry" class="u-nav-link u-link-block">
+						<a href="/app/logs/{log.id}/new-entry" class="u-nav-link u-link-block">
 							<div class="form-contents l-row l-space-none">
 								{log.name || '(Unnamed)'}
 								<!-- <div class="l-cluster-r l-space-2xs actions">

@@ -32,7 +32,7 @@
 			<a
 				class="btn-edit btn-icon"
 				role="button"
-				href={`/app/logs/${data.existingEntry.formId}/${data.existingEntry.id}/edit`}
+				href={`/app/logs/${data.logId}/${data.existingEntry.id}/edit`}
 			>
 				<PencilIcon />
 			</a>
