@@ -1,10 +1,23 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
-	import db, { DB_NULL, type FormId } from '$lib/db';
+	import db, { type FormId, DB_FALSE, type FormRaw } from '$lib/db';
 	import Plus from 'virtual:icons/teenyicons/add-small-outline';
 	import Tooltip from '$lib/components/util/Tooltip.svelte';
 
-	let forms = liveQuery(() => db.forms.where('nextVersionId').equals(DB_NULL).toArray());
+	let logs = liveQuery(async () => {
+		const fetchedLogs = await db.logs.where('isArchived').equals(DB_FALSE).toArray();
+		const fetchedForms = await db.forms.where('id').anyOf(fetchedLogs.map(l => l.currentFormId)).toArray();
+		
+		const formsById = fetchedForms.reduce((acc, cur) => {
+			acc.set(cur.id, cur);
+			return acc;
+		}, new Map<FormId, FormRaw>());
+
+		return fetchedLogs.map(l => ({
+			...l,
+			form: formsById.get(l.currentFormId)!,
+		}));
+	});
 
 	let pendingDeletionId: FormId | undefined;
 	async function deleteForm(e: Event, id: FormId) {
@@ -33,14 +46,14 @@
 			</a>
 		</Tooltip>
 	</p>
-	{#if $forms}
-		{#if $forms.length}
+	{#if $logs}
+		{#if $logs.length}
 			<ul class="list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
-				{#each $forms as form (form.id)}
+				{#each $logs as log (log.id)}
 					<li class="form">
-						<a href="/app/logs/{form.id}/new-entry" class="u-nav-link u-link-block">
+						<a href="/app/logs/{log.form.id}/new-entry" class="u-nav-link u-link-block">
 							<div class="form-contents l-row l-space-none">
-								{form.name || '(Unnamed)'}
+								{log.name || '(Unnamed)'}
 								<!-- <div class="l-cluster-r l-space-2xs actions">
 									<a
 										href="/app/logs/{form.id}/edit"
@@ -71,7 +84,7 @@
 			<p class="empty">You don't have any logs yet. Get started by <a href="/app/logs/new">creating one</a>.</p>
 		{/if}
 	{:else}
-		<p class="loader"><span aria-busy={!$forms}>Loading...</span></p>
+		<p class="loader"><span aria-busy={!$logs}>Loading...</span></p>
 	{/if}
 </div>
 

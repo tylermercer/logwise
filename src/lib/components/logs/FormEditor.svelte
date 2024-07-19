@@ -1,5 +1,11 @@
+<script context="module" lang="ts">
+	type LogWithOptionalId = PartialPick<LogRaw, 'id'>;
+
+	export type LogWithForm = Omit<LogWithOptionalId, 'currentFormId'> & { currentForm: Omit<FormRaw, 'logId'> };
+</script>
+
 <script lang="ts">
-	import { DB_NULL, type FormRaw } from '$lib/db';
+	import { DB_FALSE, DB_NULL, type FormRaw, type LogRaw } from '$lib/db';
 	import type { DraftQuestion } from '$lib/question';
 	import assertNever from '$lib/util/assertNever';
 	import { nanoid } from 'nanoid';
@@ -11,15 +17,17 @@
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
 	import Tooltip from '../util/Tooltip.svelte';
 	import autoAnimate from '@formkit/auto-animate';
+	import type { PartialPick } from '$lib/util/types/PartialPick';
 
-	export let onSubmit = async (_: FormRaw) => {};
+	export let onSubmit = async (_: LogWithForm) => {};
 
 	export let existingForm: FormRaw | undefined = undefined;
+	export let existingLog: LogRaw | undefined = undefined;
 
 	let status = '';
 	let saving = false;
 
-	let formName = existingForm?.name ?? '';
+	let formName = existingLog?.name ?? '';
 
 	function newQuestion(): DraftQuestion {
 		return {
@@ -75,30 +83,38 @@
 			var date = new Date();
 
 			await onSubmit({
-				id: typeid('form'),
-				prevVersionId: existingForm?.id ?? DB_NULL,
-				nextVersionId: DB_NULL,
-				name: formName,
-				modifiedDatetime: date,
-				createdDatetime: existingForm?.createdDatetime ?? date,
-				questions: questions.map((q) =>
-					q.type == 'likert'
-						? {
-								id: typeid('likert'),
-								text: q.data.text
-							}
-						: q.type === 'text'
+				id: existingLog?.id,
+				currentForm: {
+					id: typeid('form'),
+					prevVersionId: existingForm?.id ?? DB_NULL,
+					nextVersionId: DB_NULL,
+					modifiedDatetime: date,
+					createdDatetime: existingForm?.createdDatetime ?? date,
+					questions: questions.map((q) =>
+						q.type == 'likert'
 							? {
-									id: typeid('text'),
+									id: typeid('likert'),
 									text: q.data.text
 								}
-							: q.type === 'bool'
+							: q.type === 'text'
 								? {
-										id: typeid('bool'),
+										id: typeid('text'),
 										text: q.data.text
 									}
-								: assertNever(q.type)
-				)
+								: q.type === 'bool'
+									? {
+											id: typeid('bool'),
+											text: q.data.text
+										}
+									: assertNever(q.type)
+					),
+				},
+				modifiedDatetime: date,
+				createdDatetime: existingLog?.createdDatetime ?? date,
+				name: formName,
+				description: '',
+				color: 'gray',
+				isArchived: DB_FALSE,
 			});
 
 			saving = false;
