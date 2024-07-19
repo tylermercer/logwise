@@ -13,7 +13,9 @@
 			return acc;
 		}, new Map<FormId, FormRaw>());
 
-		return fetchedLogs.map(l => ({
+		return fetchedLogs
+		.sort((a, b) => a.name.localeCompare(b.name))
+		.map(l => ({
 			...l,
 			form: formsById.get(l.currentFormId)!,
 		}));
