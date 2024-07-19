@@ -7,14 +7,21 @@ import type { Question } from '../question';
 export type QuestionId = Question['id']
 
 export type FormId = TypeID<'form'>
+export type LogId = TypeID<'log'>
+export type EntryId = TypeID<'entry'>
 
 export const DB_NULL = 'NULL';
 
 export type DbNull = typeof DB_NULL;
 
+export const DB_FALSE = 0;
+export const DB_TRUE = 1;
+
+export type DbBool = typeof DB_FALSE | typeof DB_TRUE;
+
 export interface FormRaw {
   id: FormId; //uuid
-  name: string;
+  logId: LogId;
   modifiedDatetime: Date;
   createdDatetime: Date;
   prevVersionId: FormId | DbNull;
@@ -22,19 +29,30 @@ export interface FormRaw {
   questions: Question[];
 }
 
+export interface LogRaw {
+  id: LogId; //uuid
+  currentFormId: FormId;
+  modifiedDatetime: Date;
+  createdDatetime: Date;
+  isArchived: DbBool;
+  name: string;
+  description: string;
+  color: 'gray'; //TODO: add other colors
+}
 
 export interface EntryRaw {
-  id: TypeID<'entry'>; //uuid
+  id: EntryId; //uuid
+  formId: FormId;
   displayDatetime: Date;
   modifiedDatetime: Date;
   createdDatetime: Date;
-  formId: FormId;
   answers: Map<QuestionId, any>; //Question ID -> answer contents
 }
 
 export class AppDexie extends Dexie {
   // 'tables' is added by dexie when declaring the stores()
   // We just tell the typing system this is the case
+  logs!: Table<LogRaw>;
   forms!: Table<FormRaw>;
   entries!: Table<EntryRaw>;
 
@@ -44,7 +62,8 @@ export class AppDexie extends Dexie {
     });
     this.version(1).stores({
       //Ids are not autoincrementing because we are going to use typeid() instead
-      forms: 'id, name, modifiedDatetime, createdDatetime, prevVersionId, nextVersionId',
+      forms: 'id, modifiedDatetime, createdDatetime, logId, prevVersionId, nextVersionId',
+      logs: 'id, modifiedDatetime, createdDatetime, currentFormId, isArchived',
       entries: 'id, formId, displayDatetime, createdDatetime, modifiedDatetime'
     });
     this.cloud.configure({

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EntryRaw, FormRaw } from '$lib/db';
+	import type { EntryRaw, FormRaw, LogRaw } from '$lib/db';
 	import db from '$lib/db';
 	import { isBoolQuestion } from '$lib/question/bool';
 	import { isLikertQuestion } from '$lib/question/likert';
@@ -9,9 +9,23 @@
 
 	export let entry: EntryRaw;
 	export let form: FormRaw | undefined = undefined;
+	export let log: LogRaw | undefined = undefined;
 
 	async function getForm() {
-		return form ?? (await db.forms.where('id').equals(entry.formId).first());
+		return form ?? (await db.forms.get(entry.formId));
+	}
+
+	async function getLogAndForm(): Promise<{ log: LogRaw, form: FormRaw } | undefined> {
+		if (log && form) return { log, form };
+		const awaitedForm = await getForm();
+		const awaitedLog = awaitedForm ? (await db.logs.get(awaitedForm.logId)) : undefined;
+		if (awaitedForm && awaitedLog) {
+			return {
+				log: awaitedLog,
+				form: awaitedForm,
+			}
+		}
+		else return undefined;
 	}
 
 	const now = new Date().getTime();
@@ -21,16 +35,16 @@
 		return date.getTime() > now - 2 * 24 * 60 * 60 * 1000;
 	}
 
-	let formPromise = getForm();
+	let dataPromise = getLogAndForm();
 </script>
 
 <div class="l-column l-space-s">
-	{#await formPromise}
+	{#await dataPromise}
 		<div aria-busy="true"></div>
-	{:then form}
-		{#if form}
+	{:then data}
+		{#if data}
 			<h2>
-				{form.name}
+				{data.log.name}
 				<time
 					class="datetime"
 					use:svelteTime={{
@@ -42,7 +56,7 @@
 				>
 				</time>
 			</h2>
-			{#each form.questions as q (q.id)}
+			{#each data.form.questions as q (q.id)}
 				<div class="l-column l-space-xs">
 					<h3>{q.text}</h3>
 					{#if isLikertQuestion(q)}
