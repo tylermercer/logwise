@@ -4,8 +4,8 @@ import db from '$lib/db';
 import { fromString } from 'typeid-unboxed';
 
 export const load: PageLoad = async ({ params }) => {
-    const form = await db.forms.get(fromString(params.formId, 'form'));
-    const log = form ? await db.logs.get(form?.logId) : undefined;
+    const log = await db.logs.get(fromString(params.logId, 'log'));
+    const form = log ? await db.forms.get(log?.currentFormId) : undefined;
     if (log && form) {
         return {
             log,

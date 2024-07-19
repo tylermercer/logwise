@@ -7,7 +7,8 @@ export const load: PageLoad = async ({ params }) => {
     const existingEntry = await db.entries.get(fromString(params.entryId, 'entry'))
     if (existingEntry) {
         return {
-            existingEntry
+            existingEntry,
+            logId: params.logId,
         }
     }
     else {
