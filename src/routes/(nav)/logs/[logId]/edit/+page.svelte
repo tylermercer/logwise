@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import db, { DB_NULL } from '$lib/db';
+	import db, { DB_CURRENT_ENTITY_VERSION, DB_NULL } from '$lib/db';
 	import FormEditor, { type LogWithForm } from '$lib/components/logs/FormEditor.svelte';
 	import type { FormRaw } from '$lib/db';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
@@ -34,7 +34,8 @@
 					createdDatetime: data.createdDatetime,
 					modifiedDatetime: data.modifiedDatetime,
 					currentFormId: data.currentForm.id,
-					isArchived: data.isArchived
+					isArchived: data.isArchived,
+					schemaVer: DB_CURRENT_ENTITY_VERSION,
 				});
 				db.forms.add({
 					...data.currentForm,

@@ -18,6 +18,7 @@ test('loading data works', async () => {
       createdDatetime: new Date(),
       prevVersionId: DB_NULL,
       nextVersionId: DB_NULL,
+      schemaVer: 0,
       questions: []
     },
     {
@@ -27,6 +28,7 @@ test('loading data works', async () => {
       createdDatetime: new Date(),
       prevVersionId: DB_NULL,
       nextVersionId: DB_NULL,
+      schemaVer: 0,
       questions: []
     },
     {
@@ -36,6 +38,7 @@ test('loading data works', async () => {
       createdDatetime: new Date(),
       prevVersionId: DB_NULL,
       nextVersionId: DB_NULL,
+      schemaVer: 0,
       questions: []
     },
   ]);

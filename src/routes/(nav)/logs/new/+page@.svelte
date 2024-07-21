@@ -1,5 +1,5 @@
 <script lang="ts">
-	import db from '$lib/db';
+	import db, { DB_CURRENT_ENTITY_VERSION } from '$lib/db';
 	import FormEditor, { type LogWithForm } from '$lib/components/logs/FormEditor.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import { goto } from '$app/navigation';
@@ -21,7 +21,8 @@
 					createdDatetime: data.createdDatetime,
 					modifiedDatetime: data.modifiedDatetime,
 					currentFormId: data.currentForm.id,
-					isArchived: data.isArchived
+					isArchived: data.isArchived,
+					schemaVer: DB_CURRENT_ENTITY_VERSION,
 				});
 				db.forms.add({
 					...data.currentForm,
