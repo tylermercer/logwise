@@ -22,7 +22,14 @@ export const DB_TRUE = 1;
 
 export type DbBool = typeof DB_FALSE | typeof DB_TRUE;
 
-export interface FormRaw {
+export interface VersionedSchemaEntity {
+  /**
+   * The schema version of this entity.
+   */
+  schemaVer: number;
+}
+
+export interface FormRaw extends VersionedSchemaEntity {
   id: FormId; //uuid
   logId: LogId;
   modifiedDatetime: Date;
@@ -32,7 +39,7 @@ export interface FormRaw {
   questions: Question[];
 }
 
-export interface LogRaw {
+export interface LogRaw extends VersionedSchemaEntity {
   id: LogId; //uuid
   currentFormId: FormId;
   modifiedDatetime: Date;
@@ -43,7 +50,7 @@ export interface LogRaw {
   color: 'gray'; //TODO: add other colors
 }
 
-export interface EntryRaw {
+export interface EntryRaw extends VersionedSchemaEntity {
   id: EntryId; //uuid
   formId: FormId;
   displayDatetime: Date;
@@ -65,9 +72,9 @@ export class AppDexie extends Dexie {
     });
     this.version(1).stores({
       //Ids are not autoincrementing because we are going to use typeid() instead
-      forms: 'id, modifiedDatetime, createdDatetime, logId, prevVersionId, nextVersionId',
-      logs: 'id, modifiedDatetime, createdDatetime, currentFormId, isArchived',
-      entries: 'id, formId, displayDatetime, createdDatetime, modifiedDatetime'
+      forms: 'id, schemaVer, modifiedDatetime, createdDatetime, logId, prevVersionId, nextVersionId',
+      logs: 'id, schemaVer, modifiedDatetime, createdDatetime, currentFormId, isArchived',
+      entries: 'id, schemaVer, formId, displayDatetime, createdDatetime, modifiedDatetime'
     });
     this.cloud.configure({
       databaseUrl: PUBLIC_DEXIE_CLOUD_URL!,
