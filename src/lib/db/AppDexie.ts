@@ -3,6 +3,7 @@ import dexieCloud from "dexie-cloud-addon";
 import { type TypeID } from 'typeid-unboxed';
 import { PUBLIC_DEXIE_CLOUD_URL } from '$env/static/public';
 import type { Question } from '../question';
+import setCurrentSchemaVerMiddleware from './setCurrentSchemaVerMiddleware';
 
 export type QuestionId = Question['id']
 
@@ -24,8 +25,10 @@ export type DbBool = typeof DB_FALSE | typeof DB_TRUE;
 export interface VersionedSchemaEntity {
   /**
    * The schema version of this entity. If undefined, the version is assumed to be 0.
+   * 
+   * Optional for convenience; set by setCurrentSchemaVerMiddleware
    */
-  schemaVer: number;
+  schemaVer?: number;
 }
 
 export interface FormRaw extends VersionedSchemaEntity {
@@ -83,6 +86,7 @@ export default class AppDexie extends Dexie {
     super('main', {
       addons: [dexieCloud],
     });
+    this.use(setCurrentSchemaVerMiddleware);
     this.version(1).stores({
       //Ids are not autoincrementing because we are going to use typeid() instead
       forms: 'id, schemaVer, modifiedDatetime, createdDatetime, logId, prevVersionId, nextVersionId',
