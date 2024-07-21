@@ -3,12 +3,15 @@ import dexieCloud from "dexie-cloud-addon";
 import { type TypeID } from 'typeid-unboxed';
 import { PUBLIC_DEXIE_CLOUD_URL } from '$env/static/public';
 import type { Question } from '../question';
+import { runMigrationsIfNeeded } from './migration/migrator';
 
 export type QuestionId = Question['id']
 
 export type FormId = TypeID<'form'>
 export type LogId = TypeID<'log'>
 export type EntryId = TypeID<'entry'>
+
+export const DB_CURRENT_ENTITY_VERSION = 1;
 
 export const DB_NULL = 'NULL';
 
@@ -78,6 +81,8 @@ export class AppDexie extends Dexie {
 const db = new AppDexie();
 
 //Note that this invokes db.open() when the module is loaded
-export const dbOpenPromise = new Promise<void>(r => db.open().then(() => r()));
+export const dbOpenPromise = new Promise<void>(r => db.open()
+  .then(() => r()))
+  .then(runMigrationsIfNeeded);
 
 export default db;
