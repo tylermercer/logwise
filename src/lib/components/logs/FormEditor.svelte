@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts">
-	import { DB_FALSE, DB_NULL, type FormRaw, type LogRaw } from '$lib/db';
+	import { DB_CURRENT_ENTITY_VERSION, DB_FALSE, DB_NULL, type FormRaw, type LogRaw } from '$lib/db';
 	import type { DraftQuestion } from '$lib/question';
 	import assertNever from '$lib/util/assertNever';
 	import { nanoid } from 'nanoid';
@@ -90,6 +90,7 @@
 					nextVersionId: DB_NULL,
 					modifiedDatetime: date,
 					createdDatetime: existingForm?.createdDatetime ?? date,
+					schemaVer: DB_CURRENT_ENTITY_VERSION,
 					questions: questions.map((q) =>
 						q.type == 'likert'
 							? {
@@ -115,6 +116,7 @@
 				description: '',
 				color: 'gray',
 				isArchived: DB_FALSE,
+				schemaVer: DB_CURRENT_ENTITY_VERSION,
 			});
 
 			saving = false;
