@@ -1,6 +1,7 @@
 import { derived, writable } from "svelte/store";
-import db, { DB_CURRENT_ENTITY_VERSION } from ".."
+import db, { DB_CURRENT_ENTITY_VERSION, type VersionedSchemaEntity } from ".."
 import type { Migration, MigrationResult } from "./types";
+import type { Table } from "dexie";
 
 const emptyMigrationResult = {
     success: true,
@@ -17,8 +18,21 @@ export const latestMigrationResult = derived(latestMigrationResultStore, x => x)
 export let runningMigrationsPromise = emptyMigrationResultPromise;
 
 async function runNeededMigrations(): Promise<MigrationResult> {
-    const currentMinVersion = 0; // TODO: get from DB
 
+    const currentMinVersion = Math.min(
+        ...((await Promise.all(
+            db.tables
+                .filter(t => t.schema.idxByName['schemaVer'])
+                .map(async (t: Table<VersionedSchemaEntity>) => {
+                    if (await t.count() > 0) {
+                        return (await t.orderBy('schemaVer').first())?.schemaVer ?? 0;
+                    }
+                    else {
+                        return DB_CURRENT_ENTITY_VERSION;
+                    }
+                })
+        )))
+    );
     if (currentMinVersion < DB_CURRENT_ENTITY_VERSION) {
         return await
             // Array with length = number of migrations to run
