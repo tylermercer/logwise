@@ -54,7 +54,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@iconify-json/teenyicons": "^1.1.9",
     "chrono-node": "^2.7.6",
-    "dexie": "^4.0.4",
+    "dexie": "^4.0.8",
     "dexie-cloud-addon": "^4.0.2",
     "modern-normalize": "^2.0.0",
     "nanoid": "^5.0.7",
