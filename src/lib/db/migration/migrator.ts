@@ -1,17 +1,26 @@
+import { derived, writable } from "svelte/store";
 import db, { DB_CURRENT_ENTITY_VERSION } from ".."
 import type { Migration, MigrationResult } from "./types";
 
-const emptyMigrationResultPromise = Promise.resolve({
+const emptyMigrationResult = {
     success: true,
     migrationNumber: -1,
     counts: {},
-});
+} as MigrationResult;
 
-export async function runMigrationsIfNeeded() {
+const emptyMigrationResultPromise = Promise.resolve(emptyMigrationResult);
+
+const latestMigrationResultStore = writable(emptyMigrationResult);
+
+export const latestMigrationResult = derived(latestMigrationResultStore, x => x);
+
+export let runningMigrationsPromise = emptyMigrationResultPromise;
+
+async function runNeededMigrations(): Promise<MigrationResult> {
     const currentMinVersion = 0; // TODO: get from DB
 
     if (currentMinVersion < DB_CURRENT_ENTITY_VERSION) {
-        const result = await
+        return await
             // Array with length = number of migrations to run
             (new Array(DB_CURRENT_ENTITY_VERSION - currentMinVersion)).fill(0)
                 // Import all needed migrations
@@ -29,8 +38,16 @@ export async function runMigrationsIfNeeded() {
                     return combineResults(result, prevResult);
 
                 }, emptyMigrationResultPromise);
-        console.log(result);
     }
+    else {
+        return await emptyMigrationResultPromise;
+    }
+}
+
+export async function runMigrationsIfNeeded() {
+    await runningMigrationsPromise;
+    runningMigrationsPromise = runNeededMigrations();
+    return runningMigrationsPromise;
 }
 
 async function importMigration(migrationNumber: number): Promise<Migration> {
