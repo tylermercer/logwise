@@ -34,11 +34,16 @@ async function runNeededMigrations(): Promise<MigrationResult> {
         )))
     );
     if (currentMinVersion < DB_CURRENT_ENTITY_VERSION) {
+        // Array of migration numbers
+        const migrationsToRun = (new Array(DB_CURRENT_ENTITY_VERSION - currentMinVersion))
+            .fill(0)
+            .map(i => i + currentMinVersion + 1);
+
+        console.log("Running migrations:", migrationsToRun);
         return await
-            // Array with length = number of migrations to run
-            (new Array(DB_CURRENT_ENTITY_VERSION - currentMinVersion)).fill(0)
+            migrationsToRun
                 // Import all needed migrations
-                .map((_, i) => importMigration(i + currentMinVersion + 1))
+                .map(importMigration)
                 // Chain promises of imports and migrates in order, short-circuiting if a migration fails
                 .reduce(async (chain: Promise<MigrationResult>, migrationImport: Promise<Migration>) => {
 
