@@ -90,6 +90,7 @@ const db = new AppDexie();
 //Note that this invokes db.open() when the module is loaded
 export const dbOpenPromise = new Promise<void>(r => db.open()
   .then(() => r()))
-  .then(runMigrationsIfNeeded);
+  .then(runMigrationsIfNeeded)
+  .then(() => db.cloud.events.syncComplete.subscribe(() => runMigrationsIfNeeded()));
 
 export default db;
