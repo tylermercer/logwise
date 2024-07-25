@@ -3,7 +3,7 @@ import dexieCloud from "dexie-cloud-addon";
 import { type TypeID } from 'typeid-unboxed';
 import { PUBLIC_DEXIE_CLOUD_URL } from '$env/static/public';
 import type { Question } from '../question';
-import setCurrentSchemaVerMiddleware from './setCurrentSchemaVerMiddleware';
+import setCurrentSchemaVerMiddleware from './migration/middleware/setCurrentSchemaVerMiddleware';
 
 export type QuestionId = Question['id']
 

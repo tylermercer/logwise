@@ -1,6 +1,9 @@
 import type { DBCore, DBCoreMutateRequest, Middleware } from "dexie";
-import { DB_CURRENT_ENTITY_VERSION, type VersionedSchemaEntity } from ".";
+import { DB_CURRENT_ENTITY_VERSION, type VersionedSchemaEntity } from "../..";
 
+/**
+ * This middleware set the schemaVer field for forms, logs, and entries when they are mutated
+ */
 export default {
     stack: "dbcore", // The only stack supported so far.
     name: "setCurrentSchemaVerMiddleware", // Optional name of your middleware
@@ -30,7 +33,7 @@ export default {
                         }
 
                         return await downlevelTable.mutate(req);
-                    }
+                    },
                 }
             }
         };
