@@ -1,6 +1,6 @@
 import { beforeEach, expect, test } from 'vitest'
 import "fake-indexeddb/auto"; // must import before DB module
-import db, { DB_NULL, type FormRaw } from '.';
+import db, { DB_NULL, type FormRaw } from './index';
 import { typeid } from 'typeid-unboxed';
 
 beforeEach(() => {
