@@ -73,8 +73,7 @@ export default class AppDexie extends Dexie {
    * Constructs a new instance of the application database, with the current schema
    * 
    * @param isWithinMigration Whether this DB is being instantiated within a migration. If set to true,
-   *   this DB won't include the flushMigrationsMiddleware (which would prevent the migration from
-   *   completing)
+   *   this DB won't set up Cloud eager syncing or other reactive features
    * 
    * @param prevVersionSchemaOverrides Allows migrations to shape the schema of this DB instance
    *   as it was at the previous version. E.g. a migration that deletes a table can provide the schema
