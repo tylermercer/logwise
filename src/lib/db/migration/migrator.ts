@@ -1,7 +1,8 @@
 import { derived, writable } from "svelte/store";
-import db, { DB_CURRENT_ENTITY_VERSION, type VersionedSchemaEntity } from "../index"
+import { DB_CURRENT_ENTITY_VERSION, type VersionedSchemaEntity } from "../index"
 import type { Migration, MigrationResult } from "./types";
 import type { Table } from "dexie";
+import AppDexie from "../AppDexie";
 
 const emptyMigrationResult = {
     success: true,
@@ -19,6 +20,16 @@ export let runningMigrationsPromise = emptyMigrationResultPromise;
 
 async function runNeededMigrations(): Promise<MigrationResult> {
 
+    const db = new AppDexie(true);
+
+    /*
+     * Because this is run outside the migration transaction, there's technically a possibility for
+     * the currentMinVersion to change after this query. Fortunately, our migrations are idempotent,
+     * so we don't need to worry about that.
+     * 
+     * We can't put this in the same transaction because we need to do the dynamic import, which can't
+     * be done within an IDB transaction 
+     */
     const currentMinVersion = Math.min(
         ...((await Promise.all(
             db.tables
@@ -40,23 +51,26 @@ async function runNeededMigrations(): Promise<MigrationResult> {
             .map(i => i + currentMinVersion + 1);
 
         console.log("Running migrations:", migrationsToRun);
-        return await
-            migrationsToRun
-                // Import all needed migrations
-                .map(importMigration)
-                // Chain promises of imports and migrates in order, short-circuiting if a migration fails
-                .reduce(async (chain: Promise<MigrationResult>, migrationImport: Promise<Migration>) => {
+
+        const migrations = await Promise.all(migrationsToRun.map(importMigration));
+
+        return db.transaction('rw', db.tables,
+            // Chain migrates in order, short-circuiting if a migration fails
+            async () => migrations.reduce(
+                async (chain: Promise<MigrationResult>, migration: Migration) => {
 
                     const prevResult = await chain;
 
                     if (!prevResult.success) return prevResult;
 
-                    const migration = await migrationImport;
-                    const result = await migration.migrate();
+                    const result = await migration.migrate(db);
 
                     return combineResults(result, prevResult);
 
-                }, emptyMigrationResultPromise);
+                },
+                emptyMigrationResultPromise
+            )
+        );
     }
     else {
         return await emptyMigrationResultPromise;

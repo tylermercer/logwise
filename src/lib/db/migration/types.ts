@@ -1,5 +1,7 @@
+import type AppDexie from "../AppDexie";
+
 export interface Migration {
-    migrate(): Promise<MigrationResult>
+    migrate(db: AppDexie): Promise<MigrationResult>
 }
 
 export interface MigrationResult {
