@@ -22,7 +22,7 @@ or adjective phrases do you want people to associate with your brand?
 * Having a well-reasoned, defensible stance amid poorly-reasoned AI
   data grifters and self-help apps
 * "Wow, these people respect their users"
-* "I feel respected, protected, and supported n my goals."
+* "I feel respected, protected, and supported in my self-knowledge goals."
 
 ### Questions
 
