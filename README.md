@@ -14,7 +14,7 @@ grow and reflect
 ### Values
 
 What do you want people to think / feel when they see your brand? What adjectives
-or adjective phrases do you want people to associated with your brand?
+or adjective phrases do you want people to associate with your brand?
 
 * Ruthlessly committed to their values (see below).
   * I'm thinking of calling my values "Values with Teeth" or something and listing
@@ -22,6 +22,7 @@ or adjective phrases do you want people to associated with your brand?
 * Having a well-reasoned, defensible stance amid poorly-reasoned AI
   data grifters and self-help apps
 * "Wow, these people respect their users"
+* "I feel respected, protected, and supported n my goals."
 
 ### Questions
 
