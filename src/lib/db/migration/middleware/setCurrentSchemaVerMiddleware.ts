@@ -15,8 +15,9 @@ export default {
                 return {
                     ...downlevelTable,
                     mutate: async (req: DBCoreMutateRequest) => {
-                        // Set entityVer for all mutations that set values (each value is a record);
-                        if ('values' in req) {
+                        // Set entityVer for all mutations that set values (each value is a record)
+                        // Ignore transactions caused by sync, which have disableChangeTracking set to true according to https://github.com/dexie/Dexie.js/issues/2047
+                        if ('values' in req && !('disableChangeTracking' in req.trans && req.trans.disableChangeTracking)) {
                             req.values = req.values.map((v: VersionedSchemaEntity & { id?: string }, i: number) => {
                                 //Get key from keys if put or from id if add
                                 const key = req.keys?.at(i) as string | undefined ?? v.id;
