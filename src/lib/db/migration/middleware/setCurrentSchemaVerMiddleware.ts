@@ -24,6 +24,7 @@ export default {
                                 if (!key || !(key.startsWith('form_') || key.startsWith('log_') || key.startsWith('entry_'))) {
                                     return v;
                                 }
+                                console.log("Setting schema ver to 1 for " + key);
                                 return ({
                                     ...v,
                                     //Only set schemaVer if it's not explicitly set
