@@ -2,6 +2,7 @@ import AppDexie, { DB_FALSE, DB_NULL, type FormId, type FormRaw, type LogId } fr
 import { typeid } from "typeid-unboxed";
 import type { Migration } from "../types";
 import type { PartialPick } from "$lib/util/types/PartialPick";
+import { newestCreatedFirst, oldestCreatedFirst } from "$lib/util/createdDatetimeComparators";
 
 
 type OldFormRaw = PartialPick<FormRaw, 'logId'> & { name?: string }
@@ -66,16 +67,20 @@ export default {
                 );
 
                 //For each form group, create a new log entity with the name of the latest version.
-                const latestVersionIdToLogIdMap = new Map<FormId, LogId>();
                 await Promise.all(
-                    Array.from(groups.entries()).map(([latestVersionId, forms]) => {
-                        const logId = typeid('log');
-                        latestVersionIdToLogIdMap.set(latestVersionId, logId);
+                    Array.from(groups.entries()).map(async ([latestVersionId, forms]) => {
+                        forms.sort(newestCreatedFirst);
+
+                        //The form id of a preceding, already-migrated version (if one exists)
+                        const existingLogId = await getExistingLogIdIfExists(forms, db);
+
+                        const logId = existingLogId ?? typeid('log');
+
                         const latest = formsById.get(latestVersionId)!;
                         const now = new Date();
 
-                        return Promise.all([
-                            db.logs.add({
+                        return await Promise.all([
+                            db.logs.put({
                                 id: logId,
                                 name: latest.name ?? 'Unnamed log',
                                 description: '',
@@ -143,3 +148,11 @@ export default {
         }
     }
 } as Migration;
+
+async function getExistingLogIdIfExists(forms: OldFormRaw[], db: AppDexie) {
+    const precedingVersionId = forms.at(-1)?.prevVersionId;
+
+    const existingLogId = forms.find(f => f.logId)?.logId ??
+        (precedingVersionId ? (await db.forms.get(precedingVersionId))?.logId : undefined);
+    return existingLogId;
+}
