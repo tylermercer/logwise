@@ -35,8 +35,10 @@ async function runNeededMigrations(): Promise<MigrationResult> {
             db.tables
                 .filter(t => t.schema.idxByName['schemaVer'])
                 .map(async (t: Table<VersionedSchemaEntity>) => {
-                    if (await t.count() > 0) {
-                        return (await t.orderBy('schemaVer').first())?.schemaVer ?? 0;
+                    const allCount = (await t.count())
+                    if (allCount > 0) {
+                        const withSchemaVerCount = (await t.orderBy('schemaVer').count());
+                        return (withSchemaVerCount < allCount) ? 0 : (await t.orderBy('schemaVer').first())?.schemaVer ?? 0;
                     }
                     else {
                         return DB_CURRENT_ENTITY_VERSION;
