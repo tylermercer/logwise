@@ -89,9 +89,11 @@
     );
 
     .light {
+        color-scheme: light;
         --danger: #d3003c;
     }
     .dark {
+        color-scheme: dark;
         --danger: #fd4c7e;
     }
 }
