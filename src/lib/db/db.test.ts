@@ -168,6 +168,10 @@ test('Migrations work properly', async () => {
     (await db.logs.where('currentFormId').equals(symptomsVer1).first())?.isArchived,
     "Form with next version that was deleted should become archived log",
   ).toBe(DB_TRUE);
+  expect(
+    (await db.logs.where('currentFormId').equals(sleepVer2).first())?.isArchived,
+    "Form with next version that was NOT deleted should become NON-archived log",
+  ).toBe(DB_FALSE);
 });
 
 test('Migrations handle partially-migrated data', async () => {
