@@ -18,9 +18,11 @@ export const latestMigrationResult = derived(latestMigrationResultStore, x => x)
 
 export let runningMigrationsPromise = emptyMigrationResultPromise;
 
-async function runNeededMigrations(): Promise<MigrationResult> {
+async function runNeededMigrations(upTo?: number | undefined): Promise<MigrationResult> {
 
     const db = new AppDexie(true);
+
+    const targetVersion = upTo ?? DB_CURRENT_ENTITY_VERSION;
 
     /*
      * Because this is run outside the migration transaction, there's technically a possibility for
@@ -41,14 +43,14 @@ async function runNeededMigrations(): Promise<MigrationResult> {
                         return (withSchemaVerCount < allCount) ? 0 : (await t.orderBy('schemaVer').first())?.schemaVer ?? 0;
                     }
                     else {
-                        return DB_CURRENT_ENTITY_VERSION;
+                        return targetVersion;
                     }
                 })
         )))
     );
-    if (currentMinVersion < DB_CURRENT_ENTITY_VERSION) {
+    if (currentMinVersion < targetVersion) {
         // Array of migration numbers
-        const migrationsToRun = (new Array(DB_CURRENT_ENTITY_VERSION - currentMinVersion))
+        const migrationsToRun = (new Array(targetVersion - currentMinVersion))
             .fill(0)
             .map(i => i + currentMinVersion + 1);
 
@@ -79,9 +81,9 @@ async function runNeededMigrations(): Promise<MigrationResult> {
     }
 }
 
-export async function runMigrationsIfNeeded() {
+export async function runMigrationsIfNeeded(upTo?: number | undefined) {
     await runningMigrationsPromise;
-    runningMigrationsPromise = runNeededMigrations();
+    runningMigrationsPromise = runNeededMigrations(upTo);
     return runningMigrationsPromise;
 }
 
