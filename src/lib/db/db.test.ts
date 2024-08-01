@@ -1,6 +1,6 @@
 import { beforeEach, expect, test } from 'vitest'
 import "fake-indexeddb/auto"; // must import before DB module
-import db, { DB_CURRENT_ENTITY_VERSION, DB_FALSE, DB_NULL, dbOpenPromise, type FormRaw } from './index';
+import db, { DB_CURRENT_ENTITY_VERSION, DB_FALSE, DB_NULL, DB_TRUE, dbOpenPromise, type FormRaw } from './index';
 import { typeid } from 'typeid-unboxed';
 import { runMigrationsIfNeeded, runningMigrationsPromise } from './migration/migrator';
 
@@ -54,6 +54,7 @@ test('Migrations work properly', async () => {
   const sleepVer1 = typeid('form');
   const sleepVer2 = typeid('form');
 
+  const symptomsVer1 = typeid('form');
 
   db.forms.bulkAdd([
     {
@@ -105,14 +106,15 @@ test('Migrations work properly', async () => {
         },
       ]
     },
+    //Form where nextVersion was deleted -- should become archived log
     {
-      id: typeid('form'),
+      id: symptomsVer1,
       name: "Symptoms",
       schemaVer: 0,
       modifiedDatetime: new Date(),
       createdDatetime: new Date(),
       prevVersionId: DB_NULL,
-      nextVersionId: DB_NULL,
+      nextVersionId: typeid('form'),
       questions: [
         {
           id: typeid('text'),
@@ -162,6 +164,10 @@ test('Migrations work properly', async () => {
     logNames,
     "Favorite moments form was not migrated",
   ).toContain("Favorite moments");
+  expect(
+    (await db.logs.where('currentFormId').equals(symptomsVer1).first())?.isArchived,
+    "Form with next version that was deleted should become archived log",
+  ).toBe(DB_TRUE);
 });
 
 test('Migrations handle partially-migrated data', async () => {
