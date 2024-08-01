@@ -72,14 +72,14 @@ export default class AppDexie extends Dexie {
   /**
    * Constructs a new instance of the application database, with the current schema
    * 
-   * @param isWithinMigration Whether this DB is being instantiated within a migration. If set to true,
-   *   this DB won't set up Cloud eager syncing or other reactive features
+   * @param disableEagerSync If set to true, this DB won't set up Cloud eager syncing or other reactive
+   *   Cloud features (e.g. websocket)
    * 
    * @param prevVersionSchemaOverrides Allows migrations to shape the schema of this DB instance
    *   as it was at the previous version. E.g. a migration that deletes a table can provide the schema
    *   for that table so that it can access it's data.
    */
-  constructor(isWithinMigration: boolean = false, prevVersionSchemaOverrides: Schema = {}) {
+  constructor(disableEagerSync: boolean = false, prevVersionSchemaOverrides: Schema = {}) {
     super('main', {
       addons: [dexieCloud],
     });
@@ -93,10 +93,10 @@ export default class AppDexie extends Dexie {
     this.cloud.configure({
       databaseUrl: PUBLIC_DEXIE_CLOUD_URL!,
       //TODO: add service worker support
-      tryUseServiceWorker: false && !isWithinMigration,
+      tryUseServiceWorker: false && !disableEagerSync,
       requireAuth: false,
-      disableEagerSync: isWithinMigration,
-      disableWebSocket: isWithinMigration,
+      disableEagerSync: disableEagerSync,
+      disableWebSocket: disableEagerSync,
       customLoginGui: true,
     });
   }
