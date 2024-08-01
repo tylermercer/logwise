@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import MungedEmailLink from '$lib/components/controls/MungedEmailLink.svelte';
+	import { onMount } from 'svelte';
 
 	let selected = localStorage.getItem(window.LOCAL_STORAGE_KEY_THEME) ?? window.THEME_VALUE_AUTO;
 
@@ -16,21 +17,20 @@
 		window.setThemeFromLocalStorageOrMediaPreference();
 	};
 
-
 	onMount(() => {
 		const handleStorage = (e: StorageEvent) => {
-            if (e.key == window.LOCAL_STORAGE_KEY_THEME) {
+			if (e.key == window.LOCAL_STORAGE_KEY_THEME) {
 				selected = e.newValue ?? window.THEME_VALUE_AUTO;
-            }
-        };
-		
-		window.addEventListener("storage", handleStorage);
+			}
+		};
+
+		window.addEventListener('storage', handleStorage);
 
 		return {
 			destroy() {
-				window.removeEventListener("storage", handleStorage);
+				window.removeEventListener('storage', handleStorage);
 			}
-		}
+		};
 	});
 </script>
 
@@ -75,4 +75,7 @@
 			Dark
 		</label>
 	</fieldset>
-</main>	
+	<h2>Support</h2>
+	<p>Having problems? Try logging out and logging back in again.</p>
+	<p><MungedEmailLink>Send feedback about Logwise</MungedEmailLink></p>
+</main>
