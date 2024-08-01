@@ -1,8 +1,8 @@
-import AppDexie, { DB_FALSE, DB_NULL, type FormId, type FormRaw, type LogId } from "$lib/db/AppDexie";
+import AppDexie, { DB_FALSE, DB_NULL, DB_TRUE, type FormId, type FormRaw } from "$lib/db/AppDexie";
 import { typeid } from "typeid-unboxed";
 import type { Migration } from "../types";
 import type { PartialPick } from "$lib/util/types/PartialPick";
-import { newestCreatedFirst, oldestCreatedFirst } from "$lib/util/createdDatetimeComparators";
+import { newestCreatedFirst } from "$lib/util/createdDatetimeComparators";
 
 
 type OldFormRaw = PartialPick<FormRaw, 'logId'> & { name?: string }
@@ -25,6 +25,8 @@ export default {
 
                 const latestVersionMap = new Map<FormId, FormId>();
 
+                const shouldBecomeArchivedLogs = new Set<FormId>();
+
                 const findLatestVersionId = async (form: OldFormRaw): Promise<FormId> => {
                     if (latestVersionMap.has(form.id)) {
                         return latestVersionMap.get(form.id)!;
@@ -42,10 +44,16 @@ export default {
                     if (!formsById.has(form.nextVersionId)) {
                         const nextForm = (await db.forms.get(form.nextVersionId) as OldFormRaw | undefined);
                         if (!nextForm) {
-                            //ERROR! Do something useful here. Maybe just use this form as its own latest?
-                            throw 'oh no';
+                            //Next form was deleted by previously-used bad deletion logic
+                            //Should discard the bad nextVersionId, note this form's id, and list this form as its own latest
+                            await db.forms.update(form.id, { nextVersionId: DB_NULL });
+                            form.nextVersionId = DB_NULL;
+                            shouldBecomeArchivedLogs.add(form.id);
+                            return findLatestVersionId(form);
                         }
-                        formsById.set(nextForm.id, nextForm);
+                        else {
+                            formsById.set(nextForm.id, nextForm);
+                        }
                     }
                     const latestIdAndRecency = await findLatestVersionId(formsById.get(form.nextVersionId)!);
                     latestVersionMap.set(form.id, latestIdAndRecency);
@@ -88,7 +96,7 @@ export default {
                                 currentFormId: latest.id,
                                 createdDatetime: now,
                                 modifiedDatetime: now,
-                                isArchived: DB_FALSE,
+                                isArchived: shouldBecomeArchivedLogs.has(latest.id) ? DB_TRUE : DB_FALSE,
                                 schemaVer: MIGRATION_NUMBER,
                             }),
                             //Update each form in each form group to have the logId of the new log entity.
