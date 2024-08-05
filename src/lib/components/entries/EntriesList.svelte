@@ -15,7 +15,7 @@
 		? (pageIndex: number) => getAllEntriesForLogPaginated(log, pageIndex, PAGE_SIZE)
 		: (pageIndex: number) => getAllEntriesPaginated(pageIndex, PAGE_SIZE);
 
-	const getPageLiveQuery = (pageIndex: number) => liveQueryAsStore(() => query(pageIndex), []);
+	const getPageLiveQuery = (pageIndex: number) => liveQueryAsStore(() => query(pageIndex), null);
 
 	const pagesStoreOfStores = writable([getPageLiveQuery(0)]);
 
@@ -30,7 +30,7 @@
 <main class="u-guttered">
 	<ul class="entries-list l-column l-space-m">
 		{#each $pages as page, i}
-			{#if page}
+			{#if page != null}
 				{#if page.length}
 					{#each page as entry (entry.id)}
 						<li class="entry">
