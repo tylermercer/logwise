@@ -6,7 +6,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const log = data.log;
+	$: log = data.log;
 </script>
 
 <svelte:head>
@@ -16,14 +16,12 @@
 	<h1>{log.name}</h1>
 	<svelte:fragment slot="actions">
 		<Tooltip text="Add Entry">
-			<a
-				class="btn-edit btn-icon"
-				role="button"
-				href={`/app/logs/${log.id}/new-entry`}
-			>
+			<a class="btn-edit btn-icon" role="button" href={`/app/logs/${log.id}/new-entry`}>
 				<PlusIcon />
 			</a>
 		</Tooltip>
 	</svelte:fragment>
 </HeaderBar>
-<EntriesList {log} />
+{#key log}
+	<EntriesList {log} />
+{/key}
