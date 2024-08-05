@@ -5,7 +5,8 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { name } = data.log;
+	$: form = data.form;
+	$: name = data.log.name;
 
 	async function onSubmit() {
 		goto('/app/logs', {
@@ -21,5 +22,7 @@
 	<h1>{name}</h1>
 </HeaderBar>
 <main class="u-guttered l-column l-space-m">
-	<EntryForm form={data.form} on:submit={onSubmit}></EntryForm>
+	{#key form}
+		<EntryForm {form} on:submit={onSubmit}></EntryForm>
+	{/key}
 </main>
