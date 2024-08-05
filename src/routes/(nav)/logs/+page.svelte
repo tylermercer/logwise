@@ -4,9 +4,9 @@
 </script>
 
 <svelte:head>
-	<title>Log</title>
+	<title>Unified Log</title>
 </svelte:head>
 <HeaderBar>
-	<h1>Log</h1>
+	<h1>Unified Log</h1>
 </HeaderBar>
 <EntriesList />
