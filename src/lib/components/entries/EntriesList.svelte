@@ -4,6 +4,7 @@
 	import type { LogRaw } from '$lib/db';
 	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
 	import getAllEntriesPaginated from '$lib/db/queries/getAllEntriesPaginated';
+	import type { ExtendedEntry } from '$lib/db/types/ExtendedEntry';
 	import liveQueryAsStore from '$lib/util/dexie/liveQueryAsStore';
 	import { derived, writable } from 'svelte/store';
 
@@ -22,6 +23,13 @@
 	$: pages = derived($pagesStoreOfStores, (x) => x);
 
 	let nextPageToLoad = 1;
+
+	const getHasMore = (pages: (ExtendedEntry[] | null)[]): boolean => {
+		const last = pages.at(-1);
+		return last == null || !!last.length;
+	}
+
+	$: hasMore = getHasMore($pages);
 
 	const loadNextPage = () =>
 		pagesStoreOfStores.update((a) => [...a, getPageLiveQuery(nextPageToLoad++)]);
@@ -57,7 +65,7 @@
 			{/if}
 		{/each}
 	</ul>
-	<InfiniteScroll on:loadMore={loadNextPage} hasMore={!!$pages.at(-1)?.length} />
+	<InfiniteScroll on:loadMore={loadNextPage} hasMore={hasMore} />
 </main>
 
 <style lang="scss">
