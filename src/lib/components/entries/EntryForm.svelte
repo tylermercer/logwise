@@ -64,7 +64,7 @@
 			{#if isAnsweredTextQuestion(answeredQuestion)}
 				<label>
 					{answeredQuestion.question.text}
-					<textarea bind:value={answeredQuestion.answer} />
+					<textarea bind:value={answeredQuestion.answer} ></textarea>
 				</label>
 			{:else if isAnsweredLikertQuestion(answeredQuestion)}
 				<label>

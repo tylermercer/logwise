@@ -28,7 +28,7 @@
 		transition:fade={{ duration: 100 }}
 		class="tooltip-container z-10 rounded-lg bg-white shadow"
 	>
-		<div use:melt={$arrow} />
+		<div use:melt={$arrow} ></div>
 		<p class="tooltip px-4 py-1 text-magnum-700">{text}</p>
 	</div>
 {/if}

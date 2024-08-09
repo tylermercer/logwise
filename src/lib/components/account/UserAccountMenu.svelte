@@ -26,9 +26,9 @@
                     <button class="btn-upgrade">Upgrade</button>
                 </div>
                 {/if}
-                <div class="separator" use:melt={$separator} />
+                <div class="separator" use:melt={$separator} ></div>
                 <div class="item" use:melt={$item} on:m-click={() => db.cloud.logout()}>Sign out</div>
-                <div use:melt={$arrow} />
+                <div use:melt={$arrow} ></div>
             </div>
         {/if}
     {:else}
