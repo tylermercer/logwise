@@ -1,22 +1,18 @@
 <script lang="ts">
 	import Entry from '$lib/components/entries/LogEntry.svelte';
 	import InfiniteScroll from '$lib/components/util/InfiniteScroll.svelte';
-	import type { LogRaw } from '$lib/db/AppDexie';
-	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
-	import getAllEntriesPaginated from '$lib/db/queries/getAllEntriesPaginated';
+	import type { LogId } from '$lib/db/AppDexie';
 	import type { ExtendedEntry } from '$lib/db/types/ExtendedEntry';
 	import liveQueryAsStore from '$lib/util/dexie/liveQueryAsStore';
 	import { derived, writable } from 'svelte/store';
 
 	const PAGE_SIZE = 10;
 
-	export let log: LogRaw | undefined = undefined;
+	export let paginatedQuery: (pageIndex: number, pageSize: number) => Promise<ExtendedEntry[]>
 
-	const query = log
-		? (pageIndex: number) => getAllEntriesForLogPaginated(log, pageIndex, PAGE_SIZE)
-		: (pageIndex: number) => getAllEntriesPaginated(pageIndex, PAGE_SIZE);
+	export let logId: LogId | undefined = undefined;
 
-	const getPageLiveQuery = (pageIndex: number) => liveQueryAsStore(() => query(pageIndex), null);
+	const getPageLiveQuery = (pageIndex: number) => liveQueryAsStore(() => paginatedQuery(pageIndex, PAGE_SIZE), null);
 
 	const pagesStoreOfStores = writable([getPageLiveQuery(0)]);
 
@@ -50,9 +46,9 @@
 				{:else if i === 0}
 					<!-- Empty first page, show empty state -->
 					<li class="nothing-more">
-						{#if log}
+						{#if logId}
 							There's nothing in your log yet.
-							<a href="/app/logs/{log.id}/new-entry">Make an entry</a>
+							<a href="/app/logs/{logId}/new-entry">Make an entry</a>
 							{:else}
 							There's nothing here yet. Get started by <a href="/app/logs/new">creating a log</a>.
 						{/if}
