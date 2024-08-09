@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { createTooltip, melt } from '@melt-ui/svelte';
 	import { fade } from 'svelte/transition';
+	import type { Snippet } from 'svelte';
 
-	export let text: string;
+	let { children, text }: { children: Snippet, text: string } = $props();
 
 	const {
 		elements: { trigger, content, arrow },
@@ -19,7 +20,7 @@
 </script>
 
 <div use:melt={$trigger}>
-	<slot />
+	{@render children()}
 </div>
 
 {#if $open}

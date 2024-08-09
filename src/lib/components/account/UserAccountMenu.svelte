@@ -1,7 +1,10 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { createDropdownMenu, melt } from '@melt-ui/svelte';
 	import db from '$lib/db';
 	import { fly } from 'svelte/transition';
+	
+	let { children }: {children: Snippet} = $props();
 
 	const {
 		elements: { trigger, menu, item, separator, arrow },
@@ -27,14 +30,14 @@
                 </div>
                 {/if}
                 <div class="separator" use:melt={$separator} ></div>
-                <div class="item" use:melt={$item} on:m-click={() => db.cloud.logout()}>Sign out</div>
+                <div class="item" use:melt={$item} onm-click={() => db.cloud.logout()}>Sign out</div>
                 <div use:melt={$arrow} ></div>
             </div>
         {/if}
     {:else}
-        <button class="sign-in" on:click={() => db.cloud.login()}>Sign in</button>
+        <button class="sign-in" onclick={() => db.cloud.login()}>Sign in</button>
     {/if}
-	<slot></slot>
+	{@render children()}
 </div>
 
 <style lang="scss">
