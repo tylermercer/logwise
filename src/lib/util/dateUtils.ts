@@ -39,11 +39,11 @@ const isSameWeek = (a: Date, b: Date) => {
 
 const roundToDayMillis = (d: Date) => Math.round(d.getTime() / MILLIS_IN_DAY);
 
-const formatTime = (date: Date) => {
+export const timeToString = (date: Date) => {
   return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 };
 
-const getDayRelativeDateString = (date: Date) => {
+export const dateOnlyToString = (date: Date) => {
   const today = new Date();
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
@@ -67,5 +67,5 @@ const getDayRelativeDateString = (date: Date) => {
 }
 
 export const dateToString = (date: Date) => {
-  return `${getDayRelativeDateString(date)} at ${formatTime(date)}`;
+  return `${dateOnlyToString(date)} at ${timeToString(date)}`;
 }

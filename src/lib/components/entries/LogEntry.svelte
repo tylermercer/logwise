@@ -4,23 +4,37 @@
 	import { isLikertQuestion } from '$lib/question/likert';
 	import { isTextQuestion } from '$lib/question/text';
 	import assertNever from '$lib/util/assertNever';
-	import { dateToString } from '$lib/util/dateUtils';
+	import { dateOnlyToString, dateToString, timeToString } from '$lib/util/dateUtils';
 
 	export let entry: ExtendedEntry;
+	export let showLogName: boolean = false;
+
+	$: questionHeading = showLogName ? 'h3' : 'h2';
+
+	$: timeAsTitle = !showLogName && entry.form.questions.length === 0;
+
+	$: title = showLogName ?
+				entry.log.name : (
+					timeAsTitle ? 
+						timeToString(entry.displayDatetime) :
+						entry.form.questions[0].text
+				);
 </script>
 
 <div class="l-column l-space-s">
-	<h2>
-		{entry.log.name}
-		<time
-			class="datetime"
-		>
-			{dateToString(entry.displayDatetime)}
+	<div class="l-row title-row">
+		<h2>
+			{title}
+		</h2>
+		<time class="datetime">
+			{timeAsTitle ? dateOnlyToString(entry.displayDatetime) : dateToString(entry.displayDatetime)}
 		</time>
-	</h2>
-	{#each entry.form.questions as q (q.id)}
+	</div>
+	{#each entry.form.questions as q, i (q.id)}
 		<div class="l-column l-space-xs">
-			<h3>{q.text}</h3>
+			{#if i !== 0 || showLogName}
+				<svelte:element this={questionHeading}>{q.text}</svelte:element>
+			{/if}
 			{#if isLikertQuestion(q)}
 				<p data-qtype="likert">
 					{#if entry.answers.get(q.id) != null}
@@ -57,6 +71,24 @@
 </div>
 
 <style lang="scss">
+	.title-row {
+		flex-wrap: nowrap;
+		align-items: flex-start;
+		& > h2 {
+			min-width: 0;
+			flex-basis: 0;
+			flex-grow: 1;
+			line-height: 1;
+		}
+		& > time {
+			line-height: 1;
+			flex-basis: max-content;
+			font-family: var(--font-heading);
+			color: var(--primary-12);
+			font-size: 0.81em;
+			font-weight: normal;
+		}
+	}
 	h2,
 	h3 {
 		font-weight: 600;
@@ -66,11 +98,6 @@
 	}
 	h3 {
 		font-size: 0.85em;
-	}
-	time {
-		float: right;
-		font-weight: normal;
-		font-size: 0.9em;
 	}
 	p[data-qtype='likert'] > .some,
 	p[data-qtype='bool'] > .some {
