@@ -1,5 +1,6 @@
 <script lang="ts">
 	import EntriesList from '$lib/components/entries/EntriesList.svelte';
+	import LogEntry from '$lib/components/entries/LogEntry.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import Tooltip from '$lib/components/util/Tooltip.svelte';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
@@ -9,7 +10,8 @@
 	export let data: PageData;
 	$: log = data.log;
 
-	const query = (pageIndex: number, pageSize: number) => getAllEntriesForLogPaginated(log, pageIndex, pageSize)
+	const query = (pageIndex: number, pageSize: number) =>
+		getAllEntriesForLogPaginated(log, pageIndex, pageSize);
 </script>
 
 <svelte:head>
@@ -26,5 +28,9 @@
 	</svelte:fragment>
 </HeaderBar>
 {#key log}
-	<EntriesList paginatedQuery={query} />
+	<EntriesList paginatedQuery={query}>
+		<a slot="entry" let:entry href="/app/logs/{entry.log.id}/{entry.id}" class="u-link-block">
+			<LogEntry {entry} form={entry.form} log={entry.log}></LogEntry>
+		</a>
+	</EntriesList>
 {/key}

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Entry from '$lib/components/entries/LogEntry.svelte';
 	import InfiniteScroll from '$lib/components/util/InfiniteScroll.svelte';
 	import type { LogId } from '$lib/db/AppDexie';
 	import type { ExtendedEntry } from '$lib/db/types/ExtendedEntry';
@@ -38,9 +37,9 @@
 				{#if page.length}
 					{#each page as entry (entry.id)}
 						<li class="entry">
-							<a href="/app/logs/{entry.log.id}/{entry.id}" class="u-link-block">
-								<Entry {entry} form={entry.form} log={entry.log}></Entry>
-							</a>
+							<slot name="entry" entry={entry}>
+
+							</slot>
 						</li>
 					{/each}
 				{:else if i === 0}
