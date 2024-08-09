@@ -14,13 +14,13 @@
 </svelte:head>
 <HeaderBar>
 	<h1>{log.name}</h1>
-	<svelte:fragment slot="actions">
+	{#snippet actions()}
 		<Tooltip text="Add Entry">
 			<a class="btn-edit btn-icon" role="button" href={`/app/logs/${log.id}/new-entry`}>
 				<PlusIcon />
 			</a>
 		</Tooltip>
-	</svelte:fragment>
+	{/snippet}
 </HeaderBar>
 {#key log}
 	<EntriesList {log} />

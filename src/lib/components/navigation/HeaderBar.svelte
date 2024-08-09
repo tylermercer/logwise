@@ -1,7 +1,9 @@
 <script lang="ts">
 	import backButtonLink from '$lib/util/actions/backButtonLink';
 	import LeftArrow from 'virtual:icons/teenyicons/left-outline';
-	export let backHref: string = '';
+	import type { Snippet } from 'svelte';
+
+	let { children, actions, backHref } : { children: Snippet, actions?: Snippet, backHref?: string } = $props();
 
 
 </script>
@@ -12,9 +14,11 @@
 		<LeftArrow></LeftArrow>
 	</a>
 	{/if}
-	<slot></slot>
+	{@render children()}
 	<div class="buttons l-row l-space-none">
-		<slot name="actions"></slot>
+		{#if actions}
+			{@render actions()}
+		{/if}
 	</div>
 </header>
 <style lang="scss">

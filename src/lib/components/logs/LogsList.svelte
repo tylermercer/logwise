@@ -21,33 +21,33 @@
 		}));
 	});
 
-	let pendingDeletionId: FormId | undefined;
-	async function deleteForm(e: Event, id: FormId) {
-		e.preventDefault();
-		e.stopImmediatePropagation();
-		if (pendingDeletionId) {
-			let capturedId = pendingDeletionId!;
-			await db.transaction('rw', db.forms, db.entries, async () => {
-				await db.forms.delete(capturedId);
-				await db.entries.where('formId').equals(capturedId).delete();
-			});
-			pendingDeletionId = undefined;
-		} else {
-			pendingDeletionId = id;
-			setTimeout(() => (pendingDeletionId = undefined), 3000);
-		}
-	}
+	// let pendingDeletionId: FormId | undefined;
+	// async function deleteForm(e: Event, id: FormId) {
+	// 	e.preventDefault();
+	// 	e.stopImmediatePropagation();
+	// 	if (pendingDeletionId) {
+	// 		let capturedId = pendingDeletionId!;
+	// 		await db.transaction('rw', db.forms, db.entries, async () => {
+	// 			await db.forms.delete(capturedId);
+	// 			await db.entries.where('formId').equals(capturedId).delete();
+	// 		});
+	// 		pendingDeletionId = undefined;
+	// 	} else {
+	// 		pendingDeletionId = id;
+	// 		setTimeout(() => (pendingDeletionId = undefined), 3000);
+	// 	}
+	// }
 </script>
 
 <div class="logs-list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
-	<p class="heading l-row h4">
+	<div class="heading l-row h4">
 		<span class="h4">Logs</span>
 		<Tooltip text="Add new log">
 			<a href="/app/logs/new" class="btn-icon add-new-button" role="button" aria-label="Add new log">
 				<Plus />
 			</a>
 		</Tooltip>
-	</p>
+	</div>
 	{#if $logs}
 		{#if $logs.length}
 			<ul class="list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">

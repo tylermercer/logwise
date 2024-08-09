@@ -8,8 +8,10 @@
 	import MenuIcon from 'virtual:icons/teenyicons/more-vertical-outline';
 	import { fly } from 'svelte/transition';
 	import { setContext } from 'svelte';
+	import type { Snippet } from 'svelte';
 
-	
+	let { children, triggerChildren }: { children: Snippet, triggerChildren?: Snippet } = $props();
+
 	const {
 		elements: { trigger, menu, item, separator, arrow },
 		states: { open }
@@ -24,7 +26,11 @@
 </script>
 
 <button class="btn-icon" type="button" use:melt={$trigger} aria-label="More options">
-	<slot name="trigger"><MenuIcon /></slot>
+	{#if triggerChildren}
+		{@render triggerChildren()}
+	{:else}
+		<MenuIcon></MenuIcon>
+	{/if}
 </button>
 {#if $open}
 	<div
@@ -32,7 +38,7 @@
 		use:melt={$menu}
 		transition:fly={{ duration: 150, y: -10 }}
 	>
-		<slot />
+		{@render children()}
 	</div>
 {/if}
 

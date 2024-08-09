@@ -27,7 +27,7 @@
 </svelte:head>
 <HeaderBar backHref="/app/logs">
 	<h1>Entry</h1>
-	<svelte:fragment slot="actions">
+	{#snippet actions()}
 		<Tooltip text="Edit">
 			<a
 				class="btn-edit btn-icon"
@@ -43,7 +43,7 @@
 					<span>Delete</span>
 			</DropdownMenuItem>
 		</DropdownMenu>
-	</svelte:fragment>
+	{/snippet}
 </HeaderBar>
 <main class="u-guttered l-column l-space-s">
 	<LogEntry entry={existingEntry}></LogEntry>

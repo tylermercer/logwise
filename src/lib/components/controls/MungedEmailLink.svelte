@@ -1,8 +1,7 @@
 <script lang="ts">
-	let className: string = '';
-	export { className as class };
-	export let role: string | undefined = undefined;
-	export let ariaLabel: string | undefined = undefined;
+	import type { Snippet } from 'svelte';
+	
+	let { children }: {children: Snippet} = $props();
 
 	function dec(str: string) {
         return str.replace(/[a-zA-Z]/g, function (c: any) {
@@ -20,10 +19,7 @@
 
 <a
 	href="mailto:{dec(`${mungedUser}@${mungedDomain}`)}"
-	class="{className}"
 	target="_blank"
-	role={role}
-	aria-label={ariaLabel}
 >
-	<slot></slot>
+	{@render children()}
 </a>
