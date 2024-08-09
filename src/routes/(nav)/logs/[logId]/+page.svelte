@@ -4,9 +4,12 @@
 	import Tooltip from '$lib/components/util/Tooltip.svelte';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
 	import type { PageData } from './$types';
+	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
 
 	export let data: PageData;
 	$: log = data.log;
+
+	const query = (pageIndex: number, pageSize: number) => getAllEntriesForLogPaginated(log, pageIndex, pageSize)
 </script>
 
 <svelte:head>
@@ -23,5 +26,5 @@
 	</svelte:fragment>
 </HeaderBar>
 {#key log}
-	<EntriesList {log} />
+	<EntriesList paginatedQuery={query} />
 {/key}
