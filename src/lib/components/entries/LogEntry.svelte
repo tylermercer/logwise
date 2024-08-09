@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EntryRaw, FormRaw, LogRaw } from '$lib/db';
+	import type { EntryRaw, FormRaw, LogRaw } from '$lib/db/AppDexie';
 	import db from '$lib/db';
 	import { isBoolQuestion } from '$lib/question/bool';
 	import { isLikertQuestion } from '$lib/question/likert';

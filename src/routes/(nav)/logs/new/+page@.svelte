@@ -1,5 +1,6 @@
 <script lang="ts">
-	import db, { DB_CURRENT_ENTITY_VERSION } from '$lib/db';
+	import db from '$lib/db';
+	import { DB_CURRENT_ENTITY_VERSION } from '$lib/db/AppDexie';
 	import FormEditor, { type LogWithForm } from '$lib/components/logs/FormEditor.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import { goto } from '$app/navigation';

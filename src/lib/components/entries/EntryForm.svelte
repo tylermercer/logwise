@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DatetimeInput from '$lib/components/controls/DatetimeInput.svelte';
-	import type { EntryRaw, FormRaw, QuestionId } from '$lib/db';
-	import db, { DB_CURRENT_ENTITY_VERSION } from '$lib/db';
+	import { type EntryRaw, type FormRaw, type QuestionId, DB_CURRENT_ENTITY_VERSION } from '$lib/db/AppDexie';
+	import db from '$lib/db';
 	import { toAnsweredQuestion, type AnsweredQuestion } from '$lib/question';
 	import { isAnsweredBoolQuestion } from '$lib/question/bool';
 	import { isAnsweredLikertQuestion } from '$lib/question/likert';

@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts">
-	import { DB_CURRENT_ENTITY_VERSION, DB_FALSE, DB_NULL, type FormRaw, type LogRaw } from '$lib/db';
+	import { DB_CURRENT_ENTITY_VERSION, DB_FALSE, DB_NULL, type FormRaw, type LogRaw } from '$lib/db/AppDexie';
 	import type { DraftQuestion } from '$lib/question';
 	import assertNever from '$lib/util/assertNever';
 	import { nanoid } from 'nanoid';

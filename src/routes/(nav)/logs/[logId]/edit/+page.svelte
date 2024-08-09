@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	import db, { DB_CURRENT_ENTITY_VERSION, DB_NULL } from '$lib/db';
+	import db from '$lib/db';
 	import FormEditor, { type LogWithForm } from '$lib/components/logs/FormEditor.svelte';
-	import type { FormRaw } from '$lib/db';
+	import { type FormRaw, DB_CURRENT_ENTITY_VERSION, DB_NULL } from '$lib/db/AppDexie';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import { goto } from '$app/navigation';
 

@@ -1,38 +1,6 @@
 import { browser, dev } from "$app/environment";
-import AppDexie, {
-  DB_CURRENT_ENTITY_VERSION,
-  DB_FALSE,
-  DB_NULL,
-  DB_TRUE,
-  type DbBool,
-  type DbNull,
-  type EntryId,
-  type EntryRaw,
-  type FormId,
-  type FormRaw,
-  type LogId,
-  type LogRaw,
-  type QuestionId,
-  type VersionedSchemaEntity,
-} from "./AppDexie";
+import AppDexie from "./AppDexie";
 import { runMigrationsIfNeeded } from "./migration/migrator";
-
-export {
-  DB_CURRENT_ENTITY_VERSION,
-  DB_FALSE,
-  DB_NULL,
-  DB_TRUE,
-  type DbBool,
-  type DbNull,
-  type EntryId,
-  type EntryRaw,
-  type FormId,
-  type FormRaw,
-  type LogId,
-  type LogRaw,
-  type QuestionId,
-  type VersionedSchemaEntity,
-}
 
 const db = new AppDexie(dev);
 

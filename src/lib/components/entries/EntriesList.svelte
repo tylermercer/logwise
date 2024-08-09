@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Entry from '$lib/components/entries/LogEntry.svelte';
 	import InfiniteScroll from '$lib/components/util/InfiniteScroll.svelte';
-	import type { LogRaw } from '$lib/db';
+	import type { LogRaw } from '$lib/db/AppDexie';
 	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
 	import getAllEntriesPaginated from '$lib/db/queries/getAllEntriesPaginated';
 	import type { ExtendedEntry } from '$lib/db/types/ExtendedEntry';

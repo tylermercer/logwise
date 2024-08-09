@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
-	import db, { type FormId, DB_FALSE, type FormRaw } from '$lib/db';
+	import db from '$lib/db';
+	import { type FormId, DB_FALSE, type FormRaw } from '$lib/db/AppDexie';
 	import Plus from 'virtual:icons/teenyicons/add-small-outline';
 	import Tooltip from '$lib/components/util/Tooltip.svelte';
 
