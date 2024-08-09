@@ -5,7 +5,7 @@
 	import { isLikertQuestion } from '$lib/question/likert';
 	import { isTextQuestion } from '$lib/question/text';
 	import assertNever from '$lib/util/assertNever';
-	import { svelteTime } from 'svelte-time';
+	import { dateToString } from '$lib/util/dateUtils';
 
 	export let entry: EntryRaw;
 	export let form: FormRaw | undefined = undefined;
@@ -28,13 +28,6 @@
 		else return undefined;
 	}
 
-	const now = new Date().getTime();
-
-	function useRelativeTime(date: Date) {
-		//Use relative time if within last two days
-		return date.getTime() > now - 2 * 24 * 60 * 60 * 1000;
-	}
-
 	let dataPromise = getLogAndForm();
 </script>
 
@@ -47,13 +40,8 @@
 				{data.log.name}
 				<time
 					class="datetime"
-					use:svelteTime={{
-						relative: useRelativeTime(entry.displayDatetime),
-						live: true,
-						timestamp: entry.displayDatetime,
-						format: 'h:mm A · MMM D, YYYY'
-					}}
 				>
+					{dateToString(entry.displayDatetime)}
 				</time>
 			</h2>
 			{#each data.form.questions as q (q.id)}

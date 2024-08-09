@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { parse } from 'chrono-node';
 	import { dateToString } from '$lib/util/dateUtils';
 
