@@ -4,11 +4,14 @@ import db from '$lib/db';
 import { fromString } from 'typeid-unboxed';
 
 export const load: PageLoad = async ({ params }) => {
-    const existingEntry = await db.entries.get(fromString(params.entryId, 'entry'))
-    if (existingEntry) {
+    const entry = await db.entries.get(fromString(params.entryId, 'entry'));
+    const log = await db.logs.get(fromString(params.logId, 'log'));
+    const form = log ? await db.forms.get(log?.currentFormId) : undefined;
+    if (entry && log && form) {
         return {
-            existingEntry,
-            logId: params.logId,
+            entry,
+            form,
+            log,
         }
     }
     else {

@@ -10,16 +10,19 @@
 	import DropdownMenu from '$lib/components/util/dropdown-menu/DropdownMenu.svelte';
 	import DropdownMenuItem from '$lib/components/util/dropdown-menu/DropdownMenuItem.svelte';
 	import Tooltip from '$lib/components/util/Tooltip.svelte';
+	import type { ExtendedEntry } from '$lib/db/types/ExtendedEntry';
 
 	export let data: PageData;
 
-	let existingEntry = data.existingEntry;
 	async function deleteEntry(e: Event) {
 		e.preventDefault();
 		e.stopImmediatePropagation();
-		await db.entries.delete(existingEntry.id);
+		await db.entries.delete(data.entry.id);
 		goto('/app/logs', { replaceState: true });
 	}
+	
+	let extendedEntry : ExtendedEntry;
+	$: extendedEntry = { ...data.entry, form: data.form, log: data.log }
 </script>
 
 <svelte:head>
@@ -32,7 +35,7 @@
 			<a
 				class="btn-edit btn-icon"
 				role="button"
-				href={`/app/logs/${data.logId}/${data.existingEntry.id}/edit`}
+				href={`/app/logs/${data.log.id}/${data.entry.id}/edit`}
 			>
 				<PencilIcon />
 			</a>
@@ -46,14 +49,14 @@
 	</svelte:fragment>
 </HeaderBar>
 <main class="u-guttered l-column l-space-s">
-	<LogEntry entry={existingEntry}></LogEntry>
+	<LogEntry entry={extendedEntry}></LogEntry>
 	<div class="footnotes l-column l-space-none">
 		<small>
-			Created {dateToString(data.existingEntry.createdDatetime)}
+			Created {dateToString(data.entry.createdDatetime)}
 		</small>
-		{#if data.existingEntry.createdDatetime !== data.existingEntry.modifiedDatetime}
+		{#if data.entry.createdDatetime !== data.entry.modifiedDatetime}
 			<small>
-				Modified {dateToString(data.existingEntry.modifiedDatetime)}
+				Modified {dateToString(data.entry.modifiedDatetime)}
 			</small>
 		{/if}
 	</div>
