@@ -13,6 +13,6 @@
 </HeaderBar>
 <EntriesList paginatedQuery={getAllEntriesPaginated}>
 	<a slot="entry" let:entry href="/app/logs/{entry.log.id}/{entry.id}" class="u-link-block">
-		<LogEntry {entry} form={entry.form} log={entry.log}></LogEntry>
+		<LogEntry {entry}></LogEntry>
 	</a>
 </EntriesList>
