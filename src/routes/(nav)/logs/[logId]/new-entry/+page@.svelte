@@ -9,7 +9,7 @@
 	$: name = data.log.name;
 
 	async function onSubmit() {
-		goto('/app/logs', {
+		goto(`/app/logs/${data.log.id}`, {
 			replaceState: true
 		});
 	}
