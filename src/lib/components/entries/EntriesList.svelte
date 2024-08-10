@@ -6,7 +6,7 @@
 
 	const PAGE_SIZE = 10;
 
-	export let paginatedQuery: (pageIndex: number, pageSize: number) => Promise<ExtendedEntry[]>
+	export let paginatedQuery: (pageIndex: number, pageSize: number) => Promise<ExtendedEntry[]>;
 
 	const getPageLiveQuery = (pageIndex: number) =>
 		liveQueryAsStore(() => paginatedQuery(pageIndex, PAGE_SIZE), null);
@@ -20,7 +20,7 @@
 	const getHasMore = (pages: (ExtendedEntry[] | null)[]): boolean => {
 		const last = pages.at(-1);
 		return last == null || !!last.length;
-	}
+	};
 
 	$: hasMore = getHasMore($pages);
 
@@ -35,9 +35,7 @@
 				{#if page.length}
 					{#each page as entry (entry.id)}
 						<li class="entry">
-							<slot name="entry" entry={entry}>
-
-							</slot>
+							<slot name="entry" {entry} />
 						</li>
 					{/each}
 				{:else if i === 0}
@@ -53,7 +51,7 @@
 			{/if}
 		{/each}
 	</ul>
-	<InfiniteScroll on:loadMore={loadNextPage} hasMore={hasMore} />
+	<InfiniteScroll on:loadMore={loadNextPage} {hasMore} />
 </main>
 
 <style lang="scss">
