@@ -21,7 +21,7 @@
 	<h1>{log.name}</h1>
 	<svelte:fragment slot="actions">
 		<Tooltip text="Add Entry">
-			<a class="btn-edit btn-icon" role="button" href={`/app/logs/${log.id}/new-entry`}>
+			<a class="btn-edit btn-icon u-icon-button-group-right" role="button" href={`/app/logs/${log.id}/new-entry`}>
 				<PlusIcon />
 			</a>
 		</Tooltip>

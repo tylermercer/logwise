@@ -40,7 +40,7 @@
 				<PencilIcon />
 			</a>
 		</Tooltip>
-		<DropdownMenu>
+		<DropdownMenu class="u-icon-button-group-right">
 			<DropdownMenuItem class="u-danger" on:item-click={deleteEntry}>
 					<TrashIcon />
 					<span>Delete</span>

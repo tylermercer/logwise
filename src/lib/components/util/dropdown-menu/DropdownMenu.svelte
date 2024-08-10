@@ -9,6 +9,8 @@
 	import { fly } from 'svelte/transition';
 	import { setContext } from 'svelte';
 
+	let className: string = '';
+	export { className as class };
 	
 	const {
 		elements: { trigger, menu, item, separator, arrow },
@@ -23,7 +25,7 @@
 
 </script>
 
-<button class="btn-icon" type="button" use:melt={$trigger} aria-label="More options">
+<button class="btn-icon {className}" type="button" use:melt={$trigger} aria-label="More options">
 	<slot name="trigger"><MenuIcon /></slot>
 </button>
 {#if $open}
