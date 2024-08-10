@@ -32,5 +32,9 @@
 		<a slot="entry" let:entry href="/app/logs/{entry.log.id}/{entry.id}" class="u-link-block">
 			<LogEntry {entry}></LogEntry>
 		</a>
+		<span slot="empty">
+			There's nothing in your log yet.
+			<a href="/app/logs/{log.id}/new-entry">Make an entry</a>
+		</span>
 	</EntriesList>
 {/key}
