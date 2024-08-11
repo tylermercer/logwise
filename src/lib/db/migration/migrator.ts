@@ -1,5 +1,5 @@
 import { derived, writable } from "svelte/store";
-import { DB_CURRENT_ENTITY_VERSION, type VersionedSchemaEntity } from "../AppDexie"
+import { DB_CURRENT_ENTITY_VERSION, type VersionedSchemaEntity } from "../types"
 import type { Migration, MigrationResult } from "./types";
 import type { Table } from "dexie";
 import AppDexie from "../AppDexie";

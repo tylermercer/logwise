@@ -1,7 +1,7 @@
 import { beforeEach, expect, test } from 'vitest'
 import "fake-indexeddb/auto"; // must import before DB module
 import db, { dbOpenPromise } from './index';
-import { DB_CURRENT_ENTITY_VERSION, DB_FALSE, DB_NULL, DB_TRUE, type FormRaw } from './AppDexie';
+import { DB_CURRENT_ENTITY_VERSION, DB_FALSE, DB_NULL, DB_TRUE, type FormRaw } from './types';
 import { typeid } from 'typeid-unboxed';
 import { runMigrationsIfNeeded, runningMigrationsPromise } from './migration/migrator';
 

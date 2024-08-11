@@ -1,4 +1,4 @@
-import type { FormId, FormRaw, LogId, LogRaw } from "../AppDexie";
+import type { FormId, FormRaw, LogId, LogRaw } from "../types";
 import db from "..";
 import type { ExtendedEntry } from "../types/ExtendedEntry";
 

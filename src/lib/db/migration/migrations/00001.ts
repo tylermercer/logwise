@@ -1,4 +1,5 @@
-import AppDexie, { DB_FALSE, DB_NULL, DB_TRUE, type FormId, type FormRaw } from "$lib/db/AppDexie";
+import AppDexie from "$lib/db/AppDexie";
+import { DB_FALSE, DB_NULL, DB_TRUE, type FormId, type FormRaw } from "$lib/db/types";
 import { typeid } from "typeid-unboxed";
 import type { Migration } from "../types";
 import type { PartialPick } from "$lib/util/types/PartialPick";
