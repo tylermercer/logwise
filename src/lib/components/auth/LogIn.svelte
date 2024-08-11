@@ -1,5 +1,6 @@
 <script lang="ts">
 	import db from '$lib/db';
+	import showModal from '$lib/util/actions/showModal';
 	import { resolveText, type DXCUserInteraction } from 'dexie-cloud-addon';
 
 	type Params = { [param: string]: string };
@@ -21,9 +22,6 @@
 	function handleSubmit(e: Event, ui: DXCUserInteraction) {
 		e.preventDefault();
 		ui.onSubmit(params);
-	}
-	function showModal(e: HTMLDialogElement) {
-		e.showModal();
 	}
 </script>
 
