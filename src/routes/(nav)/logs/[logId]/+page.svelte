@@ -3,7 +3,7 @@
 	import LogEntry from '$lib/components/entries/LogEntry.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import Tooltip from '$lib/components/util/Tooltip.svelte';
-	import PencilIcon from 'virtual:icons/teenyicons/edit-outline';
+	import DocumentIcon from 'virtual:icons/teenyicons/text-document-alt-outline';
 	import DropdownMenu from '$lib/components/util/dropdown-menu/DropdownMenu.svelte';
 	import DropdownMenuItem from '$lib/components/util/dropdown-menu/DropdownMenuItem.svelte';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
@@ -35,8 +35,8 @@
 		</Tooltip>
 		<DropdownMenu class="u-icon-button-group-right">
 			<DropdownMenuItem on:item-click={editEntry}>
-				<PencilIcon />
-				<span>Edit Questions</span>
+				<DocumentIcon />
+				<span>Edit questions</span>
 			</DropdownMenuItem>
 		</DropdownMenu>
 	</svelte:fragment>

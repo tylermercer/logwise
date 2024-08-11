@@ -7,30 +7,25 @@
 	import { typeid } from 'typeid-unboxed';
 
 	async function handleSubmit(data: LogWithForm) {
-		if (data.id) {
-			// update log, which shouldn't happen on this page
-			console.error('Attempted to update on new log page');
-		} else {
-			// create log
-			const logId = typeid('log');
-			await db.transaction('rw', db.forms, db.logs, () => {
-				db.logs.add({
-					id: logId,
-					name: data.name,
-					description: data.description,
-					color: data.color,
-					createdDatetime: data.createdDatetime,
-					modifiedDatetime: data.modifiedDatetime,
-					currentFormId: data.currentForm.id,
-					isArchived: data.isArchived,
-					schemaVer: DB_CURRENT_ENTITY_VERSION
-				});
-				db.forms.add({
-					...data.currentForm,
-					logId
-				});
+		// create log
+		const logId = typeid('log');
+		await db.transaction('rw', db.forms, db.logs, () => {
+			db.logs.add({
+				id: logId,
+				name: data.name,
+				description: data.description,
+				color: data.color,
+				createdDatetime: data.createdDatetime,
+				modifiedDatetime: data.modifiedDatetime,
+				currentFormId: data.currentForm.id,
+				isArchived: data.isArchived,
+				schemaVer: DB_CURRENT_ENTITY_VERSION
 			});
-		}
+			db.forms.add({
+				...data.currentForm,
+				logId
+			});
+		});
 
 		goto('/app/');
 	}
