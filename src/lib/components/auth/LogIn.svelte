@@ -63,20 +63,6 @@
 {/if}
 
 <style>
-	dialog::backdrop {
-		opacity: 0.5;
-		background-color: #000;
-	}
-	dialog {
-		color: var(--gray-12);
-		background-color: var(--gray-2);
-		padding: var(--space-s);
-		max-width: min(90%, 60ch);
-		border: none;
-		border-radius: var(--space-xs);
-		width: auto;
-		transform: translateY(-5vh);
-	}
 	.dxcdlg-alert-warning {
 		color: #f80;
 		font-weight: bold;
