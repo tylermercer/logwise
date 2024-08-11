@@ -157,6 +157,12 @@
             --outline-color: var(--gray-8);
         }
 
+        &.btn-danger {
+            --button-color: var(--danger);
+            --button-color-hov: var(--danger-alt);
+            --outline-color: var(--danger);
+        }
+
         &.btn-outline {
             --button-text-color: var(--button-color);
             --button-text-color-hov: var(--button-color-hov);
