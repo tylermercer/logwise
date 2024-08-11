@@ -3,15 +3,23 @@
 	import LogEntry from '$lib/components/entries/LogEntry.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import Tooltip from '$lib/components/util/Tooltip.svelte';
+	import PencilIcon from 'virtual:icons/teenyicons/edit-outline';
+	import DropdownMenu from '$lib/components/util/dropdown-menu/DropdownMenu.svelte';
+	import DropdownMenuItem from '$lib/components/util/dropdown-menu/DropdownMenuItem.svelte';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
 	import type { PageData } from './$types';
 	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 	$: log = data.log;
 
 	const query = (pageIndex: number, pageSize: number) =>
 		getAllEntriesForLogPaginated(log, pageIndex, pageSize);
+
+	const editEntry = () => {
+		goto(`/app/logs/${log.id}/edit`);
+	};
 </script>
 
 <svelte:head>
@@ -21,10 +29,16 @@
 	<h1>{log.name}</h1>
 	<svelte:fragment slot="actions">
 		<Tooltip text="Add Entry">
-			<a class="btn-edit btn-icon u-icon-button-group-right" role="button" href={`/app/logs/${log.id}/new-entry`}>
+			<a class="btn-edit btn-icon" role="button" href={`/app/logs/${log.id}/new-entry`}>
 				<PlusIcon />
 			</a>
 		</Tooltip>
+		<DropdownMenu class="u-icon-button-group-right">
+			<DropdownMenuItem on:item-click={editEntry}>
+				<PencilIcon />
+				<span>Edit Questions</span>
+			</DropdownMenuItem>
+		</DropdownMenu>
 	</svelte:fragment>
 </HeaderBar>
 {#key log}

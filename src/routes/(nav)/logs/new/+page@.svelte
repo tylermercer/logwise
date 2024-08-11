@@ -1,7 +1,7 @@
 <script lang="ts">
 	import db from '$lib/db';
 	import { DB_CURRENT_ENTITY_VERSION } from '$lib/db/types';
-	import FormEditor, { type LogWithForm } from '$lib/components/logs/FormEditor.svelte';
+	import LogBuilder, { type LogWithForm } from '$lib/components/logs/LogBuilder.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import { goto } from '$app/navigation';
 	import { typeid } from 'typeid-unboxed';
@@ -23,11 +23,11 @@
 					modifiedDatetime: data.modifiedDatetime,
 					currentFormId: data.currentForm.id,
 					isArchived: data.isArchived,
-					schemaVer: DB_CURRENT_ENTITY_VERSION,
+					schemaVer: DB_CURRENT_ENTITY_VERSION
 				});
 				db.forms.add({
 					...data.currentForm,
-					logId,
+					logId
 				});
 			});
 		}
@@ -43,5 +43,5 @@
 	<h1>New Log</h1>
 </HeaderBar>
 <main class="u-guttered">
-	<FormEditor onSubmit={handleSubmit}></FormEditor>
+	<LogBuilder onSubmit={handleSubmit}></LogBuilder>
 </main>
