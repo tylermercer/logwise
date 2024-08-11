@@ -1,15 +1,18 @@
 <script lang="ts">
+	import { goto, invalidateAll } from '$app/navigation';
 	import EntriesList from '$lib/components/entries/EntriesList.svelte';
 	import LogEntry from '$lib/components/entries/LogEntry.svelte';
+	import LogRenameModal from '$lib/components/logs/LogRenameModal.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
-	import Tooltip from '$lib/components/util/Tooltip.svelte';
 	import DocumentIcon from 'virtual:icons/teenyicons/text-document-alt-outline';
 	import DropdownMenu from '$lib/components/util/dropdown-menu/DropdownMenu.svelte';
 	import DropdownMenuItem from '$lib/components/util/dropdown-menu/DropdownMenuItem.svelte';
-	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
-	import type { PageData } from './$types';
+	import Tooltip from '$lib/components/util/Tooltip.svelte';
+	import db from '$lib/db';
 	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
-	import { goto } from '$app/navigation';
+	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
+	import PencilIcon from 'virtual:icons/teenyicons/edit-outline';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 	$: log = data.log;
@@ -17,8 +20,16 @@
 	const query = (pageIndex: number, pageSize: number) =>
 		getAllEntriesForLogPaginated(log, pageIndex, pageSize);
 
-	const editEntry = () => {
+	const editLog = () => {
 		goto(`/app/logs/${log.id}/edit`);
+	};
+
+	let showRenameModal = false;
+
+	const renameLog = async (e: CustomEvent<string>) => {
+		//TODO: check for an existing log that already uses that name
+		await db.logs.update(log.id, { name: e.detail, modifiedDatetime: new Date() });
+		invalidateAll();
 	};
 </script>
 
@@ -34,7 +45,11 @@
 			</a>
 		</Tooltip>
 		<DropdownMenu class="u-icon-button-group-right">
-			<DropdownMenuItem on:item-click={editEntry}>
+			<DropdownMenuItem on:item-click={() => (showRenameModal = true)}>
+				<PencilIcon/>
+				<span>Rename</span>
+			</DropdownMenuItem>
+			<DropdownMenuItem on:item-click={editLog}>
 				<DocumentIcon />
 				<span>Edit questions</span>
 			</DropdownMenuItem>
@@ -52,3 +67,5 @@
 		</span>
 	</EntriesList>
 {/key}
+
+<LogRenameModal oldName={log.name} on:submit={renameLog} bind:show={showRenameModal}/>
