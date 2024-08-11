@@ -21,23 +21,6 @@
 			form: formsById.get(l.currentFormId)!,
 		}));
 	});
-
-	let pendingDeletionId: FormId | undefined;
-	async function deleteForm(e: Event, id: FormId) {
-		e.preventDefault();
-		e.stopImmediatePropagation();
-		if (pendingDeletionId) {
-			let capturedId = pendingDeletionId!;
-			await db.transaction('rw', db.forms, db.entries, async () => {
-				await db.forms.delete(capturedId);
-				await db.entries.where('formId').equals(capturedId).delete();
-			});
-			pendingDeletionId = undefined;
-		} else {
-			pendingDeletionId = id;
-			setTimeout(() => (pendingDeletionId = undefined), 3000);
-		}
-	}
 </script>
 
 <div class="logs-list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
