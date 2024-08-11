@@ -2,19 +2,21 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import EntriesList from '$lib/components/entries/EntriesList.svelte';
 	import LogEntry from '$lib/components/entries/LogEntry.svelte';
-	import LogRenameModal from '$lib/components/logs/LogRenameModal.svelte';
 	import LogDeleteModal from '$lib/components/logs/LogDeleteModal.svelte';
+	import LogRenameModal from '$lib/components/logs/LogRenameModal.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import DocumentIcon from 'virtual:icons/teenyicons/text-document-alt-outline';
 	import DropdownMenu from '$lib/components/util/dropdown-menu/DropdownMenu.svelte';
 	import DropdownMenuItem from '$lib/components/util/dropdown-menu/DropdownMenuItem.svelte';
 	import Tooltip from '$lib/components/util/Tooltip.svelte';
 	import db from '$lib/db';
-	import { type LogId } from '$lib/db/types';
 	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
+	import { type LogId, DB_NULL } from '$lib/db/types';
+	import { typeid } from 'typeid-unboxed';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
-	import PencilIcon from 'virtual:icons/teenyicons/edit-outline';
 	import TrashIcon from 'virtual:icons/teenyicons/bin-outline';
+	import CopyIcon from 'virtual:icons/teenyicons/documents-outline';
+	import PencilIcon from 'virtual:icons/teenyicons/edit-outline';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -45,6 +47,34 @@
 		});
 		goto('/app/');
 	};
+
+	const duplicateLog = async () => {
+		const newLogId = typeid('log');
+		const newFormId = typeid('form');
+		const newLogName = `Copy of ${log.name}`;
+		const now = new Date();
+		await db.transaction('rw', db.forms, db.logs, async () => {
+			const form = (await db.forms.get(log.currentFormId))!;
+			await db.forms.add({
+				...form,
+				id: newFormId,
+				prevVersionId: DB_NULL,
+				nextVersionId: DB_NULL,
+				logId: newLogId,
+				createdDatetime: now,
+				modifiedDatetime: now
+			});
+			await db.logs.add({
+				...log,
+				name: newLogName,
+				id: newLogId,
+				currentFormId: newFormId,
+				createdDatetime: now,
+				modifiedDatetime: now
+			});
+		});
+		goto(`/app/logs/${newLogId}`);
+	};
 </script>
 
 <svelte:head>
@@ -66,6 +96,10 @@
 			<DropdownMenuItem on:item-click={editLog}>
 				<DocumentIcon />
 				<span>Edit questions</span>
+			</DropdownMenuItem>
+			<DropdownMenuItem on:item-click={duplicateLog}>
+				<CopyIcon/>
+				<span>Duplicate</span>
 			</DropdownMenuItem>
 			<hr />
 			<DropdownMenuItem class="u-danger" on:item-click={() => (showDeleteModal = true)}>
