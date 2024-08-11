@@ -1,11 +1,19 @@
 <script context="module" lang="ts">
 	type LogWithOptionalId = PartialPick<LogRaw, 'id'>;
 
-	export type LogWithForm = Omit<LogWithOptionalId, 'currentFormId'> & { currentForm: Omit<FormRaw, 'logId'> };
+	export type LogWithForm = Omit<LogWithOptionalId, 'currentFormId'> & {
+		currentForm: Omit<FormRaw, 'logId'>;
+	};
 </script>
 
 <script lang="ts">
-	import { DB_CURRENT_ENTITY_VERSION, DB_FALSE, DB_NULL, type FormRaw, type LogRaw } from '$lib/db/types';
+	import {
+		DB_CURRENT_ENTITY_VERSION,
+		DB_FALSE,
+		DB_NULL,
+		type FormRaw,
+		type LogRaw
+	} from '$lib/db/types';
 	import type { DraftQuestion } from '$lib/question';
 	import assertNever from '$lib/util/assertNever';
 	import { nanoid } from 'nanoid';
@@ -108,7 +116,7 @@
 											text: q.data.text
 										}
 									: assertNever(q.type)
-					),
+					)
 				},
 				modifiedDatetime: date,
 				createdDatetime: existingLog?.createdDatetime ?? date,
@@ -116,7 +124,7 @@
 				description: '',
 				color: 'gray',
 				isArchived: DB_FALSE,
-				schemaVer: DB_CURRENT_ENTITY_VERSION,
+				schemaVer: DB_CURRENT_ENTITY_VERSION
 			});
 
 			saving = false;

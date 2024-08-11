@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 
 	import db from '$lib/db';
-	import FormEditor, { type LogWithForm } from '$lib/components/logs/FormEditor.svelte';
+	import LogBuilder, { type LogWithForm } from '$lib/components/logs/LogBuilder.svelte';
 	import { type FormRaw, DB_CURRENT_ENTITY_VERSION, DB_NULL } from '$lib/db/types';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
 	import { goto } from '$app/navigation';
@@ -35,11 +35,11 @@
 					modifiedDatetime: data.modifiedDatetime,
 					currentFormId: data.currentForm.id,
 					isArchived: data.isArchived,
-					schemaVer: DB_CURRENT_ENTITY_VERSION,
+					schemaVer: DB_CURRENT_ENTITY_VERSION
 				});
 				db.forms.add({
 					...data.currentForm,
-					logId,
+					logId
 				});
 			});
 		} else {
@@ -58,5 +58,5 @@
 	<h1>Editing "{existingLog.name}"</h1>
 </HeaderBar>
 <main class="u-guttered">
-	<FormEditor onSubmit={handleSubmit} {existingForm} {existingLog}></FormEditor>
+	<LogBuilder onSubmit={handleSubmit} {existingForm} {existingLog}></LogBuilder>
 </main>

@@ -23,6 +23,9 @@
 		padding-block: var(--space-m);
 		
 		& > :global(h1) {
+			flex-basis: 0;
+			min-width: 0;
+			flex-grow: 1;
 			height: 100%;
 			padding-block: var(--space-3xs);
 		}
