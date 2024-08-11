@@ -49,7 +49,7 @@
 	</svelte:fragment>
 </HeaderBar>
 <main class="u-guttered l-column l-space-s">
-	<LogEntry entry={extendedEntry}></LogEntry>
+	<LogEntry entry={extendedEntry} showLogName></LogEntry>
 	<div class="footnotes l-column l-space-none">
 		<small>
 			Created {dateToString(data.entry.createdDatetime)}
