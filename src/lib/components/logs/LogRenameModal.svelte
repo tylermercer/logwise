@@ -1,9 +1,13 @@
 <script lang="ts">
+	import db from '$lib/db';
+	import hasLogWithName from '$lib/db/queries/hasLogWithName';
+	import type { LogId } from '$lib/db/types';
 	import showModal from '$lib/util/actions/showModal';
 
 	import { createEventDispatcher } from 'svelte';
 
 	export let oldName: string;
+	export let id: LogId;
 
 	export let show: boolean = false;
 
@@ -16,8 +20,11 @@
 		renamingError = '';
 		if (!draftName) {
 			renamingError = 'Please enter a name';
+		} else if (await hasLogWithName(draftName)) {
+			renamingError = 'A log with that name already exists';
 		} else {
-			dispatch('submit', draftName);
+			await db.logs.update(id, { name: draftName, modifiedDatetime: new Date() });
+			dispatch('submit');
 			show = false;
 		}
 	};
