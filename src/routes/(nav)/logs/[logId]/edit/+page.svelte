@@ -58,7 +58,7 @@
 	<h1>Editing "{existingLog.name}"</h1>
 </HeaderBar>
 <main class="u-guttered">
-	<form on:submit={handleSubmit}>
+	<form on:submit={handleSubmit} class="l-column l-space-m">
 		<QuestionsEditor bind:questions />
 		{#if status}
 			<p>{status}</p>
