@@ -17,7 +17,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	const entriesCount = liveQueryAsStore<number | undefined>(() => {
+	$: entriesCount = liveQueryAsStore<number | undefined>(() => {
 		return db.transaction<number>('r', db.forms, db.entries, async () => {
 			const formIds = (await db.forms.where('logId').equals(id).primaryKeys()) as LogId[];
 			return await db.entries.where('formId').anyOf(formIds).count();
