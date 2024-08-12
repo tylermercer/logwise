@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import NavHeaderMenu from '$lib/components/navigation/NavHeaderMenu.svelte';
 	import LogsList from '$lib/components/logs/LogsList.svelte';
+	import LogsListHeader from '$lib/components/logs/LogsListHeader.svelte';
 
 	function toggleMenu() {
 		if ($page.state.showMenu) {
@@ -19,7 +20,9 @@
 {#if $page.state.showMenu}
 	<div class="menu">
 		<NavHeaderMenu></NavHeaderMenu>
-		<LogsList />
+		<LogsList>
+			<LogsListHeader slot="header" />
+		</LogsList>
 	</div>
 {:else}
 	<slot />
