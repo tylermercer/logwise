@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
+import type { PageData } from './$types';
 	export let data: PageData;
 
 </script>
@@ -7,9 +8,9 @@
 <svelte:head>
 	<title>Logwise</title>
 </svelte:head>
-<header class="u-guttered">
+<HeaderBar>
 	<h1>Logwise</h1>
-</header>
+</HeaderBar>
 {#if data.shouldRenderShell}
 	<main class="u-guttered" aria-busy="true">
 	</main>
