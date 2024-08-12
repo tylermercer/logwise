@@ -85,86 +85,88 @@
 	}
 </script>
 
-<fieldset class="questions l-column l-space-s">
-	<legend><h2>Questions</h2></legend>
+<div class="l-column">
+	<fieldset class="questions l-column l-space-s">
+		<legend><h2>Questions</h2></legend>
 
-	<div class="l-column l-space-s" use:autoAnimate>
-		{#if questions.length}
-			{#each questions as question, i (question.tempId)}
-				<div class="question l-row l-space-s">
-					<div class="l-column l-space-2xs">
-						<label>
-							Question
-							<input type="text" bind:value={question.data.text} />
-							<small>
-								e.g.
-								{#if question.type === 'text'}
-									"What's on your mind?"
-								{:else if question.type === 'likert'}
-									"How are you feeling?"
-								{:else if question.type === 'bool'}
-									"Did you do your habit today?"
-								{:else}
-									{assertNever(question.type)}
-								{/if}
-							</small>
-						</label>
-						<label>
-							Type
-							<select bind:value={question.type}>
-								<option value="text">Text</option>
-								<option value="likert">1-to-5 scale</option>
-								<option value="bool">Yes/No</option>
-							</select>
-						</label>
-					</div>
-					<div class="question-buttons l-column l-space-none">
-						<button
-							type="button"
-							on:click={() => deleteQuestion(question.tempId)}
-							class="btn-delete btn-icon"
-						>
-							<TrashIcon />
-						</button>
-						<button
-							type="button"
-							on:click={() => moveQuestionUp(i)}
-							class="btn-icon"
-							aria-disabled={i === 0 ? 'true' : undefined}
-							disabled={i === 0}
-						>
-							<UpIcon />
-						</button>
-						<!-- <button
+		<div class="l-column l-space-s" use:autoAnimate>
+			{#if questions.length}
+				{#each questions as question, i (question.tempId)}
+					<div class="question l-row l-space-s">
+						<div class="l-column l-space-2xs">
+							<label>
+								Question
+								<input type="text" bind:value={question.data.text} />
+								<small>
+									e.g.
+									{#if question.type === 'text'}
+										"What's on your mind?"
+									{:else if question.type === 'likert'}
+										"How are you feeling?"
+									{:else if question.type === 'bool'}
+										"Did you do your habit today?"
+									{:else}
+										{assertNever(question.type)}
+									{/if}
+								</small>
+							</label>
+							<label>
+								Type
+								<select bind:value={question.type}>
+									<option value="text">Text</option>
+									<option value="likert">1-to-5 scale</option>
+									<option value="bool">Yes/No</option>
+								</select>
+							</label>
+						</div>
+						<div class="question-buttons l-column l-space-none">
+							<button
+								type="button"
+								on:click={() => deleteQuestion(question.tempId)}
+								class="btn-delete btn-icon"
+							>
+								<TrashIcon />
+							</button>
+							<button
+								type="button"
+								on:click={() => moveQuestionUp(i)}
+								class="btn-icon"
+								aria-disabled={i === 0 ? 'true' : undefined}
+								disabled={i === 0}
+							>
+								<UpIcon />
+							</button>
+							<!-- <button
 					type="button"
 					on:click={() => deleteQuestion(question.tempId)}
 					class="btn-icon"
 					>
 					<DragIcon/>
 					</button> -->
-						<button
-							type="button"
-							on:click={() => moveQuestionDown(i)}
-							class="btn-icon"
-							aria-disabled={i === questions.length - 1 ? 'true' : undefined}
-							disabled={i === questions.length - 1}
-						>
-							<DownIcon />
-						</button>
+							<button
+								type="button"
+								on:click={() => moveQuestionDown(i)}
+								class="btn-icon"
+								aria-disabled={i === questions.length - 1 ? 'true' : undefined}
+								disabled={i === questions.length - 1}
+							>
+								<DownIcon />
+							</button>
+						</div>
 					</div>
-				</div>
-			{/each}
-		{:else}
-			<p>No questions</p>
-		{/if}
+				{/each}
+			{:else}
+				<p>No questions</p>
+			{/if}
+		</div>
+	</fieldset>
+	<div class="btn-add-question-container l-cluster-r">
+		<Tooltip text="Add question">
+			<button class="btn-icon" aria-label="Add question" type="button" on:click={addQuestion}>
+				<PlusIcon />
+			</button>
+		</Tooltip>
 	</div>
-</fieldset>
-<div class="btn-add-question-container l-cluster-r">
-	<Tooltip text="Add question">
-		<button class="btn-icon" aria-label="Add question" type="button" on:click={addQuestion}>
-			<PlusIcon />
-		</button>
-	</Tooltip>
 </div>
 
 <style lang="scss">
