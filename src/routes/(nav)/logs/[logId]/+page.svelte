@@ -87,6 +87,7 @@
 
 	const setArchived = async (archived: boolean) => {
 		await db.logs.update(log.id, { isArchived: archived ? DB_TRUE : DB_FALSE });
+                invalidateAll();
 	};
 </script>
 
