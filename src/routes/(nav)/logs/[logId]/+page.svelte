@@ -96,11 +96,13 @@
 <HeaderBar>
 	<h1>{log.name}</h1>
 	<svelte:fragment slot="actions">
-		<Tooltip text="Add Entry">
-			<a class="btn-edit btn-icon" role="button" href={`/app/logs/${log.id}/new-entry`}>
-				<PlusIcon />
-			</a>
-		</Tooltip>
+		{#if !isArchived}
+			<Tooltip text="Add Entry">
+				<a class="btn-edit btn-icon" role="button" href={`/app/logs/${log.id}/new-entry`}>
+					<PlusIcon />
+				</a>
+			</Tooltip>
+		{/if}
 		<DropdownMenu class="u-icon-button-group-right">
 			{#if !isArchived}
 				<DropdownMenuItem on:item-click={() => (showRenameModal = true)}>
