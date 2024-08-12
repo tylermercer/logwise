@@ -13,7 +13,7 @@
 	export { className as class };
 	
 	const {
-		elements: { trigger, menu, item, separator, arrow },
+		elements: { trigger, menu, item, separator, overlay },
 		states: { open }
 	} = createDropdownMenu({
 		forceVisible: true,
@@ -29,6 +29,7 @@
 	<slot name="trigger"><MenuIcon /></slot>
 </button>
 {#if $open}
+	<div use:melt={$overlay} class="overlay"/>
 	<div
 		class="menu l-column l-space-2xs"
 		use:melt={$menu}
@@ -39,6 +40,11 @@
 {/if}
 
 <style lang="scss">
+	.overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 40;
+	}
 	.menu {
 		z-index: 40;
 		display: flex;
