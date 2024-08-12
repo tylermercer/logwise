@@ -18,6 +18,7 @@
 	import CopyIcon from 'virtual:icons/teenyicons/documents-outline';
 	import PencilIcon from 'virtual:icons/teenyicons/edit-outline';
 	import type { PageData } from './$types';
+	import hasLogWithName from '$lib/db/queries/hasLogWithName';
 
 	export let data: PageData;
 	$: log = data.log;
@@ -42,12 +43,23 @@
 		goto('/app/');
 	};
 
+	const getActualNewName = async (proposedName: string) => {
+		let newName = proposedName;
+		let disambiguator = 0;
+		while (await hasLogWithName(newName)) {
+			disambiguator++;
+			newName = `${proposedName} (${disambiguator})`;
+		}
+		return newName;
+	};
+
 	const duplicateLog = async () => {
 		const newLogId = typeid('log');
 		const newFormId = typeid('form');
 		const newLogName = `Copy of ${log.name}`;
 		const now = new Date();
 		await db.transaction('rw', db.forms, db.logs, async () => {
+			const name = await getActualNewName(newLogName);
 			const form = (await db.forms.get(log.currentFormId))!;
 			await db.forms.add({
 				...form,
@@ -60,7 +72,7 @@
 			});
 			await db.logs.add({
 				...log,
-				name: newLogName,
+				name: name,
 				id: newLogId,
 				currentFormId: newFormId,
 				createdDatetime: now,
