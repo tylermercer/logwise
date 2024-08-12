@@ -19,7 +19,7 @@
 
 	const getHasMore = (pages: (ExtendedEntry[] | null)[]): boolean => {
 		const last = pages.at(-1);
-		return last == null || !!last.length;
+		return last != null && !!last.length;
 	};
 
 	$: hasMore = getHasMore($pages);
