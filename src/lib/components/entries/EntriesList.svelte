@@ -9,7 +9,7 @@
 	export let paginatedQuery: (pageIndex: number, pageSize: number) => Promise<ExtendedEntry[]>;
 
 	const getPageLiveQuery = (pageIndex: number) =>
-		liveQueryAsStore(() => paginatedQuery(pageIndex, PAGE_SIZE), null);
+		liveQueryAsStore(() => paginatedQuery(pageIndex, PAGE_SIZE), undefined);
 
 	const pagesStoreOfStores = writable([getPageLiveQuery(0)]);
 
@@ -17,7 +17,7 @@
 
 	let nextPageToLoad = 1;
 
-	const getHasMore = (pages: (ExtendedEntry[] | null)[]): boolean => {
+	const getHasMore = (pages: (ExtendedEntry[] | undefined)[]): boolean => {
 		const last = pages.at(-1);
 		return last != null && !!last.length;
 	};
