@@ -32,12 +32,6 @@
 	let showRenameModal = false;
 	let showDeleteModal = false;
 
-	const renameLog = async (e: CustomEvent<string>) => {
-		//TODO: check for an existing log that already uses that name
-		await db.logs.update(log.id, { name: e.detail, modifiedDatetime: new Date() });
-		invalidateAll();
-	};
-
 	const deleteLog = async () => {
 		await db.transaction('rw', db.forms, db.entries, db.logs, async () => {
 			await db.logs.delete(log.id);
@@ -121,6 +115,11 @@
 	</EntriesList>
 {/key}
 
-<LogRenameModal oldName={log.name} on:submit={renameLog} bind:show={showRenameModal} />
+<LogRenameModal
+	oldName={log.name}
+	id={log.id}
+	on:submit={() => invalidateAll()}
+	bind:show={showRenameModal}
+/>
 
 <LogDeleteModal name={log.name} id={log.id} on:submit={deleteLog} bind:show={showDeleteModal} />
