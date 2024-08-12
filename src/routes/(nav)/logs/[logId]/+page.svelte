@@ -135,6 +135,11 @@
 		</DropdownMenu>
 	</svelte:fragment>
 </HeaderBar>
+{#if isArchived}
+	<div class="archived-warning u-guttered">
+		<p class="u-slub">ARCHIVED</p>
+	</div>
+{/if}
 {#key log}
 	<EntriesList paginatedQuery={query}>
 		<a slot="entry" let:entry href="/app/logs/{entry.log.id}/{entry.id}" class="u-link-block">
@@ -155,3 +160,10 @@
 />
 
 <LogDeleteModal name={log.name} id={log.id} on:submit={deleteLog} bind:show={showDeleteModal} />
+
+<style lang="scss">
+	.archived-warning {
+		padding-top: 0;
+		padding-bottom: var(--space-l);
+	}
+</style>

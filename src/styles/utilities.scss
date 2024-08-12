@@ -54,6 +54,12 @@
     .u-danger {
         color: var(--danger);
     }
+    .u-slub {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: var(--step--1);
+        color: var(--gray-11);
+    }
 
     .u-icon-button-group-right {
 		margin-right: calc(var(--space-xs) * -1);
