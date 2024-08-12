@@ -7,6 +7,15 @@
     @import '@fontsource-variable/rubik';
 
     :root {
+
+        //Necessary to scale with system preference on iOS
+        font: -apple-system-body;
+
+        @supports (font: -apple-system-body) and (not (-webkit-touch-callout: default)) {
+            font-size: 100%;
+        }
+
+
         /* @link https://utopia.fyi/space/calculator?c=320,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
         // @include utopia.generateSpaceScale(("minWidth": 320,
         //         "maxWidth": 1240,
