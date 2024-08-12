@@ -40,11 +40,11 @@
 					{/each}
 				{:else if i === 0}
 					<!-- Empty first page, show empty state -->
-					<li class="nothing-more">
+					<li class="end-state">
 						<slot name="empty" />
 					</li>
 				{:else}
-					<li class="nothing-more">Nothing more to show</li>
+					<li class="end-state nothing-more">Nothing more to show</li>
 				{/if}
 			{:else}
 				<li><span aria-busy="true">Loading...</span></li>
@@ -63,7 +63,11 @@
 		}
 	}
 	// Hide subsequent pages after the end marker, e.g. when the user logs out
-	.nothing-more ~ li {
+	.end-state ~ li {
 		display: none;
+	}
+
+	.nothing-more {
+		color: var(--gray-11);
 	}
 </style>
