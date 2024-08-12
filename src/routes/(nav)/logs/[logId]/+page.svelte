@@ -5,20 +5,21 @@
 	import LogDeleteModal from '$lib/components/logs/LogDeleteModal.svelte';
 	import LogRenameModal from '$lib/components/logs/LogRenameModal.svelte';
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
-	import DocumentIcon from 'virtual:icons/teenyicons/text-document-alt-outline';
 	import DropdownMenu from '$lib/components/util/dropdown-menu/DropdownMenu.svelte';
 	import DropdownMenuItem from '$lib/components/util/dropdown-menu/DropdownMenuItem.svelte';
 	import Tooltip from '$lib/components/util/Tooltip.svelte';
 	import db from '$lib/db';
 	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
-	import { type LogId, DB_NULL } from '$lib/db/types';
+	import hasLogWithName from '$lib/db/queries/hasLogWithName';
+	import { type LogId, DB_NULL, DB_TRUE } from '$lib/db/types';
 	import { typeid } from 'typeid-unboxed';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
+	import ArchiveIcon from 'virtual:icons/teenyicons/archive-outline';
 	import TrashIcon from 'virtual:icons/teenyicons/bin-outline';
 	import CopyIcon from 'virtual:icons/teenyicons/documents-outline';
 	import PencilIcon from 'virtual:icons/teenyicons/edit-outline';
+	import DocumentIcon from 'virtual:icons/teenyicons/text-document-alt-outline';
 	import type { PageData } from './$types';
-	import hasLogWithName from '$lib/db/queries/hasLogWithName';
 
 	export let data: PageData;
 	$: log = data.log;
@@ -81,6 +82,10 @@
 		});
 		goto(`/app/logs/${newLogId}`);
 	};
+
+	const archiveLog = async () => {
+		await db.logs.update(log.id, { isArchived: DB_TRUE });
+	};
 </script>
 
 <svelte:head>
@@ -96,7 +101,7 @@
 		</Tooltip>
 		<DropdownMenu class="u-icon-button-group-right">
 			<DropdownMenuItem on:item-click={() => (showRenameModal = true)}>
-				<PencilIcon/>
+				<PencilIcon />
 				<span>Rename</span>
 			</DropdownMenuItem>
 			<DropdownMenuItem on:item-click={editLog}>
@@ -104,12 +109,16 @@
 				<span>Edit questions</span>
 			</DropdownMenuItem>
 			<DropdownMenuItem on:item-click={duplicateLog}>
-				<CopyIcon/>
+				<CopyIcon />
 				<span>Duplicate</span>
+			</DropdownMenuItem>
+			<DropdownMenuItem on:item-click={archiveLog}>
+				<ArchiveIcon />
+				<span>Archive</span>
 			</DropdownMenuItem>
 			<hr />
 			<DropdownMenuItem class="u-danger" on:item-click={() => (showDeleteModal = true)}>
-				<TrashIcon/>
+				<TrashIcon />
 				<span>Delete</span>
 			</DropdownMenuItem>
 		</DropdownMenu>
