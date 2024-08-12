@@ -1,74 +1,71 @@
 <script lang="ts">
 	import { liveQuery } from 'dexie';
 	import db from '$lib/db';
-	import { type FormId, DB_FALSE, type FormRaw } from '$lib/db/types';
-	import Plus from 'virtual:icons/teenyicons/add-small-outline';
-	import Tooltip from '$lib/components/util/Tooltip.svelte';
+	import { type FormId, DB_FALSE, DB_TRUE, type FormRaw } from '$lib/db/types';
+	import ArchiveIcon from 'virtual:icons/teenyicons/archive-outline';
+
+	export let archived: boolean = false;
 
 	let logs = liveQuery(async () => {
-		const fetchedLogs = await db.logs.where('isArchived').equals(DB_FALSE).toArray();
-		const fetchedForms = await db.forms.where('id').anyOf(fetchedLogs.map(l => l.currentFormId)).toArray();
-		
+		const archivedAsDbBool = archived ? DB_TRUE : DB_FALSE;
+		const fetchedLogs = await db.logs.where('isArchived').equals(archivedAsDbBool).toArray();
+		const fetchedForms = await db.forms
+			.where('id')
+			.anyOf(fetchedLogs.map((l) => l.currentFormId))
+			.toArray();
+
 		const formsById = fetchedForms.reduce((acc, cur) => {
 			acc.set(cur.id, cur);
 			return acc;
 		}, new Map<FormId, FormRaw>());
 
 		return fetchedLogs
-		.sort((a, b) => a.name.localeCompare(b.name))
-		.map(l => ({
-			...l,
-			form: formsById.get(l.currentFormId)!,
-		}));
+			.sort((a, b) => a.name.localeCompare(b.name))
+			.map((l) => ({
+				...l,
+				form: formsById.get(l.currentFormId)!
+			}));
 	});
 </script>
 
 <div class="logs-list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
-	<p class="heading l-row h4">
-		<span class="h4">Logs</span>
-		<Tooltip text="Add new log">
-			<a href="/app/logs/new" class="btn-icon add-new-button" role="button" aria-label="Add new log">
-				<Plus />
-			</a>
-		</Tooltip>
-	</p>
+	<slot name="header"></slot>
 	{#if $logs}
-		{#if $logs.length}
-			<ul class="list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
-				{#each $logs as log (log.id)}
-					<li class="form">
-						<a href="/app/logs/{log.id}" class="u-nav-link u-link-block">
-							<div class="form-contents l-row l-space-none">
-								{log.name || '(Unnamed)'}
-								<!-- <div class="l-cluster-r l-space-2xs actions">
-									<a
-										href="/app/logs/{form.id}/edit"
-										class="btn-outline btn-secondary"
-										role="button"
-									>
-										Edit
-									</a>
-									<button
-										class="btn-outline"
-										class:btn-secondary={pendingDeletionId !== form.id}
-										class:btn-contrast={pendingDeletionId === form.id}
-										on:click={(e) => deleteForm(e, form.id)}
-									>
-										{#if pendingDeletionId === form.id}
-											Confirm
-										{:else}
-											Delete
-										{/if}
-									</button>
-								</div> -->
-							</div>
-						</a>
-					</li>
-				{/each}
-			</ul>
-		{:else}
-			<p class="empty">You don't have any logs yet. Get started by <a href="/app/logs/new">creating one</a>.</p>
-		{/if}
+		<div class="u-desktop-scrollbars-y u-styled-scrollbars">
+			{#if $logs.length}
+				<ul class="list l-column l-space-none">
+					{#each $logs as log (log.id)}
+						<li class="form">
+							<a href="/app/logs/{log.id}" class="u-nav-link u-link-block">
+								<div class="form-contents l-row l-space-none">
+									{log.name || '(Unnamed)'}
+								</div>
+							</a>
+						</li>
+					{/each}
+				</ul>
+			{:else if archived}
+				<p>
+					No archived logs.
+				</p>
+			{:else}
+				<p class="empty">
+					You don't have any logs yet. Get started by <a href="/app/logs/new">creating one</a>.
+				</p>
+			{/if}
+			{#if !archived}
+				<hr class="separator" />
+				<p>
+					<a
+						class="archive-link u-nav-link l-row l-space-xs"
+						role="button"
+						href={`/app/logs/archived`}
+					>
+						<ArchiveIcon />&nbsp;View Archive
+					</a>
+				</p>
+			{/if}
+		</div>
 	{:else}
 		<p class="loader"><span aria-busy={!$logs}>Loading...</span></p>
 	{/if}
@@ -85,25 +82,23 @@
 		// 	align-items: center;
 		// }
 	}
-	.heading {
-		align-items: center;
-		justify-content: space-between;
-		position: sticky;
-		top: 0;
-		background-color: var(--u-cascading-bg, var(--primary-1));
-	}
 	.empty,
 	.loader {
 		padding-top: var(--space-xs);
 		padding-bottom: var(--space-xs);
 	}
-	.heading,
 	.empty,
 	.loader {
 		padding-left: var(--space-m);
 		padding-right: var(--space-m);
 	}
-	.add-new-button {
-		margin-right: calc(var(--space-xs) * -1);
+	.separator {
+		border-color: var(--primary-5);
+		margin-left: var(--space-m);
+		margin-right: var(--space-m);
+		width: auto;
+	}
+	.archive-link {
+		margin-bottom: var(--space-m);
 	}
 </style>

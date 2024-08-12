@@ -5,6 +5,7 @@
 	import HomeIcon from 'virtual:icons/teenyicons/home-outline';
 	import LogIcon from 'virtual:icons/teenyicons/list-layout-outline';
 	import LogsList from '$lib/components/logs/LogsList.svelte';
+	import LogsListHeader from '$lib/components/logs/LogsListHeader.svelte';
 </script>
 
 <MediaQuery query={mediaQueries.mobile} let:matches>
@@ -19,7 +20,9 @@
 					<LogIcon></LogIcon> Unified Log
 				</a>
 			</div>
-            <LogsList/>
+			<LogsList>
+				<LogsListHeader slot="header" />
+			</LogsList>
 		</nav>
 	{/if}
 </MediaQuery>
