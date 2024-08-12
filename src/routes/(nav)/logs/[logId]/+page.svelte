@@ -11,7 +11,7 @@
 	import db from '$lib/db';
 	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
 	import hasLogWithName from '$lib/db/queries/hasLogWithName';
-	import { type LogId, DB_NULL, DB_TRUE } from '$lib/db/types';
+	import { type LogId, DB_NULL, DB_TRUE, DB_FALSE } from '$lib/db/types';
 	import { typeid } from 'typeid-unboxed';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
 	import ArchiveIcon from 'virtual:icons/teenyicons/archive-outline';
@@ -23,6 +23,7 @@
 
 	export let data: PageData;
 	$: log = data.log;
+	$: isArchived = data.log.isArchived == DB_TRUE;
 
 	const query = (pageIndex: number, pageSize: number) =>
 		getAllEntriesForLogPaginated(log, pageIndex, pageSize);
@@ -77,14 +78,15 @@
 				id: newLogId,
 				currentFormId: newFormId,
 				createdDatetime: now,
-				modifiedDatetime: now
+				modifiedDatetime: now,
+				isArchived: DB_FALSE
 			});
 		});
 		goto(`/app/logs/${newLogId}`);
 	};
 
-	const archiveLog = async () => {
-		await db.logs.update(log.id, { isArchived: DB_TRUE });
+	const setArchived = async (archived: boolean) => {
+		await db.logs.update(log.id, { isArchived: archived ? DB_TRUE : DB_FALSE });
 	};
 </script>
 
@@ -100,22 +102,29 @@
 			</a>
 		</Tooltip>
 		<DropdownMenu class="u-icon-button-group-right">
-			<DropdownMenuItem on:item-click={() => (showRenameModal = true)}>
-				<PencilIcon />
-				<span>Rename</span>
-			</DropdownMenuItem>
-			<DropdownMenuItem on:item-click={editLog}>
-				<DocumentIcon />
-				<span>Edit questions</span>
-			</DropdownMenuItem>
-			<DropdownMenuItem on:item-click={duplicateLog}>
-				<CopyIcon />
-				<span>Duplicate</span>
-			</DropdownMenuItem>
-			<DropdownMenuItem on:item-click={archiveLog}>
-				<ArchiveIcon />
-				<span>Archive</span>
-			</DropdownMenuItem>
+			{#if !isArchived}
+				<DropdownMenuItem on:item-click={() => (showRenameModal = true)}>
+					<PencilIcon />
+					<span>Rename</span>
+				</DropdownMenuItem>
+				<DropdownMenuItem on:item-click={editLog}>
+					<DocumentIcon />
+					<span>Edit questions</span>
+				</DropdownMenuItem>
+				<DropdownMenuItem on:item-click={duplicateLog}>
+					<CopyIcon />
+					<span>Duplicate</span>
+				</DropdownMenuItem>
+				<DropdownMenuItem on:item-click={() => setArchived(true)}>
+					<ArchiveIcon />
+					<span>Archive</span>
+				</DropdownMenuItem>
+			{:else}
+				<DropdownMenuItem on:item-click={() => setArchived(false)}>
+					<ArchiveIcon />
+					<span>Un-archive</span>
+				</DropdownMenuItem>
+			{/if}
 			<hr />
 			<DropdownMenuItem class="u-danger" on:item-click={() => (showDeleteModal = true)}>
 				<TrashIcon />
