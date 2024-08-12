@@ -4,7 +4,7 @@
 	import { fly } from 'svelte/transition';
 
 	const {
-		elements: { trigger, menu, item, separator, arrow },
+		elements: { trigger, menu, item, separator, arrow, overlay },
 		states: { open }
 	} = createDropdownMenu({
 		forceVisible: true,
@@ -15,29 +15,41 @@
 </script>
 
 <div class="menu-container l-row l-space-s">
-    {#if $user.isLoggedIn}
-        <button type="button" class="trigger" use:melt={$trigger} aria-label="Open Popover">{$user.name?.substring(0,2).toUpperCase() ?? 'ME'}</button>
-    
-        {#if $open}
-            <div class="menu l-column l-space-2xs" use:melt={$menu} transition:fly={{ duration: 150, y: -10 }}>
-                <div class="item info">Signed in as {$user.name}</div>
-                {#if $user.license?.type !== 'prod'}
-                <div class="upgrade-container">
-                    <button class="btn-upgrade">Upgrade</button>
-                </div>
-                {/if}
-                <div class="separator" use:melt={$separator} ></div>
-                <div class="item" use:melt={$item} on:m-click={() => db.cloud.logout()}>Sign out</div>
-                <div use:melt={$arrow} ></div>
-            </div>
-        {/if}
-    {:else}
-        <button class="sign-in" on:click={() => db.cloud.login()}>Sign in</button>
-    {/if}
-	<slot></slot>
+	{#if $user.isLoggedIn}
+		<button type="button" class="trigger" use:melt={$trigger} aria-label="Open Popover"
+			>{$user.name?.substring(0, 2).toUpperCase() ?? 'ME'}</button
+		>
+
+		{#if $open}
+			<div use:melt={$overlay} class="overlay" />
+			<div
+				class="menu l-column l-space-2xs"
+				use:melt={$menu}
+				transition:fly={{ duration: 150, y: -10 }}
+			>
+				<div class="item info">Signed in as {$user.name}</div>
+				{#if $user.license?.type !== 'prod'}
+					<div class="upgrade-container">
+						<button class="btn-upgrade">Upgrade</button>
+					</div>
+				{/if}
+				<div class="separator" use:melt={$separator}></div>
+				<div class="item" use:melt={$item} on:m-click={() => db.cloud.logout()}>Sign out</div>
+				<div use:melt={$arrow}></div>
+			</div>
+		{/if}
+	{:else}
+		<button class="sign-in" on:click={() => db.cloud.login()}>Sign in</button>
+	{/if}
+	<slot />
 </div>
 
 <style lang="scss">
+	.overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 40;
+	}
 	.menu-container {
 		align-items: center;
 	}
@@ -55,15 +67,15 @@
 			0 10px 15px -3px rgba(0, 0, 0, 0.1),
 			0 4px 6px -2px rgba(0, 0, 0, 0.05);
 	}
-    .btn-upgrade {
-        display: inline-block;
-        font-size: var(--step--1);
-        padding: var(--space-2xs);
-    }
-    .upgrade-container {
-        padding-left: var(--space-2xs);
-        padding-right: var(--space-2xs);
-    }
+	.btn-upgrade {
+		display: inline-block;
+		font-size: var(--step--1);
+		padding: var(--space-2xs);
+	}
+	.upgrade-container {
+		padding-left: var(--space-2xs);
+		padding-right: var(--space-2xs);
+	}
 	.item {
 		position: relative;
 		height: var(--space-m);
