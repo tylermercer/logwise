@@ -18,6 +18,7 @@
 		newDraftQuestion,
 		draftQuestionToQuestion,
 	} from '$lib/components/forms/QuestionsEditor.svelte';
+	import hasLogWithName from '$lib/db/queries/hasLogWithName';
 
 	export let onSubmit = async (_: LogWithForm) => {};
 
@@ -35,25 +36,32 @@
 			saving = true;
 			var now = new Date();
 
-			await onSubmit({
-				id: typeid('log'),
-				currentForm: {
-					id: typeid('form'),
-					prevVersionId: DB_NULL,
-					nextVersionId: DB_NULL,
+			if (!formName) {
+				status = 'Please enter a name for this log';
+			} else if (await hasLogWithName(formName)) {
+				status = 'A log with that name already exists';
+			}
+			else {
+				await onSubmit({
+					id: typeid('log'),
+					currentForm: {
+						id: typeid('form'),
+						prevVersionId: DB_NULL,
+						nextVersionId: DB_NULL,
+						modifiedDatetime: now,
+						createdDatetime: now,
+						schemaVer: DB_CURRENT_ENTITY_VERSION,
+						questions: questions.map(draftQuestionToQuestion)
+					},
 					modifiedDatetime: now,
 					createdDatetime: now,
-					schemaVer: DB_CURRENT_ENTITY_VERSION,
-					questions: questions.map(draftQuestionToQuestion)
-				},
-				modifiedDatetime: now,
-				createdDatetime: now,
-				name: formName,
-				description: '',
-				color: 'gray',
-				isArchived: DB_FALSE,
-				schemaVer: DB_CURRENT_ENTITY_VERSION
-			});
+					name: formName,
+					description: '',
+					color: 'gray',
+					isArchived: DB_FALSE,
+					schemaVer: DB_CURRENT_ENTITY_VERSION
+				});
+			}
 
 			saving = false;
 		} catch (error) {
@@ -70,7 +78,7 @@
 	</label>
 	<QuestionsEditor bind:questions></QuestionsEditor>
 	{#if status}
-		<p>{status}</p>
+		<p class="u-danger">{status}</p>
 	{/if}
 	<div class="l-cluster-r">
 		<button type="submit" aria-busy={saving}>
