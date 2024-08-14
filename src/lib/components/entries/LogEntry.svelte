@@ -46,7 +46,7 @@
 					{/if}
 				</p>
 			{:else if isTextQuestion(q)}
-				<p data-qtype="text">
+				<p data-qtype="text" class="u-break-words">
 					{#if entry.answers.get(q.id)}
 						{entry.answers.get(q.id)}
 					{:else}

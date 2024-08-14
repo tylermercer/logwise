@@ -62,6 +62,9 @@
     .u-cascading-bg {
         background-color: var(--u-cascading-bg);
     }
+    .u-break-words {
+        overflow-wrap: break-words;
+    }
 
     .u-danger {
         color: var(--danger);

@@ -36,7 +36,7 @@
 				<ul class="list l-column l-space-none">
 					{#each $logs as log (log.id)}
 						<li class="form">
-							<a href="/app/logs/{log.id}" class="u-item-link">
+							<a href="/app/logs/{log.id}" class="u-item-link u-break-words">
 								{log.name || '(Unnamed)'}
 							</a>
 						</li>
