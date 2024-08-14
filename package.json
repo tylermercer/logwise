@@ -49,7 +49,6 @@
   },
   "type": "module",
   "dependencies": {
-    "@croct/md-lite": "^0.2.1",
     "@fontsource-variable/figtree": "^5.0.21",
     "@fontsource-variable/rubik": "^5.0.22",
     "@formkit/auto-animate": "^0.8.2",

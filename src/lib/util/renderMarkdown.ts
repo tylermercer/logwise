@@ -1,4 +1,4 @@
-import { render } from '@croct/md-lite';
+import { render } from './markdown-lite';
 
 export default function renderMarkdown(md: string): string {
     return render(md, {
