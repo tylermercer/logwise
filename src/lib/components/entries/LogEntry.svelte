@@ -5,6 +5,7 @@
 	import { isTextQuestion } from '$lib/question/text';
 	import assertNever from '$lib/util/assertNever';
 	import { dateOnlyToString, dateToString, timeToString } from '$lib/util/dateUtils';
+	import Markdown from '../util/Markdown.svelte';
 
 	export let entry: ExtendedEntry;
 	export let showLogName: boolean = false;
@@ -46,13 +47,13 @@
 					{/if}
 				</p>
 			{:else if isTextQuestion(q)}
-				<p data-qtype="text" class="u-break-words">
+				<div data-qtype="text" class="u-break-words l-prose">
 					{#if entry.answers.get(q.id)}
-						{entry.answers.get(q.id)}
+						<Markdown text={entry.answers.get(q.id)}/>
 					{:else}
 						<span class="none">(No answer)</span>
 					{/if}
-				</p>
+				</div>
 			{:else if isBoolQuestion(q)}
 				<p data-qtype="bool">
 					{#if entry.answers.get(q.id) != null}
