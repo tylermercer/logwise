@@ -33,8 +33,10 @@
         padding: 0.5em;
     }
 
+    .u-item-link,
     .u-nav-link {
-        color: var(--primary-11);
+        display: flex;
+        text-decoration: none;
         background-color: transparent;
         padding: var(--space-xs);
         padding-left: var(--space-m);
@@ -43,8 +45,18 @@
 
         &:hover, &:focus {
             background-color: var(--primary-4);
+        }
+    }
+
+    .u-nav-link {
+        color: var(--primary-11);
+
+        &:hover, &:focus {
             color: var(--primary-12);
         }
+    }
+    .u-item-link {
+        color: var(--primary-contrast);
     }
 
     .u-cascading-bg {

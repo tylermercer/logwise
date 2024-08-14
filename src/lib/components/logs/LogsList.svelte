@@ -36,10 +36,8 @@
 				<ul class="list l-column l-space-none">
 					{#each $logs as log (log.id)}
 						<li class="form">
-							<a href="/app/logs/{log.id}" class="u-nav-link u-link-block">
-								<div class="form-contents l-row l-space-none">
-									{log.name || '(Unnamed)'}
-								</div>
+							<a href="/app/logs/{log.id}" class="u-item-link">
+								{log.name || '(Unnamed)'}
 							</a>
 						</li>
 					{/each}
@@ -74,13 +72,6 @@
 <style lang="scss">
 	.logs-list {
 		margin-top: var(--space-s);
-	}
-	.form-contents {
-		align-items: center;
-		justify-content: space-between;
-		// & .actions {
-		// 	align-items: center;
-		// }
 	}
 	.empty,
 	.loader {
