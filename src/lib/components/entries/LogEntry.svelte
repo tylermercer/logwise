@@ -25,7 +25,11 @@
 			{/if}
 		</h2>
 		<time class="datetime">
-			{timeAsTitle ? dateOnlyToString(entry.displayDatetime) : dateToString(entry.displayDatetime)}
+			<a href="/app/logs/{entry.log.id}/{entry.id}">
+				{timeAsTitle
+					? dateOnlyToString(entry.displayDatetime)
+					: dateToString(entry.displayDatetime)}
+			</a>
 		</time>
 	</div>
 	{#each entry.form.questions as q, i (q.id)}
