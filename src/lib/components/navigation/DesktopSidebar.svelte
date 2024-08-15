@@ -1,11 +1,10 @@
 <script lang="ts">
-	import NavHeaderMenu from './NavHeaderMenu.svelte';
-	import MediaQuery from 'svelte-media-queries';
+	import LogsList from '$lib/components/logs/LogsList.svelte';
 	import mediaQueries from '$lib/config/mediaQueries';
+	import MediaQuery from 'svelte-media-queries';
 	import HomeIcon from 'virtual:icons/teenyicons/home-outline';
 	import LogIcon from 'virtual:icons/teenyicons/list-layout-outline';
-	import LogsList from '$lib/components/logs/LogsList.svelte';
-	import LogsListHeader from '$lib/components/logs/LogsListHeader.svelte';
+	import NavHeaderMenu from './NavHeaderMenu.svelte';
 </script>
 
 <MediaQuery query={mediaQueries.mobile} let:matches>
@@ -20,9 +19,7 @@
 					<LogIcon></LogIcon> Unified Log
 				</a>
 			</div>
-			<LogsList>
-				<LogsListHeader slot="header" />
-			</LogsList>
+			<LogsList />
 		</nav>
 	{/if}
 </MediaQuery>

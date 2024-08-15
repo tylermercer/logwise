@@ -1,10 +1,9 @@
 <script lang="ts">
-	import MobileBottomBar from '$lib/components/navigation/MobileBottomBar.svelte';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
-	import NavHeaderMenu from '$lib/components/navigation/NavHeaderMenu.svelte';
 	import LogsList from '$lib/components/logs/LogsList.svelte';
-	import LogsListHeader from '$lib/components/logs/LogsListHeader.svelte';
+	import MobileBottomBar from '$lib/components/navigation/MobileBottomBar.svelte';
+	import NavHeaderMenu from '$lib/components/navigation/NavHeaderMenu.svelte';
 
 	function toggleMenu() {
 		if ($page.state.showMenu) {
@@ -20,9 +19,7 @@
 {#if $page.state.showMenu}
 	<div class="menu">
 		<NavHeaderMenu></NavHeaderMenu>
-		<LogsList>
-			<LogsListHeader slot="header" />
-		</LogsList>
+		<LogsList />
 	</div>
 {:else}
 	<slot />

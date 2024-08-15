@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { liveQuery } from 'dexie';
 	import db from '$lib/db';
-	import { type FormId, DB_FALSE, DB_TRUE, type FormRaw } from '$lib/db/types';
+	import { DB_FALSE, type FormId, type FormRaw } from '$lib/db/types';
+	import { liveQuery } from 'dexie';
 	import ArchiveIcon from 'virtual:icons/teenyicons/archive-outline';
-
-	export let archived: boolean = false;
+	import Tooltip from '../util/Tooltip.svelte';
+	import Plus from 'virtual:icons/teenyicons/add-small-outline';
 
 	let logs = liveQuery(async () => {
-		const archivedAsDbBool = archived ? DB_TRUE : DB_FALSE;
-		const fetchedLogs = await db.logs.where('isArchived').equals(archivedAsDbBool).toArray();
+		const fetchedLogs = await db.logs.where('isArchived').equals(DB_FALSE).toArray();
 		const fetchedForms = await db.forms
 			.where('id')
 			.anyOf(fetchedLogs.map((l) => l.currentFormId))
@@ -29,7 +28,19 @@
 </script>
 
 <div class="logs-list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
-	<slot name="header"></slot>
+	<p class="heading l-row h4">
+		<span class="h4">Logs</span>
+		<Tooltip text="Add new log">
+			<a
+				href="/app/logs/new"
+				class="btn-icon add-new-button"
+				role="button"
+				aria-label="Add new log"
+			>
+				<Plus />
+			</a>
+		</Tooltip>
+	</p>
 	{#if $logs}
 		<div class="u-desktop-scrollbars-y u-styled-scrollbars">
 			{#if $logs.length}
@@ -42,27 +53,21 @@
 						</li>
 					{/each}
 				</ul>
-			{:else if archived}
-				<p>
-					No archived logs.
-				</p>
 			{:else}
 				<p class="empty">
 					You don't have any logs yet. Get started by <a href="/app/logs/new">creating one</a>.
 				</p>
 			{/if}
-			{#if !archived}
-				<hr class="separator" />
-				<p>
-					<a
-						class="archive-link u-nav-link l-row l-space-xs"
-						role="button"
-						href={`/app/logs/archived`}
-					>
-						<ArchiveIcon />&nbsp;View Archive
-					</a>
-				</p>
-			{/if}
+			<hr class="separator" />
+			<p>
+				<a
+					class="archive-link u-nav-link l-row l-space-xs"
+					role="button"
+					href={`/app/logs/archived`}
+				>
+					<ArchiveIcon />&nbsp;View Archive
+				</a>
+			</p>
 		</div>
 	{:else}
 		<p class="loader"><span aria-busy={!$logs}>Loading...</span></p>
@@ -79,7 +84,8 @@
 		padding-bottom: var(--space-xs);
 	}
 	.empty,
-	.loader {
+	.loader,
+	.heading {
 		padding-left: var(--space-m);
 		padding-right: var(--space-m);
 	}
@@ -91,5 +97,16 @@
 	}
 	.archive-link {
 		margin-bottom: var(--space-m);
+	}
+	
+	.heading {
+		align-items: center;
+		justify-content: space-between;
+		position: sticky;
+		top: 0;
+		background-color: var(--u-cascading-bg, var(--primary-1));
+	}
+	.add-new-button {
+		margin-right: calc(var(--space-xs) * -1);
 	}
 </style>
