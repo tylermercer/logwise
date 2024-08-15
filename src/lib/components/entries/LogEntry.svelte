@@ -13,19 +13,16 @@
 	$: questionHeading = showLogName ? 'h3' : 'h2';
 
 	$: timeAsTitle = !showLogName && entry.form.questions.length === 0;
-
-	$: title = showLogName ?
-				entry.log.name : (
-					timeAsTitle ? 
-						timeToString(entry.displayDatetime) :
-						entry.form.questions[0].text
-				);
 </script>
 
 <div class="l-column l-space-s">
 	<div class="l-row title-row">
 		<h2>
-			{title}
+			{#if showLogName}
+				<a href="/app/logs/{entry.log.id}">{entry.log.name}</a>
+			{:else}
+				{timeAsTitle ? timeToString(entry.displayDatetime) : entry.form.questions[0].text}
+			{/if}
 		</h2>
 		<time class="datetime">
 			{timeAsTitle ? dateOnlyToString(entry.displayDatetime) : dateToString(entry.displayDatetime)}
@@ -49,7 +46,7 @@
 			{:else if isTextQuestion(q)}
 				<div data-qtype="text" class="u-break-words l-prose">
 					{#if entry.answers.get(q.id)}
-						<Markdown text={entry.answers.get(q.id)}/>
+						<Markdown text={entry.answers.get(q.id)} />
 					{:else}
 						<span class="none">(No answer)</span>
 					{/if}
