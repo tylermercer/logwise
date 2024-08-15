@@ -1,30 +1,12 @@
 <script lang="ts">
-	import db from '$lib/db';
-	import { DB_FALSE, type FormId, type FormRaw } from '$lib/db/types';
+	import getAllLogsByIsArchived from '$lib/db/queries/getAllLogsByIsArchived';
+	import { DB_FALSE } from '$lib/db/types';
 	import { liveQuery } from 'dexie';
+	import Plus from 'virtual:icons/teenyicons/add-small-outline';
 	import ArchiveIcon from 'virtual:icons/teenyicons/archive-outline';
 	import Tooltip from '../util/Tooltip.svelte';
-	import Plus from 'virtual:icons/teenyicons/add-small-outline';
 
-	let logs = liveQuery(async () => {
-		const fetchedLogs = await db.logs.where('isArchived').equals(DB_FALSE).toArray();
-		const fetchedForms = await db.forms
-			.where('id')
-			.anyOf(fetchedLogs.map((l) => l.currentFormId))
-			.toArray();
-
-		const formsById = fetchedForms.reduce((acc, cur) => {
-			acc.set(cur.id, cur);
-			return acc;
-		}, new Map<FormId, FormRaw>());
-
-		return fetchedLogs
-			.sort((a, b) => a.name.localeCompare(b.name))
-			.map((l) => ({
-				...l,
-				form: formsById.get(l.currentFormId)!
-			}));
-	});
+	let logs = liveQuery(() => getAllLogsByIsArchived(DB_FALSE));
 </script>
 
 <div class="logs-list l-column l-space-none u-desktop-scrollbars-y u-styled-scrollbars">
@@ -98,7 +80,7 @@
 	.archive-link {
 		margin-bottom: var(--space-m);
 	}
-	
+
 	.heading {
 		align-items: center;
 		justify-content: space-between;

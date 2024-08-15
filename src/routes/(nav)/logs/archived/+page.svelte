@@ -1,28 +1,10 @@
 <script lang="ts">
 	import HeaderBar from '$lib/components/navigation/HeaderBar.svelte';
-	import db from '$lib/db';
-	import { DB_TRUE, type FormId, type FormRaw } from '$lib/db/types';
+	import getAllLogsByIsArchived from '$lib/db/queries/getAllLogsByIsArchived';
+	import { DB_TRUE } from '$lib/db/types';
 	import { liveQuery } from 'dexie';
 
-	let logs = liveQuery(async () => {
-		const fetchedLogs = await db.logs.where('isArchived').equals(DB_TRUE).toArray();
-		const fetchedForms = await db.forms
-			.where('id')
-			.anyOf(fetchedLogs.map((l) => l.currentFormId))
-			.toArray();
-
-		const formsById = fetchedForms.reduce((acc, cur) => {
-			acc.set(cur.id, cur);
-			return acc;
-		}, new Map<FormId, FormRaw>());
-
-		return fetchedLogs
-			.sort((a, b) => a.name.localeCompare(b.name))
-			.map((l) => ({
-				...l,
-				form: formsById.get(l.currentFormId)!
-			}));
-	});
+	let logs = liveQuery(() => getAllLogsByIsArchived(DB_TRUE));
 </script>
 
 <svelte:head>
