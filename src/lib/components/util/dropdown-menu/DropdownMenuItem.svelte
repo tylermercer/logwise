@@ -20,8 +20,8 @@
 <style lang="scss">
 	.item {
 		position: relative;
-		height: var(--space-m);
-		min-height: var(--space-m);
+		height: var(--space-l);
+		min-height: var(--space-l);
 		user-select: none;
 		border-radius: var(--space-3xs);
 		padding-left: var(--space-2xs);
