@@ -37,7 +37,10 @@ const isSameWeek = (a: Date, b: Date) => {
   return b >= firstDayOfWeek && b <= lastDayOfWeek;
 };
 
-const roundToDayMillis = (d: Date) => Math.round(d.getTime() / MILLIS_IN_DAY);
+const roundToDayMillis = (d: Date) => {
+  const timezoneOffsetMillis = d.getTimezoneOffset() * 60 * 1000;
+  return Math.round((d.getTime() + timezoneOffsetMillis) / MILLIS_IN_DAY);
+};
 
 export const timeToString = (date: Date) => {
   return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
