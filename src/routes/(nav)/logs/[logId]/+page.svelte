@@ -11,7 +11,8 @@
 	import db from '$lib/db';
 	import getAllEntriesForLogPaginated from '$lib/db/queries/getAllEntriesForLogPaginated';
 	import hasLogWithName from '$lib/db/queries/hasLogWithName';
-	import { type LogId, DB_NULL, DB_TRUE, DB_FALSE } from '$lib/db/types';
+	import { type LogId, DB_FALSE, DB_NULL, DB_TRUE } from '$lib/db/types';
+	import type { ExtendedEntry } from '$lib/db/types/ExtendedEntry';
 	import { typeid } from 'typeid-unboxed';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
 	import ArchiveIcon from 'virtual:icons/teenyicons/archive-outline';
@@ -20,6 +21,7 @@
 	import PencilIcon from 'virtual:icons/teenyicons/edit-outline';
 	import DocumentIcon from 'virtual:icons/teenyicons/text-document-alt-outline';
 	import type { PageData } from './$types';
+	import mouseClickNoDrag from '$lib/util/actions/mouseClickNoDrag';
 
 	export let data: PageData;
 	$: log = data.log;
@@ -27,6 +29,9 @@
 
 	const query = (pageIndex: number, pageSize: number) =>
 		getAllEntriesForLogPaginated(log, pageIndex, pageSize);
+		
+	const onDelegatedEntryCick = (entry: ExtendedEntry) =>
+		goto(`/app/logs/${entry.log.id}/${entry.id}`);
 
 	const editLog = () => {
 		goto(`/app/logs/${log.id}/edit`);
@@ -143,9 +148,14 @@
 {/if}
 {#key log}
 	<EntriesList paginatedQuery={query}>
-		<a slot="entry" let:entry href="/app/logs/{entry.log.id}/{entry.id}" class="u-link-block">
+		<div
+			slot="entry"
+			let:entry
+			use:mouseClickNoDrag
+			on:click-without-drag={() => onDelegatedEntryCick(entry)}
+		>
 			<LogEntry {entry}></LogEntry>
-		</a>
+		</div>
 		<span slot="empty">
 			There's nothing in your log yet.
 			<a href="/app/logs/{log.id}/new-entry">Make an entry</a>
