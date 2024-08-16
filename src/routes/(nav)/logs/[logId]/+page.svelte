@@ -22,6 +22,7 @@
 	import DocumentIcon from 'virtual:icons/teenyicons/text-document-alt-outline';
 	import type { PageData } from './$types';
 	import mouseClickNoDrag from '$lib/util/actions/mouseClickNoDrag';
+	import MobileAddEntryFab from '$lib/components/navigation/MobileAddEntryFab.svelte';
 
 	export let data: PageData;
 	$: log = data.log;
@@ -162,6 +163,10 @@
 		</span>
 	</EntriesList>
 {/key}
+
+{#if !isArchived}
+	<MobileAddEntryFab logId={log.id} />
+{/if}
 
 <LogRenameModal
 	oldName={log.name}
