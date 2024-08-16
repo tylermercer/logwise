@@ -23,6 +23,7 @@
 	import type { PageData } from './$types';
 	import mouseClickNoDrag from '$lib/util/actions/mouseClickNoDrag';
 	import MobileAddEntryFab from '$lib/components/navigation/MobileAddEntryFab.svelte';
+	import DesktopAddEntryButton from '$lib/components/navigation/DesktopAddEntryButton.svelte';
 
 	export let data: PageData;
 	$: log = data.log;
@@ -103,13 +104,6 @@
 <HeaderBar>
 	<h1>{log.name}</h1>
 	<svelte:fragment slot="actions">
-		{#if !isArchived}
-			<Tooltip text="Add Entry">
-				<a class="btn-edit btn-icon" role="button" href={`/app/logs/${log.id}/new-entry`}>
-					<PlusIcon />
-				</a>
-			</Tooltip>
-		{/if}
 		<DropdownMenu class="u-icon-button-group-right">
 			{#if !isArchived}
 				<DropdownMenuItem on:item-click={() => (showRenameModal = true)}>
@@ -146,6 +140,10 @@
 	<div class="archived-warning u-guttered">
 		<p class="u-slub">ARCHIVED</p>
 	</div>
+{:else}
+	<div class="add-entry-container u-guttered">
+		<DesktopAddEntryButton logId={log.id} />
+	</div>
 {/if}
 {#key log}
 	<EntriesList paginatedQuery={query}>
@@ -181,5 +179,13 @@
 	.archived-warning {
 		padding-top: 0;
 		padding-bottom: var(--space-l);
+	}
+	.add-entry-container {
+		padding-top: 0;
+		padding-bottom: 0;
+		&>:global(a) {
+			margin-left: calc(-1 * var(--space-2xs));
+			margin-right: calc(-1 * var(--space-2xs));
+		}
 	}
 </style>
