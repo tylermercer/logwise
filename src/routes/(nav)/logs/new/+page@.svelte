@@ -27,7 +27,7 @@
 			});
 		});
 
-		goto('/app/');
+		goto(`/app/logs/${logId}`);
 	}
 </script>
 
