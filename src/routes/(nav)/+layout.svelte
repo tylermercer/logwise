@@ -22,13 +22,18 @@
 		<LogsList />
 	</div>
 {:else}
-	<slot />
+	<div class="page">
+		<slot />
+	</div>
 {/if}
 <MobileBottomBar on:toggleMenu={toggleMenu} />
 
 <style lang="scss">
 	.menu {
 		background-color: var(--primary-1);
-		padding-bottom: calc(var(--bottom-bar-height) + var(--l-space));
+		padding-bottom: calc(var(--bottom-bar-height) + var(--space-2xs));
+	}
+	.page {
+		padding-bottom: calc(var(--bottom-bar-height) + var(--space-2xs));
 	}
 </style>
