@@ -8,6 +8,9 @@ binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "prod-lt-sync"
 database_id = "d1ac1ed9-6eb4-44b8-869d-ff2e658728c1"
 
+[limits]
+cpu_ms = 100
+
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/pages/functions/bindings/#environment-variables
