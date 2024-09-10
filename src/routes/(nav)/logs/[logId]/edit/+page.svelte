@@ -20,6 +20,8 @@
 	let status = '';
 	let saving = false;
 
+	$: returnUrl = `/app/logs/${existingLog.id}`;
+
 	let questions: DraftQuestion[] = existingForm?.questions.map(questionToDraftQuestion) ?? [
 		newDraftQuestion()
 	];
@@ -47,14 +49,14 @@
 			});
 		});
 
-		goto('/app/');
+		goto(returnUrl);
 	}
 </script>
 
 <svelte:head>
 	<title>Editing "{existingLog.name}"</title>
 </svelte:head>
-<HeaderBar backHref="/app/">
+<HeaderBar backHref={returnUrl}>
 	<h1>Editing "{existingLog.name}"</h1>
 </HeaderBar>
 <main class="u-guttered">
