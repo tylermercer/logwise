@@ -8,7 +8,10 @@
 	import Markdown from '../util/Markdown.svelte';
 
 	export let entry: ExtendedEntry;
+
+	// TODO: change this to composition at some point
 	export let showLogName: boolean = false;
+	export let showEntryLink: boolean = false;
 
 	$: questionHeading = showLogName ? 'h3' : 'h2';
 
@@ -25,11 +28,19 @@
 			{/if}
 		</h2>
 		<time class="datetime">
-			<a href="/app/logs/{entry.log.id}/{entry.id}">
-				{timeAsTitle
-					? dateOnlyToString(entry.displayDatetime)
-					: dateToString(entry.displayDatetime)}
-			</a>
+			{#if showEntryLink}
+				<a href="/app/logs/{entry.log.id}/{entry.id}">
+					{timeAsTitle
+						? dateOnlyToString(entry.displayDatetime)
+						: dateToString(entry.displayDatetime)}
+				</a>
+			{:else}
+				<span>
+					{timeAsTitle
+						? dateOnlyToString(entry.displayDatetime)
+						: dateToString(entry.displayDatetime)}
+				</span>
+			{/if}
 		</time>
 	</div>
 	{#each entry.form.questions as q, i (q.id)}
