@@ -14,8 +14,8 @@
 
 	export let data: PageData;
 
-	let existingLog = data.existingLog;
-	let existingForm = data.existingForm;
+	$: existingLog = data.existingLog;
+	$: existingForm = data.existingForm;
 
 	let status = '';
 	let saving = false;
