@@ -24,7 +24,7 @@
 		use:mouseClickNoDrag
 		on:click-without-drag={() => onDelegatedEntryCick(entry)}
 	>
-		<LogEntry {entry} showLogName></LogEntry>
+		<LogEntry {entry} showLogName showEntryLink></LogEntry>
 	</div>
 	<span slot="empty">
 		There's nothing here yet. Get started by <a href="/app/logs/new">creating a log</a>.

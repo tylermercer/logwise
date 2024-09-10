@@ -153,7 +153,7 @@
 			use:mouseClickNoDrag
 			on:click-without-drag={() => onDelegatedEntryCick(entry)}
 		>
-			<LogEntry {entry}></LogEntry>
+			<LogEntry {entry} showEntryLink></LogEntry>
 		</div>
 		<span slot="empty">
 			There's nothing in your log yet.
