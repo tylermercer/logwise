@@ -5,7 +5,7 @@
 	export let date = new Date();
 	export let id = '';
 	export let autofocus = false;
-	
+
 	let inputValue = dateToString(date);
 	let displayValue = '';
 
