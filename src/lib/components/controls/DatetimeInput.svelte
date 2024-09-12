@@ -4,6 +4,7 @@
 
 	export let date = new Date();
 	export let id = '';
+	export let autofocus = false;
 	
 	let inputValue = dateToString(date);
 	let displayValue = '';
@@ -41,8 +42,10 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y-autofocus -->
 <input
 	{id}
+	{autofocus}
 	type="text"
 	bind:value={inputValue}
 	on:input={handleInput}

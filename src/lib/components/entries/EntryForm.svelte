@@ -59,12 +59,13 @@
 </script>
 
 <form on:submit={saveEntry} class="l-column l-space-s">
-	{#each answeredQuestions as answeredQuestion (answeredQuestion.question.id)}
+	{#each answeredQuestions as answeredQuestion, i (answeredQuestion.question.id)}
 		<div class="question l-column l-space-xs">
 			{#if isAnsweredTextQuestion(answeredQuestion)}
 				<label>
 					{answeredQuestion.question.text}
-					<textarea bind:value={answeredQuestion.answer} ></textarea>
+					<!-- svelte-ignore a11y-autofocus -->
+					<textarea autofocus={!i} bind:value={answeredQuestion.answer}></textarea>
 				</label>
 			{:else if isAnsweredLikertQuestion(answeredQuestion)}
 				<label>
@@ -104,7 +105,7 @@
 	<div class="l-switcher l-space-xs date-and-buttons">
 		<label for="datetime" class="label-datetime">
 			Date and time
-			<DatetimeInput id="datetime" bind:date={datetime} />
+			<DatetimeInput id="datetime" bind:date={datetime} autofocus={!answeredQuestions.length} />
 		</label>
 		<div class="l-cluster-r l-space-xs">
 			<button type="submit" aria-busy={saving}>
