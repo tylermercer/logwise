@@ -1,6 +1,11 @@
 <script lang="ts">
 	import DatetimeInput from '$lib/components/controls/DatetimeInput.svelte';
-	import { type EntryRaw, type FormRaw, type QuestionId, DB_CURRENT_ENTITY_VERSION } from '$lib/db/types';
+	import {
+		type EntryRaw,
+		type FormRaw,
+		type QuestionId,
+		DB_CURRENT_ENTITY_VERSION
+	} from '$lib/db/types';
 	import db from '$lib/db';
 	import { toAnsweredQuestion, type AnsweredQuestion } from '$lib/question';
 	import { isAnsweredBoolQuestion } from '$lib/question/bool';
@@ -14,17 +19,20 @@
 
 	export let entry: EntryRaw | undefined = undefined;
 
-    const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher();
 
 	let saving = false;
 	let status = '';
 
 	let { questions, id: formId } = form;
 
-	let answeredQuestions = questions.map(toAnsweredQuestion).map((q) => ({
-		...q,
-		answer: entry?.answers.get(q.question.id) ?? q.answer
-	} as AnsweredQuestion));
+	let answeredQuestions = questions.map(toAnsweredQuestion).map(
+		(q) =>
+			({
+				...q,
+				answer: entry?.answers.get(q.question.id) ?? q.answer
+			}) as AnsweredQuestion
+	);
 
 	let datetime = entry?.displayDatetime ?? new Date();
 
@@ -36,24 +44,23 @@
 
 		const now = new Date();
 
-        const newEntry = {
+		const newEntry = {
 			id: entry?.id ?? typeid('entry'),
 			displayDatetime: datetime,
 			createdDatetime: entry?.createdDatetime ?? now,
 			modifiedDatetime: now,
 			answers,
 			formId,
-			schemaVer: DB_CURRENT_ENTITY_VERSION,
-        };
+			schemaVer: DB_CURRENT_ENTITY_VERSION
+		};
 
-        if (entry?.id) {
+		if (entry?.id) {
 			await db.entries.update(entry.id, newEntry);
+		} else {
+			await db.entries.add(newEntry);
 		}
-        else {
-            await db.entries.add(newEntry);
-        }
 
-        dispatch('submit');
+		dispatch('submit');
 		saving = false;
 	}
 </script>
