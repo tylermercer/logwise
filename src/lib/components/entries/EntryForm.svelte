@@ -110,10 +110,7 @@
 	{/each}
 	<p>{status}</p>
 	<div class="l-switcher l-space-xs date-and-buttons">
-		<label for="datetime" class="label-datetime">
-			Date and time
-			<DatetimeInput id="datetime" bind:date={datetime} autofocus={!answeredQuestions.length} />
-		</label>
+		<DatetimeInput bind:date={datetime} autofocus={!answeredQuestions.length} />
 		<div class="l-cluster-r l-space-xs">
 			<button type="submit" aria-busy={saving}>
 				{#if saving}
@@ -130,9 +127,6 @@
 	.date-and-buttons {
 		align-items: flex-end;
 		--l-switcher-threshold: 500px;
-	}
-	.label-datetime {
-		margin-bottom: 0;
 	}
 	fieldset.yes-no.l-switcher {
 		--l-switcher-threshold: 10rem;
