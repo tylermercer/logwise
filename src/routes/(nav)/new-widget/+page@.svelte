@@ -11,6 +11,8 @@
 
 	let widgetType: Widget['type'] | undefined = undefined;
 	let logId: LogId | undefined = undefined;
+    let showOnLog: boolean = false;
+    let hideOnHome: boolean = false;
 </script>
 
 <svelte:head>
@@ -38,5 +40,43 @@
 				<option>Select an option</option>
 			</select>
 		</label>
+		<fieldset class="yes-no l-switcher l-space-none">
+			<legend>
+				Show on Log, Home, or Both?
+			</legend>
+			<label>
+				<input
+					type="radio"
+					name="on-home"
+					checked={!hideOnHome && !showOnLog}
+					on:change={() => { showOnLog = false; hideOnHome = false; }}
+				/>
+				on Home
+			</label>
+			<label>
+				<input
+					type="radio"
+					name="on-log"
+					checked={showOnLog && hideOnHome}
+					on:change={() => { showOnLog = true; hideOnHome = true; }}
+				/>
+				on Log
+			</label>
+			<label>
+				<input
+					type="radio"
+					name="on-both"
+					checked={showOnLog && !hideOnHome}
+					on:change={() => { showOnLog = true; hideOnHome = false; }}
+				/>
+				on both Home and Log
+			</label>
+		</fieldset>
 	{/if}
 </main>
+
+<style lang="scss">
+	fieldset.yes-no.l-switcher {
+		--l-switcher-threshold: 15rem;
+	}
+</style>
