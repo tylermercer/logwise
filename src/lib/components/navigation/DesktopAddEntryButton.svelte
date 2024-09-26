@@ -3,7 +3,6 @@
 	import MediaQuery from 'svelte-media-queries';
 	import PlusIcon from 'virtual:icons/teenyicons/add-outline';
 	import type { LogId } from '$lib/db/types';
-	import { fly } from 'svelte/transition';
 
 	export let logId: LogId;
 </script>
