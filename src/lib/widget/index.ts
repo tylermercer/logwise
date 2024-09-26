@@ -32,7 +32,7 @@ interface RandomEntryWidget extends BasePerLogWidget<'random-entry'> {
 }
 
 
-interface LastEntryWidget extends BasePerLogWidget<'last-entry-widget'> {
+interface LastEntryWidget extends BasePerLogWidget<'last-entry'> {
 }
 
 export type Widget = StreakWidget | HeapWidget | TimeChartWidget | RandomEntryWidget | LastEntryWidget;
