@@ -3,7 +3,7 @@
 </script>
 
 <div class="add-widget-container">
-    <a role="button" class="add-widget u-nav-link l-row l-space-xs" href="/app/new-widget">
+    <a role="button" class="add-widget u-nav-link l-row l-space-xs" href="/app/widgets/new">
         <PlusIcon />
         Add Widget
     </a>
