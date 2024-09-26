@@ -1,5 +1,6 @@
 import { type TypeID } from 'typeid-unboxed';
 import type { Question } from '../../question';
+import type { VersionedSchemaEntity } from './VersionedSchemaEntity';
 
 export type QuestionId = Question['id']
 
@@ -18,15 +19,8 @@ export const DB_TRUE = 1;
 
 export type DbBool = typeof DB_FALSE | typeof DB_TRUE;
 
-export interface VersionedSchemaEntity {
-  /**
-   * The schema version of this entity. If undefined, the version is assumed to be 0.
-   */
-  schemaVer: number;
-}
-
 export interface FormRaw extends VersionedSchemaEntity {
-  id: FormId; //uuid
+  id: FormId;
   logId: LogId;
   modifiedDatetime: Date;
   createdDatetime: Date;
@@ -36,7 +30,7 @@ export interface FormRaw extends VersionedSchemaEntity {
 }
 
 export interface LogRaw extends VersionedSchemaEntity {
-  id: LogId; //uuid
+  id: LogId;
   currentFormId: FormId;
   modifiedDatetime: Date;
   createdDatetime: Date;
@@ -47,7 +41,7 @@ export interface LogRaw extends VersionedSchemaEntity {
 }
 
 export interface EntryRaw extends VersionedSchemaEntity {
-  id: EntryId; //uuid
+  id: EntryId;
   formId: FormId;
   displayDatetime: Date;
   modifiedDatetime: Date;

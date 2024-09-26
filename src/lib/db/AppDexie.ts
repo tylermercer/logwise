@@ -2,6 +2,7 @@ import Dexie, { type Table } from 'dexie';
 import dexieCloud from "dexie-cloud-addon";
 import { PUBLIC_DEXIE_CLOUD_URL } from '$env/static/public';
 import type { LogRaw, FormRaw, EntryRaw } from './types';
+import type { Widget } from '$lib/widget';
 
 type Schema = {
   [tableName: string]: string | null;
@@ -13,6 +14,7 @@ export default class AppDexie extends Dexie {
   logs!: Table<LogRaw>;
   forms!: Table<FormRaw>;
   entries!: Table<EntryRaw>;
+  widgets!: Table<Widget>;
 
   /**
    * Constructs a new instance of the application database, with the current schema
@@ -33,6 +35,7 @@ export default class AppDexie extends Dexie {
       forms: 'id, schemaVer, modifiedDatetime, createdDatetime, logId, prevVersionId, nextVersionId',
       logs: 'id, schemaVer, modifiedDatetime, createdDatetime, currentFormId, isArchived',
       entries: 'id, schemaVer, formId, displayDatetime, createdDatetime, modifiedDatetime',
+      widgets: 'id, logId, showOnLog, hideOnHome',
       ...prevVersionSchemaOverrides,
     });
     this.cloud.configure({
