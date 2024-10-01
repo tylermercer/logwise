@@ -26,10 +26,10 @@
 				{/each}
 			</ul>
 		{:else}
-			<p>No archived logs.</p>
+			<p class="u-item-link">No archived logs.</p>
 		{/if}
 	{:else}
-		<p class="loader"><span aria-busy={!$logs}>Loading...</span></p>
+		<p class="u-item-link"><span aria-busy={!$logs}>Loading...</span></p>
 	{/if}
 </main>
 
