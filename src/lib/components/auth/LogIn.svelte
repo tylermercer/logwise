@@ -28,6 +28,12 @@
 {#if $ui}
 	<dialog use:showModal class="l-column l-space-s">
 		<h2>Sign in to Logwise</h2>
+		<p class="u-error">
+			Login is disabled because Logwise has been <a
+				href="https://tylermercer.net/posts/software/unlaunching">unlaunched</a
+			>. (You can still use the full application without signing in&mdash;your data will be saved
+			locally.)
+		</p>
 		<p>{$ui.title}</p>
 		{#each $ui.alerts as alert, i}
 			<p class={`u-${alert.type}`}>{resolveText(alert)}</p>
@@ -37,6 +43,7 @@
 				<label>
 					{e.label ? `${e.label}` : e.fieldName}
 					<input
+						disabled
 						class="dlg-input"
 						type={e.type}
 						name={e.fieldName}
@@ -52,7 +59,7 @@
 						{$ui.cancelLabel}
 					</button>
 				{/if}
-				<button type="submit">
+				<button disabled type="submit">
 					{$ui.submitLabel}
 				</button>
 			</div>
