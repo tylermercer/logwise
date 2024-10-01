@@ -20,7 +20,7 @@
 		e.preventDefault();
 		e.stopImmediatePropagation();
 		await db.entries.delete(data.entry.id);
-		goto('/app/logs', { replaceState: true });
+		goto('/app', { replaceState: true });
 	}
 
 	async function duplicateEntry() {
@@ -42,7 +42,7 @@
 <svelte:head>
 	<title>Entry</title>
 </svelte:head>
-<HeaderBar backHref="/app/logs">
+<HeaderBar backHref="/app">
 	<h1>Entry</h1>
 	<svelte:fragment slot="actions">
 		<Tooltip text="Edit">

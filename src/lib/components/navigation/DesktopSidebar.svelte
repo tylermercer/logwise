@@ -3,7 +3,6 @@
 	import mediaQueries from '$lib/config/mediaQueries';
 	import MediaQuery from 'svelte-media-queries';
 	import HomeIcon from 'virtual:icons/teenyicons/home-outline';
-	import LogIcon from 'virtual:icons/teenyicons/list-layout-outline';
 	import NavHeaderMenu from './NavHeaderMenu.svelte';
 </script>
 
@@ -14,9 +13,6 @@
 			<div class="l-column l-space-none">
 				<a class="u-nav-link l-row l-space-s" role="button" href="/app/">
 					<HomeIcon></HomeIcon> Home
-				</a>
-				<a class="u-nav-link l-row l-space-s" role="button" href="/app/logs">
-					<LogIcon></LogIcon> Unified Log
 				</a>
 			</div>
 			<LogsList />

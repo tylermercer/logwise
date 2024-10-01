@@ -3,7 +3,6 @@
 	import { createEventDispatcher } from 'svelte';
 	import MediaQuery from 'svelte-media-queries';
 	import HomeIcon from 'virtual:icons/teenyicons/home-outline';
-	import LogIcon from 'virtual:icons/teenyicons/list-layout-outline';
 	import MenuIcon from 'virtual:icons/teenyicons/menu-outline';
 	import CloseIcon from 'virtual:icons/teenyicons/x-outline';
 	import { page } from '$app/stores';
@@ -22,10 +21,6 @@
 			<a class="bar-link" use:ariaCurrent role="button" href="/app/">
 				<HomeIcon></HomeIcon>
 				<span class="bar-link-label">Home</span>
-			</a>
-			<a class="bar-link" use:ariaCurrent role="button" href="/app/logs">
-				<LogIcon></LogIcon>
-				<span class="bar-link-label">Unified Log</span>
 			</a>
 			<button class="bar-link" on:click={toggleMenu}>
 				{#if $page.state.showMenu}
